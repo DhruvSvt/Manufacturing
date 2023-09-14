@@ -41,8 +41,6 @@
           >
             <!-- Menu Group -->
             <div>
-              <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">MENU</h3>
-
               <ul class="mb-6 flex flex-col gap-1.5">
                 <!-- Menu Item Dashboard -->
                 <li>
@@ -292,7 +290,7 @@
                           Settings
                         </a>
                       </li>
-                    </ul>
+                    </ul>   
                   </div>
                   <!-- Dropdown Menu End -->
                 </li>

@@ -13,11 +13,13 @@
       eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template
     </title>
     <link rel="icon" href="favicon.ico" />
+    <!-- Custom Css  -->
     <link href="style.css" rel="stylesheet" />
     <!-- Font Awwsome icon cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!-- Tailwind play cdn -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
   </head>
   <body
     x-data="{ page: 'signin', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"

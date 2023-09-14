@@ -32,3 +32,7 @@ Route::get('/signup', function () {
 Route::get('/table', function () {
     return view('admin.tables');
 })->name('table');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

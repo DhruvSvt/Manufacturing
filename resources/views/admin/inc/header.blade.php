@@ -3,9 +3,7 @@
     <div class="flex flex-grow items-center justify-between py-4 px-4 shadow-2 md:px-6 2xl:px-11">
         <div class="flex items-center gap-2 sm:gap-4 lg:hidden">
             <!-- Hamburger Toggle BTN -->
-            <button
-                class="z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden"
-                @click.stop="sidebarToggle = !sidebarToggle">
+            <button class="z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden" @click.stop="sidebarToggle = !sidebarToggle">
                 <span class="relative block h-5.5 w-5.5 cursor-pointer">
                     <span class="du-block absolute right-0 h-full w-full">
                         <span
@@ -34,7 +32,7 @@
             </a>
         </div>
 
-        <div class="flex items-center gap-3 2xsm:gap-7">
+        <div class="flex items-center gap-3 2xsm:gap-7 ml-auto">
             <ul class="flex items-center gap-2 2xsm:gap-4">
                 <li>
                     <!-- Dark Mode Toggler -->
