@@ -12,13 +12,19 @@
     <title>
       eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template
     </title>
-    <link rel="icon" href="favicon.ico" />
+    <link rel="icon" href="{{ asset('favicon.ico') }}"/>
     <!-- Custom Css  -->
-    <link href="style.css" rel="stylesheet" />
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet"/>
     <!-- Font Awwsome icon cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!-- Tailwind play cdn -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Toggle Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
+    <!-- Include jQuery from a CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
   </head>
   <body
@@ -26,8 +32,7 @@
     x-init="
           darkMode = JSON.parse(localStorage.getItem('darkMode'));
           $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
-    :class="{'dark text-bodydark bg-boxdark-2': darkMode === true}"
-  >
+    :class="{'dark text-bodydark bg-boxdark-2': darkMode === true}">
     <!-- ===== Preloader Start ===== -->
     <div
   x-show="loaded"
