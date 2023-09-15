@@ -87,7 +87,7 @@
                                       <li>
                                           <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                               href="{{ route('admin-page') }}"
-                                              :class="page === 'formElements' && '!text-white'">Admin Create</a>
+                                              :class="page === 'formElements' && '!text-white'">Admin</a>
                                       </li>
                                       <li>
                                           <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
@@ -99,8 +99,6 @@
                               <!-- Dropdown Menu End -->
                           </li>
                           <!-- Menu Item Admin -->
-
-
 
                           <!-- Menu Item Master -->
                           <li>

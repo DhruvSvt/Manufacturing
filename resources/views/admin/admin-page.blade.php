@@ -139,231 +139,149 @@
                             </div>
                             <div class="datatable-container">
                                 <table class="table w-full table-auto datatable-table" id="dataTableTwo">
-                                    <thead>
-                                        <tr>
-                                            <th data-sortable="true" style="width: 21.407333994053516%;"><a
-                                                    href="#" class="datatable-sorter">
-                                                    <div class="flex items-center justify-between gap-1.5">
-                                                        <p>Name</p>
-                                                        <div class="inline-flex flex-col space-y-[2px]">
-                                                            <span class="inline-block">
-                                                                <svg class="fill-current" width="10" height="5"
-                                                                    viewBox="0 0 10 5" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M5 0L0 5H10L5 0Z" fill=""></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span class="inline-block">
-                                                                <svg class="fill-current" width="10"
-                                                                    height="5" viewBox="0 0 10 5" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M5 5L10 0L-4.37114e-07 8.74228e-07L5 5Z"
-                                                                        fill=""></path>
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </a></th>
-                                            <th data-sortable="true" style="width: 27.452923686818632%;"><a
-                                                    href="#" class="datatable-sorter">
-                                                    <div class="flex items-center justify-between gap-1.5">
-                                                        <p>Position</p>
-                                                        <div class="inline-flex flex-col space-y-[2px]">
-                                                            <span class="inline-block">
-                                                                <svg class="fill-current" width="10"
-                                                                    height="5" viewBox="0 0 10 5" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M5 0L0 5H10L5 0Z" fill=""></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span class="inline-block">
-                                                                <svg class="fill-current" width="10"
-                                                                    height="5" viewBox="0 0 10 5" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M5 5L10 0L-4.37114e-07 8.74228e-07L5 5Z"
-                                                                        fill=""></path>
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </a></th>
-                                            <th data-sortable="true" style="width: 16.05550049554014%;"><a
-                                                    href="#" class="datatable-sorter">
-                                                    <div class="flex items-center justify-between gap-1.5">
-                                                        <p>Office</p>
-                                                        <div class="inline-flex flex-col space-y-[2px]">
-                                                            <span class="inline-block">
-                                                                <svg class="fill-current" width="10"
-                                                                    height="5" viewBox="0 0 10 5" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M5 0L0 5H10L5 0Z" fill=""></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span class="inline-block">
-                                                                <svg class="fill-current" width="10"
-                                                                    height="5" viewBox="0 0 10 5" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M5 5L10 0L-4.37114e-07 8.74228e-07L5 5Z"
-                                                                        fill=""></path>
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </a></th>
-                                            <th data-sortable="true" style="width: 8.02775024777007%;"><a
-                                                    href="#" class="datatable-sorter">
-                                                    <div class="flex items-center justify-between gap-1.5">
-                                                        <p>Age</p>
-                                                        <div class="inline-flex flex-col space-y-[2px]">
-                                                            <span class="inline-block">
-                                                                <svg class="fill-current" width="10"
-                                                                    height="5" viewBox="0 0 10 5" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M5 0L0 5H10L5 0Z" fill=""></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span class="inline-block">
-                                                                <svg class="fill-current" width="10"
-                                                                    height="5" viewBox="0 0 10 5" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M5 5L10 0L-4.37114e-07 8.74228e-07L5 5Z"
-                                                                        fill=""></path>
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </a></th>
-                                            <th data-sortable="true" class="red"
-                                                style="width: 13.478691774033697%;"><a href="#"
-                                                    class="datatable-sorter">
-                                                    <div class="flex items-center justify-between gap-1.5">
-                                                        <p>Start Date</p>
-                                                        <div class="inline-flex flex-col space-y-[2px]">
-                                                            <span class="inline-block">
-                                                                <svg class="fill-current" width="10"
-                                                                    height="5" viewBox="0 0 10 5" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M5 0L0 5H10L5 0Z" fill=""></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span class="inline-block">
-                                                                <svg class="fill-current" width="10"
-                                                                    height="5" viewBox="0 0 10 5" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M5 5L10 0L-4.37114e-07 8.74228e-07L5 5Z"
-                                                                        fill=""></path>
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </a></th>
-                                            <th data-sortable="true" style="width: 13.577799801783943%;"><a
-                                                    href="#" class="datatable-sorter">
-                                                    <div class="flex items-center justify-between gap-1.5">
-                                                        <p>Salary</p>
-                                                        <div class="inline-flex flex-col space-y-[2px]">
-                                                            <span class="inline-block">
-                                                                <svg class="fill-current" width="10"
-                                                                    height="5" viewBox="0 0 10 5" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M5 0L0 5H10L5 0Z" fill=""></path>
-                                                                </svg>
-                                                            </span>
-                                                            <span class="inline-block">
-                                                                <svg class="fill-current" width="10"
-                                                                    height="5" viewBox="0 0 10 5" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M5 5L10 0L-4.37114e-07 8.74228e-07L5 5Z"
-                                                                        fill=""></path>
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </a></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr data-index="0">
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td class="green">2012/03/29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr data-index="1">
-                                            <td>Brielle Kuphal</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>25</td>
-                                            <td class="green">2012/03/29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr data-index="2">
-                                            <td>Barney Murray</td>
-                                            <td>Senior Backend Developer</td>
-                                            <td>amsterdam</td>
-                                            <td>29</td>
-                                            <td class="green">2010/05/01</td>
-                                            <td>$424,785</td>
-                                        </tr>
-                                        <tr data-index="3">
-                                            <td>Ressie Ruecker</td>
-                                            <td>Senior Frontend Developer</td>
-                                            <td>Jakarta</td>
-                                            <td>27</td>
-                                            <td class="green">2013/07/01</td>
-                                            <td>$785,210</td>
-                                        </tr>
-                                        <tr data-index="4">
-                                            <td>Teresa Mertz</td>
-                                            <td>Senior Designer</td>
-                                            <td>New Caledonia</td>
-                                            <td>25</td>
-                                            <td class="green">2014/05/30</td>
-                                            <td>$532,126</td>
-                                        </tr>
-                                        <tr data-index="5">
-                                            <td>Chelsey Hackett</td>
-                                            <td>Product Manager</td>
-                                            <td>NewYork</td>
-                                            <td>26</td>
-                                            <td class="green">2011/09/30</td>
-                                            <td>$421,541</td>
-                                        </tr>
-                                        <tr data-index="6">
-                                            <td>Tatyana Metz</td>
-                                            <td>Senior Product Manager</td>
-                                            <td>NewYork</td>
-                                            <td>28</td>
-                                            <td class="green">2009/09/30</td>
-                                            <td>$852,541</td>
-                                        </tr>
-                                        <tr data-index="7">
-                                            <td>Oleta Harvey</td>
-                                            <td>Junior Product Manager</td>
-                                            <td>California</td>
-                                            <td>25</td>
-                                            <td class="green">2015/10/30</td>
-                                            <td>$654,444</td>
-                                        </tr>
-                                        <tr data-index="8">
-                                            <td>Bette Haag</td>
-                                            <td>Junior Product Manager</td>
-                                            <td>California</td>
-                                            <td>29</td>
-                                            <td class="green">2017/12/31</td>
-                                            <td>$541,111</td>
-                                        </tr>
-                                        <tr data-index="9">
-                                            <td>Meda Ebert</td>
-                                            <td>Junior Web Developer</td>
-                                            <td>Amsterdam</td>
-                                            <td>27</td>
-                                            <td class="green">2015/10/31</td>
-                                            <td>$651,456</td>
-                                        </tr>
-                                    </tbody>
+                                    <div
+                                        class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+                                        <div class="col-span-3 flex items-center">
+                                            <p class="font-medium">Product Name</p>
+                                        </div>
+                                        <div class="col-span-2 hidden items-center sm:flex">
+                                            <p class="font-medium">Category</p>
+                                        </div>
+                                        <div class="col-span-1 flex items-center">
+                                            <p class="font-medium">Status</p>
+                                        </div>
+                                        <div class="col-span-1 flex items-center">
+                                            <p class="font-medium">Action</p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+                                        <div class="col-span-3 flex items-center">
+                                            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                                <div class="h-12.5 w-15 rounded-md">
+                                                    <img src="src/images/product/product-01.png" alt="Product" />
+                                                </div>
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    Apple Watch Series 7
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-span-2 hidden items-center sm:flex">
+                                            <p class="text-sm font-medium text-black dark:text-white">Electronics</p>
+                                        </div>
+                                        <div class="col-span-1 flex items-center">
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" value="" class="sr-only peer">
+                                                <div
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center space-x-3.5">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+
+                                            <i data-v-3d6d2adb="" title="Edit"
+                                                class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+                                        <div class="col-span-3 flex items-center">
+                                            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                                <div class="h-12.5 w-15 rounded-md">
+                                                    <img src="src/images/product/product-02.png" alt="Product" />
+                                                </div>
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    Macbook Pro M1
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-span-2 hidden items-center sm:flex">
+                                            <p class="text-sm font-medium text-black dark:text-white">Electronics</p>
+                                        </div>
+                                        <div class="col-span-1 flex items-center">
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" value="" class="sr-only peer">
+                                                <div
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center space-x-3.5">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+
+                                            <i data-v-3d6d2adb="" title="Edit"
+                                                class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+                                        <div class="col-span-3 flex items-center">
+                                            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                                <div class="h-12.5 w-15 rounded-md">
+                                                    <img src="src/images/product/product-03.png" alt="Product" />
+                                                </div>
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    Dell Inspiron 15
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-span-2 hidden items-center sm:flex">
+                                            <p class="text-sm font-medium text-black dark:text-white">Electronics</p>
+                                        </div>
+                                        <div class="col-span-1 flex items-center">
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" value="" class="sr-only peer">
+                                                <div
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center space-x-3.5">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+
+                                            <i data-v-3d6d2adb="" title="Edit"
+                                                class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+                                        <div class="col-span-3 flex items-center">
+                                            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                                <div class="h-12.5 w-15 rounded-md">
+                                                    <img src="src/images/product/product-04.png" alt="Product" />
+                                                </div>
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    HP Probook 450
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-span-2 hidden items-center sm:flex">
+                                            <p class="text-sm font-medium text-black dark:text-white">Electronics</p>
+                                        </div>
+                                        <div class="col-span-1 flex items-center">
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" value="" class="sr-only peer">
+                                                <div
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center space-x-3.5">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+
+                                            <i data-v-3d6d2adb="" title="Edit"
+                                                class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
+                                        </div>
+                                    </div>
                                 </table>
                             </div>
                             <div class="datatable-bottom">
@@ -389,217 +307,9 @@
                 </div>
                 <!-- ====== Data Table Two End -->
             </div>
-            <!-- ====== Table Section Start -->
-            {{-- <div class="flex flex-col gap-10">
-                <div class="datatable-top">
-                    <div class="datatable-search">
-                        <input class="datatable-input" placeholder="Search..." type="search"
-                            title="Search within table" aria-controls="dataTableOne">
-                    </div>
-                    <div class="datatable-dropdown">
-                        <label>
-                            <select class="datatable-selector">
-                                <option value="5">5</option>
-                                <option value="10" selected="">10</option>
-                                <option value="15">15</option>
-                                <option value="-1">All</option>
-                            </select>
-                        </label>
-                    </div>
-                </div>
-            </div> --}}
-
-            <!-- ====== Table Two Start -->
-            <div class="rounded-sm border bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                <div class="flex flex-col">
-                    <div class="datatable-top">
-                        <div class="datatable-search">
-                            <input class="datatable-input h-10 w-45" placeholder="Search..." type="search"
-                                title="Search within table" aria-controls="dataTableOne">
-                        </div>
-                        <div class="datatable-dropdown">
-                            <label>
-                                <select class="datatable-selector bg-white">
-                                    <option value="5">5</option>
-                                    <option value="10" selected="">10</option>
-                                    <option value="15">15</option>
-                                    <option value="-1">All</option>
-                                </select>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-                    <div class="col-span-3 flex items-center">
-                        <p class="font-medium">Product Name</p>
-                    </div>
-                    <div class="col-span-2 hidden items-center sm:flex">
-                        <p class="font-medium">Category</p>
-                    </div>
-                    <div class="col-span-1 flex items-center">
-                        <p class="font-medium">Status</p>
-                    </div>
-                    <div class="col-span-1 flex items-center">
-                        <p class="font-medium">Action</p>
-                    </div>
-                </div>
-
-                <div
-                    class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-                    <div class="col-span-3 flex items-center">
-                        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-                            <div class="h-12.5 w-15 rounded-md">
-                                <img src="src/images/product/product-01.png" alt="Product" />
-                            </div>
-                            <p class="text-sm font-medium text-black dark:text-white">
-                                Apple Watch Series 7
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-span-2 hidden items-center sm:flex">
-                        <p class="text-sm font-medium text-black dark:text-white">Electronics</p>
-                    </div>
-                    <div class="col-span-1 flex items-center">
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" value="" class="sr-only peer">
-                            <div
-                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                            </div>
-                        </label>
-                    </div>
-                    <div class="flex items-center space-x-3.5">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-
-                        <i data-v-3d6d2adb="" title="Edit"
-                            class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
-                    </div>
-                </div>
-                <div
-                    class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-                    <div class="col-span-3 flex items-center">
-                        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-                            <div class="h-12.5 w-15 rounded-md">
-                                <img src="src/images/product/product-02.png" alt="Product" />
-                            </div>
-                            <p class="text-sm font-medium text-black dark:text-white">
-                                Macbook Pro M1
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-span-2 hidden items-center sm:flex">
-                        <p class="text-sm font-medium text-black dark:text-white">Electronics</p>
-                    </div>
-                    <div class="col-span-1 flex items-center">
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" value="" class="sr-only peer">
-                            <div
-                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                            </div>
-                        </label>
-                    </div>
-                    <div class="flex items-center space-x-3.5">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-
-                        <i data-v-3d6d2adb="" title="Edit"
-                            class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
-                    </div>
-                </div>
-                <div
-                    class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-                    <div class="col-span-3 flex items-center">
-                        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-                            <div class="h-12.5 w-15 rounded-md">
-                                <img src="src/images/product/product-03.png" alt="Product" />
-                            </div>
-                            <p class="text-sm font-medium text-black dark:text-white">
-                                Dell Inspiron 15
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-span-2 hidden items-center sm:flex">
-                        <p class="text-sm font-medium text-black dark:text-white">Electronics</p>
-                    </div>
-                    <div class="col-span-1 flex items-center">
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" value="" class="sr-only peer">
-                            <div
-                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                            </div>
-                        </label>
-                    </div>
-                    <div class="flex items-center space-x-3.5">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-
-                        <i data-v-3d6d2adb="" title="Edit"
-                            class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
-                    </div>
-                </div>
-                <div
-                    class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-                    <div class="col-span-3 flex items-center">
-                        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-                            <div class="h-12.5 w-15 rounded-md">
-                                <img src="src/images/product/product-04.png" alt="Product" />
-                            </div>
-                            <p class="text-sm font-medium text-black dark:text-white">
-                                HP Probook 450
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-span-2 hidden items-center sm:flex">
-                        <p class="text-sm font-medium text-black dark:text-white">Electronics</p>
-                    </div>
-                    <div class="col-span-1 flex items-center">
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" value="" class="sr-only peer">
-                            <div
-                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                            </div>
-                        </label>
-                    </div>
-                    <div class="flex items-center space-x-3.5">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-
-                        <i data-v-3d6d2adb="" title="Edit"
-                            class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ====== Table Two End -->
         </div>
-        <!-- ====== Table Section End -->
-        <section>
-            <div class="datatable-bottom">
-                <div class="datatable-info">Showing 1 to 10 of 26 entries</div>
-                <nav class="datatable-pagination">
-                    <ul class="datatable-pagination-list">
-                        <li class="datatable-pagination-list-item datatable-hidden datatable-disabled"><a
-                                data-page="1" class="datatable-pagination-list-item-link">‹</a></li>
-                        <li class="datatable-pagination-list-item datatable-active"><a data-page="1"
-                                class="datatable-pagination-list-item-link">1</a></li>
-                        <li class="datatable-pagination-list-item"><a data-page="2"
-                                class="datatable-pagination-list-item-link">2</a></li>
-                        <li class="datatable-pagination-list-item"><a data-page="3"
-                                class="datatable-pagination-list-item-link">3</a></li>
-                        <li class="datatable-pagination-list-item"><a data-page="2"
-                                class="datatable-pagination-list-item-link">›</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </section>
-</div>
-</main>
-<!-- ===== Main Content End ===== -->
+    </main>
+    <!-- ===== Main Content End ===== -->
 </div>
 <!-- ===== Content Area End ===== -->
 </div>
