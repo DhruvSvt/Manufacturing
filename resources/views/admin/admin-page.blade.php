@@ -22,7 +22,7 @@
             <div class="flex flex-col gap-5 md:gap-7 2xl:gap-10">
 
                 <!-- ====== Data Table Two Start -->
-                <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark">
                     <div class="data-table-common data-table-two max-w-full overflow-x-auto">
                         <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                             <div class="datatable-top">
@@ -43,60 +43,54 @@
                             </div>
                             <div class="datatable-container">
                                 <table class="table w-full table-auto datatable-table" id="dataTableTwo">
-                                    <div
-                                        class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-                                        <div class="col-span-2 flex items-center">
-                                            <p class="font-medium">Name</p>
-                                        </div>
-                                        <div class="col-span-2 items-center sm:flex">
-                                            <p class="font-medium">Username</p>
-                                        </div>
-                                        <div class="col-span-2 items-center sm:flex">
-                                            <p class="font-medium">Email</p>
-                                        </div>
-                                        <div class="col-span-1 flex items-center">
-                                            <p class="font-medium">Status</p>
-                                        </div>
-                                        <div class="col-span-1 flex items-center">
-                                            <p class="font-medium">Action</p>
-                                        </div>
-                                    </div>
-                                    @foreach ($users as $user)
-                                        <div
-                                            class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-                                            <div class="col-span-2 flex items-center">
-                                                <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                    <thead>
+                                        <tr>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Name</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Username</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Email</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Status</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($users as $user)
+                                            <tr>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                                        <p class="text-sm font-medium text-black dark:text-white">
+                                                            {{ $user->name }}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $user->name }}
+                                                        {{ $user->username }}
                                                     </p>
-                                                </div>
-                                            </div>
-                                            <div class="col-span-2 items-center sm:flex">
-                                                <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $user->username }}
-                                                </p>
-                                            </div>
-                                            <div class="col-span-2 items-center sm:flex">
-                                                <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $user->email }}
-                                                </p>
-                                            </div>
-                                            <div class="col-span-1 flex items-center">
-                                                <label class="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox" data-id="{{ $user->id }}" name="status"
-                                                        class="js-switch" {{ $user->status == 1 ? 'checked' : '' }}
-                                                        value=""
-                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                                                </label>
-                                            </div>
-                                            <div class="flex items-center space-x-3.5">
-                                                <a href="{{ route('admin-edit', $user->id) }}">
-                                                    <i data-v-3d6d2adb="" title="Edit"
-                                                        class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $user->email }}
+                                                    </p>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <label class="relative inline-flex items-center cursor-pointer">
+                                                        <input type="checkbox" data-id="{{ $user->id }}" name="status"
+                                                            class="js-switch" {{ $user->status == 1 ? 'checked' : '' }}
+                                                            value=""
+                                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                    </label>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <div class="flex items-center space-x-3.5">
+                                                        <a href="{{ route('admin-edit', $user->id) }}">
+                                                            <i data-v-3d6d2adb="" title="Edit"
+                                                                class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
                                 </table>
                             </div>
                             <div class="datatable-bottom">
@@ -120,6 +114,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <!-- ====== Data Table Two End -->
             </div>
         </div>
