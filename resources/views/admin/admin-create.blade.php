@@ -1,10 +1,9 @@
-@extends('admin.layouts.app',['title'=>'Admin-Create'])
+@extends('admin.layouts.app', ['title' => 'Admin-Create'])
 @section('content')
-
     <!-- ===== Form Area Start ===== -->
     <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div class="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
-            <h2 class="text-title-md2 font-bold text-black dark:text-white">
+        <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center m-6">
+            <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
                 Add Admin
             </h2>
         </div>
@@ -14,18 +13,24 @@
                 <div class="mb-4.5 flex flex-col gap-6 xl:flex-row">
                     <div class="w-full xl:w-1/2">
                         <label class="mb-2.5 block text-black dark:text-white">
-                            Name
+                            Name <span class="text-meta-1">*</span>
                         </label>
                         <input type="text" placeholder="Enter your Name" name="name"
                             class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                        @error('name')
+                            <p class="text-red-500 mt-2">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="w-full xl:w-1/2">
                         <label class="mb-2.5 block text-black dark:text-white">
-                            Username
+                            Username <span class="text-meta-1">*</span>
                         </label>
                         <input type="text" placeholder="Enter your Username" name="username"
                             class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                        @error('username')
+                            <p class="text-red-500 mt-2">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
@@ -35,19 +40,25 @@
                     </label>
                     <input type="email" placeholder="Enter your email address" name="email"
                         class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                    @error('email')
+                        <p class="text-red-500 mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mb-4.5">
                     <label class="mb-2.5 block text-black dark:text-white">
-                        Password
+                        Password <span class="text-meta-1">*</span>
                     </label>
                     <input type="password" placeholder="Set password" name="password"
                         class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                    @error('password')
+                        <p class="text-red-500 mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mb-4.5">
                     <label class="mb-2.5 block text-black dark:text-white">
-                        Roles
+                        Roles <span class="text-meta-1">*</span>
                     </label>
                     <div class="relative z-20 bg-transparent dark:bg-form-input">
                         <select
@@ -55,9 +66,12 @@
                             name="role">
                             <option value="">Choose your roles</option>
                             @foreach ($roles as $role)
-                            <option value={{ $role->roles_id }}>{{ $role->display_name }}</option>
+                                <option value="{{ $role->id }}">{{ $role->display_name }}</option>
                             @endforeach
                         </select>
+                        @error('role')
+                            <p class="text-red-500 mt-2">{{ $message }}</p>
+                        @enderror
                         <span class="absolute top-1/2 right-4 z-30 -translate-y-1/2">
                             <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -76,5 +90,6 @@
             </button>
         </form>
     </div>
+
     <!-- ===== Form Area End ===== -->
 @endsection
