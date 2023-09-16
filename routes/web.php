@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GiftController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SuppliersController;
 use Illuminate\Support\Facades\Route;
@@ -37,13 +38,10 @@ Route::get('/table', function () {
     return view('admin.tables');
 })->name('table');
 
-// Route::get('/supplier', function () {
-//     return view('admin.supplier');
-// })->name('supplier');
+// Route::get('/gift', function () {
+//     return view('admin.gift');
+// })->name('gift');
 
-Route::get('/supplier-create', function () {
-    return view('admin.supplier-create');
-})->name('supplier-create');
 
 Route::get('/admin-page',[UsersController::class,'index'])->name('admin-page');
 Route::get('/admin-create',[UsersController::class,'create'])->name('admin-create');
@@ -59,6 +57,12 @@ Route::get('/supplier.edit/{id}',[SuppliersController::class,'edit'])->name('sup
 Route::put('/supplier.update/{id}', [SuppliersController::class, 'update'])->name('supplier.update');
 Route::post('/supplier.status',[SuppliersController::class,'status'])->name('supplier.status');
 
+Route::get('/gift',[GiftController::class,'index'])->name('gift');
+Route::get('/gift.create',[GiftController::class,'create'])->name('gift.create');
+Route::post('/gift.store',[GiftController::class,'store'])->name('gift.store');
+Route::get('/gift.edit/{id}',[GiftController::class,'edit'])->name('gift.edit');
+Route::put('/gift.update/{id}', [GiftController::class, 'update'])->name('gift.update');
+Route::post('/gift.status',[GiftController::class,'status'])->name('gift.status');
 
 Auth::routes();
 
