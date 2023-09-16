@@ -51,7 +51,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
             @include('admin.inc.header')
             <!-- ===== Header End ===== -->
 
-            @yield('content');
+            @yield('content')
         </div>
         <!-- ===== Content Area End ===== -->
 

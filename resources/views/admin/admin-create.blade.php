@@ -54,7 +54,9 @@
                             class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                             name="role">
                             <option value="">Choose your roles</option>
-                            <option value="1">admin</option>
+                            @foreach ($roles as $role)
+                            <option value={{ $role->roles_id }}>{{ $role->display_name }}</option>
+                            @endforeach
                         </select>
                         <span class="absolute top-1/2 right-4 z-30 -translate-y-1/2">
                             <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none"
