@@ -1,27 +1,28 @@
-@include('admin.layouts.app')
-
-@include('admin.inc.sidebar')
-
-
-<!-- ===== Content Area Start ===== -->
-<div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-    @include('admin.inc.header')
+@extends('admin.layouts.app',['title'=>'Admin-Page'])
+@section('content')
 
     <!-- ===== Main Content Start ===== -->
     <main>
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
             <!-- Breadcrumb Start -->
-            <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <h2 class="text-title-md2 font-bold text-black dark:text-white">
+            <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
+                <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
                     Top Admin
                 </h2>
+            </div>
+
+            <div class=" flex flex-col sm:flex-row sm:items-center sm:justify-start">
+                <a href="{{ route('admin-create') }}">
+                    <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray m-3">
+                        Add Admin
+                    </button>
+                </a>
             </div>
             <!-- Breadcrumb End -->
             <div class="flex flex-col gap-5 md:gap-7 2xl:gap-10">
 
                 <!-- ====== Data Table Two Start -->
-                <div
-                    class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                     <div class="data-table-common data-table-two max-w-full overflow-x-auto">
                         <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                             <div class="datatable-top">
@@ -60,8 +61,9 @@
                                             <p class="font-medium">Action</p>
                                         </div>
                                     </div>
-                                    @foreach ($users as $user)    
-                                        <div class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+                                    @foreach ($users as $user)
+                                        <div
+                                            class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
                                             <div class="col-span-2 flex items-center">
                                                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                                                     <p class="text-sm font-medium text-black dark:text-white">
@@ -81,15 +83,16 @@
                                             </div>
                                             <div class="col-span-1 flex items-center">
                                                 <label class="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox" data-id="{{ $user->id }}" name="status" class="js-switch" {{ $user->status == 1 ? 'checked' : '' }} value="">
-                                                    <div
+                                                    <input type="checkbox" data-id="{{ $user->id }}" name="status"
+                                                        class="js-switch" {{ $user->status == 1 ? 'checked' : '' }}
+                                                        value=""
                                                         class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                                                    </div>
                                                 </label>
                                             </div>
                                             <div class="flex items-center space-x-3.5">
-                                                <a href="{{ route('admin-edit',$user->id) }}">
-                                                    <i data-v-3d6d2adb="" title="Edit" class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
+                                                <a href="{{ route('admin-edit', $user->id) }}">
+                                                    <i data-v-3d6d2adb="" title="Edit"
+                                                        class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
                                                 </a>
                                             </div>
                                         </div>
@@ -122,41 +125,35 @@
         </div>
     </main>
     <!-- ===== Main Content End ===== -->
-</div>
-<script>
-    let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+    <script>
+        let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
-    elems.forEach(function(html) {
-        let switchery = new Switchery(html, { size: 'small' });
-    });
-
-    // Ajax Request
-    $(document).ready(function(){
-        $('.js-switch').change(function () {
-            let status = $(this).prop('checked') === true ? 1 : 0;
-            let userId = $(this).data('id');
-            $.ajax({
-                type: "POST", // Change this to POST
-                dataType: "json",
-                url: '{{ route('status') }}',
-                data: {
-                    '_token': '{{ csrf_token() }}', // Add the CSRF token
-                    'status': status,
-                    'user_id': userId
-                },
-                success: function (data) {
-                    console.log(data.message);
-                }
+        elems.forEach(function(html) {
+            let switchery = new Switchery(html, {
+                size: 'small'
             });
         });
-    });
-</script>
 
-<!-- ===== Content Area End ===== -->
-</div>
-@include('admin.inc.footer')
-</body>
+        // Ajax Request
+        $(document).ready(function() {
+            $('.js-switch').change(function() {
+                let status = $(this).prop('checked') === true ? 1 : 0;
+                let userId = $(this).data('id');
+                $.ajax({
+                    type: "POST", // Change this to POST
+                    dataType: "json",
+                    url: '{{ route('status') }}',
+                    data: {
+                        '_token': '{{ csrf_token() }}', // Add the CSRF token
+                        'status': status,
+                        'user_id': userId
+                    },
+                    success: function(data) {
+                        console.log(data.message);
+                    }
+                });
+            });
+        });
+    </script>
 
-<!-- Mirrored from demo.tailadmin.com/tables by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 13 Sep 2023 07:17:37 GMT -->
-
-</html>
+@endsection

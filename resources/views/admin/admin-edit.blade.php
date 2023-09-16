@@ -1,19 +1,13 @@
-@include('admin.layouts.app')
-
-@include('admin.inc.sidebar')
-
-
-<!-- ===== Content Area Start ===== -->
-<div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-    @include('admin.inc.header')
+@extends('admin.layouts.app', ['title' => 'Admin-Edit'])
+@section('content')
     <!-- ===== Form Area Start ===== -->
     <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div class="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
-            <h2 class="text-title-md2 font-bold text-black dark:text-white">
-                Add Admin
+        <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center m-6">
+            <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
+                Edit Admin
             </h2>
         </div>
-        <form action="{{ route('admin-update',$user->id) }}" method="POST">
+        <form action="{{ route('admin-update', $user->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="p-6.5">
@@ -30,7 +24,8 @@
                         <label class="mb-2.5 block text-black dark:text-white">
                             Username
                         </label>
-                        <input type="text" placeholder="Enter your Username" name="username" value="{{ $user->username }}"
+                        <input type="text" placeholder="Enter your Username" name="username"
+                            value="{{ $user->username }}"
                             class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                     </div>
                 </div>
@@ -75,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ route('admin-update',$user->id) }}">
+            <a href="{{ route('admin-update', $user->id) }}">
                 <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray m-5">
                     Update
                 </button>
@@ -83,17 +78,4 @@
         </form>
     </div>
     <!-- ===== Form Area End ===== -->
-</div>
-<!-- ===== Content Area End ===== -->
-</div>
-<!-- ===== Page Wrapper End ===== -->
-<script defer src="{{ asset('bundle.js') }}"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854"
-    integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
-    data-cf-beacon='{"rayId":"805e9b23afe91e14","version":"2023.8.0","r":1,"b":1,"token":"67f7a278e3374824ae6dd92295d38f77","si":100}'
-    crossorigin="anonymous"></script>
-</body>
-
-<!-- Mirrored from demo.tailadmin.com/tables by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 13 Sep 2023 07:17:37 GMT -->
-
-</html>
+@endsection

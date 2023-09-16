@@ -164,7 +164,7 @@
                                 <a class="flex gap-4.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
                                     href="messages.html">
                                     <div class="h-12.5 w-12.5 rounded-full">
-                                        <img src="src/images/user/user-01.png" alt="User" />
+                                        <img src="{{ config('app.url') }}/src/images/user/user-01.png" alt="User" />
                                     </div>
 
                                     <div>
@@ -239,7 +239,7 @@
                     </span>
 
                     <span class="h-12 w-12 rounded-full">
-                        <img src="src/images/user/user-01.png" alt="User" />
+                        <img src="{{ config('app.url') }}/src/images/user/user-01.png" alt="User" />
                     </span>
 
                     <svg :class="dropdownOpen && 'rotate-180'" class="hidden fill-current sm:block" width="12"

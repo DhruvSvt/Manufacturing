@@ -1,11 +1,6 @@
-@include('admin.layouts.app')
+@extends('admin.layouts.app',['title'=>'Admin-Create'])
+@section('content')
 
-@include('admin.inc.sidebar')
-
-
-<!-- ===== Content Area Start ===== -->
-<div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-    @include('admin.inc.header')
     <!-- ===== Form Area Start ===== -->
     <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div class="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
@@ -80,17 +75,4 @@
         </form>
     </div>
     <!-- ===== Form Area End ===== -->
-</div>
-<!-- ===== Content Area End ===== -->
-</div>
-<!-- ===== Page Wrapper End ===== -->
-<script defer src="bundle.js"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854"
-    integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
-    data-cf-beacon='{"rayId":"805e9b23afe91e14","version":"2023.8.0","r":1,"b":1,"token":"67f7a278e3374824ae6dd92295d38f77","si":100}'
-    crossorigin="anonymous"></script>
-</body>
-
-<!-- Mirrored from demo.tailadmin.com/tables by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 13 Sep 2023 07:17:37 GMT -->
-
-</html>
+@endsection

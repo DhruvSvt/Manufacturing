@@ -1,12 +1,5 @@
-@include('admin.layouts.app')
-
-@include('admin.inc.sidebar')
-
-
-<!-- ===== Content Area Start ===== -->
-<div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-    @include('admin.inc.header')
-
+@extends('admin.layouts.app',['title'=>'Dashboard'])
+@section('content')
     <!-- ===== Main Content Start ===== -->
     <main>
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -36,8 +29,8 @@
 
                         <span class="flex items-center gap-1 text-sm font-medium text-meta-3">
                             0.43%
-                            <svg class="fill-meta-3" width="10" height="11" viewBox="0 0 10 11"
-                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="fill-meta-3" width="10" height="11" viewBox="0 0 10 11" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M4.35716 2.47737L0.908974 5.82987L5.0443e-07 4.94612L5 0.0848689L10 4.94612L9.09103 5.82987L5.64284 2.47737L5.64284 10.0849L4.35716 10.0849L4.35716 2.47737Z"
                                     fill="" />
@@ -75,8 +68,8 @@
 
                         <span class="flex items-center gap-1 text-sm font-medium text-meta-3">
                             4.35%
-                            <svg class="fill-meta-3" width="10" height="11" viewBox="0 0 10 11"
-                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="fill-meta-3" width="10" height="11" viewBox="0 0 10 11" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M4.35716 2.47737L0.908974 5.82987L5.0443e-07 4.94612L5 0.0848689L10 4.94612L9.09103 5.82987L5.64284 2.47737L5.64284 10.0849L4.35716 10.0849L4.35716 2.47737Z"
                                     fill="" />
@@ -111,8 +104,8 @@
 
                         <span class="flex items-center gap-1 text-sm font-medium text-meta-3">
                             2.59%
-                            <svg class="fill-meta-3" width="10" height="11" viewBox="0 0 10 11"
-                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="fill-meta-3" width="10" height="11" viewBox="0 0 10 11" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M4.35716 2.47737L0.908974 5.82987L5.0443e-07 4.94612L5 0.0848689L10 4.94612L9.09103 5.82987L5.64284 2.47737L5.64284 10.0849L4.35716 10.0849L4.35716 2.47737Z"
                                     fill="" />
@@ -150,8 +143,8 @@
 
                         <span class="flex items-center gap-1 text-sm font-medium text-meta-5">
                             0.95%
-                            <svg class="fill-meta-5" width="10" height="11" viewBox="0 0 10 11"
-                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="fill-meta-5" width="10" height="11" viewBox="0 0 10 11" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M5.64284 7.69237L9.09102 4.33987L10 5.22362L5 10.0849L-8.98488e-07 5.22362L0.908973 4.33987L4.35716 7.69237L4.35716 0.0848701L5.64284 0.0848704L5.64284 7.69237Z"
                                     fill="" />
@@ -166,17 +159,4 @@
         </div>
     </main>
     <!-- ===== Main Content End ===== -->
-</div>
-<!-- ===== Content Area End ===== -->
-</div>
-<!-- ===== Page Wrapper End ===== -->
-<script defer src="bundle.js"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854"
-    integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
-    data-cf-beacon='{"rayId":"805e9ae7ac963802","version":"2023.8.0","r":1,"b":1,"token":"67f7a278e3374824ae6dd92295d38f77","si":100}'
-    crossorigin="anonymous"></script>
-</body>
-
-<!-- Mirrored from demo.tailadmin.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 13 Sep 2023 07:17:10 GMT -->
-
-</html>
+@endsection
