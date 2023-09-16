@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SuppliersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
@@ -36,9 +37,13 @@ Route::get('/table', function () {
     return view('admin.tables');
 })->name('table');
 
-// Route::get('/admin-page', function () {
-//     return view('admin.admin-page');
-// })->name('admin-page');
+// Route::get('/supplier', function () {
+//     return view('admin.supplier');
+// })->name('supplier');
+
+Route::get('/supplier-create', function () {
+    return view('admin.supplier-create');
+})->name('supplier-create');
 
 Route::get('/admin-page',[UsersController::class,'index'])->name('admin-page');
 Route::get('/admin-create',[UsersController::class,'create'])->name('admin-create');
@@ -46,6 +51,13 @@ Route::post('/admin-store',[UsersController::class,'store'])->name('admin-store'
 Route::get('/admin-edit/{id}',[UsersController::class,'edit'])->name('admin-edit');
 Route::put('/admin-update/{id}', [UsersController::class, 'update'])->name('admin-update');
 Route::post('/status', [UsersController::class, 'status'])->name('status');
+
+Route::get('/supplier',[SuppliersController::class,'index'])->name('supplier');
+Route::get('/supplier.create',[SuppliersController::class,'create'])->name('supplier.create');
+Route::post('/supplier.store',[SuppliersController::class,'store'])->name('supplier.store');
+Route::get('/supplier.edit/{id}',[SuppliersController::class,'edit'])->name('supplier.edit');
+Route::put('/supplier.update/{id}', [SuppliersController::class, 'update'])->name('supplier.update');
+Route::post('/supplier.status',[SuppliersController::class,'status'])->name('supplier.status');
 
 
 Auth::routes();
