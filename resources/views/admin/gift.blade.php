@@ -59,8 +59,11 @@
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                                                         <p class="text-sm font-medium text-black dark:text-white">
+                                                            @if($gift->image)
                                                             <img src="{{ asset('storage/images/' . $gift->image) }}" style="width: 100px; height: 85px;">
-
+                                                            @else
+                                                            <span>No image found!</span>
+                                                            @endif
                                                         </p>
                                                     </div>
                                                 </td>
@@ -89,7 +92,7 @@
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <div class="flex items-center space-x-3.5">
-                                                        <a href="">
+                                                        <a href="{{ route('gift.edit',$gift->id) }}">
                                                             <i data-v-3d6d2adb="" title="Edit"
                                                                 class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
                                                         </a>

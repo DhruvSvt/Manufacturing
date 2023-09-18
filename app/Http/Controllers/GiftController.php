@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gift;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class GiftController extends Controller
 {
@@ -35,7 +36,7 @@ class GiftController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'name' => 'required',
             'price' => 'required',
@@ -45,7 +46,7 @@ class GiftController extends Controller
 
         $fileName = time() . '.' . $request->image->extension();
         $request->image->storeAs('public/images', $fileName);
-        
+
         $gift = new Gift;
         $gift->name = $request->name;
         $gift->price = $request->price;
@@ -73,9 +74,10 @@ class GiftController extends Controller
      * @param  \App\Models\Gift  $gift
      * @return \Illuminate\Http\Response
      */
-    public function edit(Gift $gift)
+    public function edit($id)
     {
-        //
+        $gift = Gift::find($id);
+        return view('admin.gift-edit', compact('gift'));
     }
 
     /**
@@ -85,9 +87,35 @@ class GiftController extends Controller
      * @param  \App\Models\Gift  $gift
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gift $gift)
+    public function update(Request $request, $id)
     {
-        //
+        $gift = Gift::find($id);
+
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'unit' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        $old_image = $gift->image;
+
+        if ($request->hasFile('image')) {
+            $fileName = time() . '.' . $request->image->extension();
+            $request->image->storeAs('public/images', $fileName);
+
+            if ($gift->image) {
+                Storage::delete('public/images/' . $old_image);
+            } 
+        }
+
+        $gift->name = $request->name;
+        $gift->price = $request->price;
+        $gift->unit = $request->unit;
+        $gift->image = $fileName;
+        $gift->save();
+
+        return redirect()->route('gift');
     }
 
     /**
@@ -105,7 +133,7 @@ class GiftController extends Controller
         $gift = Gift::findOrFail($request->gift_id);
         $gift->status = $request->status;
         $gift->save();
-    
+
         return redirect()->back();
     }
 }
