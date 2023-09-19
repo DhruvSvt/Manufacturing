@@ -3,6 +3,7 @@
 use App\Http\Controllers\GiftController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SuppliersController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
@@ -53,11 +54,18 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::post('/gift.status', [GiftController::class, 'status'])->name('gift.status');
 
+    Route::get('/unit', [UnitController::class, 'index'])->name('unit');
+    Route::get('/unit.create', [UnitController::class, 'create'])->name('unit.create');
+    Route::post('/unit.store', [UnitController::class, 'store'])->name('unit.store');
+    Route::get('/unit.edit/{id}', [UnitController::class, 'edit'])->name('unit.edit');
+    Route::put('/unit.update/{id}', [UnitController::class, 'update'])->name('unit.update');
 
-    Route::get('/signin', function () {
+    Route::post('/unit.status', [UnitController::class, 'status'])->name('unit.status');
+
+
+    Route::get('/signin', function () { 
         return view('admin.signin');
     })->name('signin');
-
 
     Route::get('/signup', function () {
         return view('admin.signup');
