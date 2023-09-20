@@ -14,7 +14,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = Unit::orderBy('created_at', 'desc')->get();
+        $units = Unit::latest()->get();
         return view('admin.unit', compact('units'));
     }
 
@@ -25,7 +25,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        $units = Unit::all();
+        $units = Unit::whereStatus(true)->get();
         return view('admin.unit-create', compact('units'));
     }
 

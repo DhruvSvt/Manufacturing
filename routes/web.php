@@ -25,45 +25,45 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin-index', function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/', function () {
         return view('admin.index');
     })->name('admin-index');
 
-    Route::get('/admin-page', [UsersController::class, 'index'])->name('admin-page');
-    Route::get('/admin-create', [UsersController::class, 'create'])->name('admin-create');
-    Route::post('/admin-store', [UsersController::class, 'store'])->name('admin-store');
-    Route::get('/admin-edit/{id}', [UsersController::class, 'edit'])->name('admin-edit');
-    Route::put('/admin-update/{id}', [UsersController::class, 'update'])->name('admin-update');
+    Route::get('/page', [UsersController::class, 'index'])->name('admin-page');
+    Route::get('/create', [UsersController::class, 'create'])->name('admin-create');
+    Route::post('/store', [UsersController::class, 'store'])->name('admin-store');
+    Route::get('/edit/{id}', [UsersController::class, 'edit'])->name('admin-edit');
+    Route::put('/update/{id}', [UsersController::class, 'update'])->name('admin-update');
 
     Route::post('/status', [UsersController::class, 'status'])->name('status');
 
     Route::get('/supplier', [SuppliersController::class, 'index'])->name('supplier');
-    Route::get('/supplier.create', [SuppliersController::class, 'create'])->name('supplier.create');
-    Route::post('/supplier.store', [SuppliersController::class, 'store'])->name('supplier.store');
-    Route::get('/supplier.edit/{id}', [SuppliersController::class, 'edit'])->name('supplier.edit');
-    Route::put('/supplier.update/{id}', [SuppliersController::class, 'update'])->name('supplier.update');
+    Route::get('/supplier/create', [SuppliersController::class, 'create'])->name('supplier.create');
+    Route::post('/supplier/store', [SuppliersController::class, 'store'])->name('supplier.store');
+    Route::get('/supplier/edit/{id}', [SuppliersController::class, 'edit'])->name('supplier.edit');
+    Route::put('/supplier/update/{id}', [SuppliersController::class, 'update'])->name('supplier.update');
 
-    Route::post('/supplier.status', [SuppliersController::class, 'status'])->name('supplier.status');
+    Route::post('/supplier/status', [SuppliersController::class, 'status'])->name('supplier.status');
 
     Route::get('/gift', [GiftController::class, 'index'])->name('gift');
-    Route::get('/gift.create', [GiftController::class, 'create'])->name('gift.create');
-    Route::post('/gift.store', [GiftController::class, 'store'])->name('gift.store');
-    Route::get('/gift.edit/{id}', [GiftController::class, 'edit'])->name('gift.edit');
-    Route::put('/gift.update/{id}', [GiftController::class, 'update'])->name('gift.update');
+    Route::get('/gift/create', [GiftController::class, 'create'])->name('gift.create');
+    Route::post('/gift/store', [GiftController::class, 'store'])->name('gift.store');
+    Route::get('/gift/edit/{id}', [GiftController::class, 'edit'])->name('gift.edit');
+    Route::put('/gift/update/{id}', [GiftController::class, 'update'])->name('gift.update');
 
     Route::post('/gift.status', [GiftController::class, 'status'])->name('gift.status');
 
     Route::get('/unit', [UnitController::class, 'index'])->name('unit');
-    Route::get('/unit.create', [UnitController::class, 'create'])->name('unit.create');
-    Route::post('/unit.store', [UnitController::class, 'store'])->name('unit.store');
-    Route::get('/unit.edit/{id}', [UnitController::class, 'edit'])->name('unit.edit');
-    Route::put('/unit.update/{id}', [UnitController::class, 'update'])->name('unit.update');
+    Route::get('/unit/create', [UnitController::class, 'create'])->name('unit.create');
+    Route::post('/unit/store', [UnitController::class, 'store'])->name('unit.store');
+    Route::get('/unit/edit/{id}', [UnitController::class, 'edit'])->name('unit.edit');
+    Route::put('/unit/update/{id}', [UnitController::class, 'update'])->name('unit.update');
 
-    Route::post('/unit.status', [UnitController::class, 'status'])->name('unit.status');
+    Route::post('/unit/status', [UnitController::class, 'status'])->name('unit.status');
 
 
-    Route::get('/signin', function () { 
+    Route::get('/signin', function () {
         return view('admin.signin');
     })->name('signin');
 

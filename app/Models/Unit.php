@@ -11,7 +11,11 @@ class Unit extends Model
         'short_name',
         'full_name',
         'parent_id',
-        'unit',  
+        'unit',
     ];
     use HasFactory;
+
+    public function parent(){
+        return $this->belongsTo(self::class);
+    }
 }

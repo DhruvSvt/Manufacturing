@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gift;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +16,7 @@ class GiftController extends Controller
      */
     public function index()
     {
-        $gifts = gift::orderBy('created_at', 'desc')->get();
+        $gifts = Gift::orderBy('created_at', 'desc')->get();
         return view('admin.gift', compact('gifts'));
     }
 
@@ -26,7 +27,8 @@ class GiftController extends Controller
      */
     public function create()
     {
-        return view('admin.gift-create');
+        $units = Unit::whereStatus(true)->get();
+        return view('admin.gift-create', compact('units'));
     }
 
     /**
@@ -41,7 +43,7 @@ class GiftController extends Controller
             'name' => 'required',
             'price' => 'required',
             'unit' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image' => 'required|image|max:2048'
         ]);
 
         $fileName = time() . '.' . $request->image->extension();
@@ -106,7 +108,7 @@ class GiftController extends Controller
 
             if ($gift->image) {
                 Storage::delete('public/images/' . $old_image);
-            } 
+            }
         }
 
         $gift->name = $request->name;

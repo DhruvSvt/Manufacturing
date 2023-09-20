@@ -70,7 +70,7 @@
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $unit->parent_id }}
+                                                        {{ $unit->parent ? $unit->parent->short_name : '-' }}
                                                     </p>
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">

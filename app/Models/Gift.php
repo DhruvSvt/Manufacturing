@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Gift extends Model
 {
     use HasFactory;
+
+    public function parent(){
+        return $this->belongsTo(Unit::class,'unit','id');
+    }
 }
+
