@@ -49,8 +49,8 @@
                                                 <th class="sm:w-1/6 xs:w-1/6">Name</th>
                                                 <th class="sm:w-1/6 xs:w-1/6">Phone</th>
                                                 <th class="sm:w-1/6 xs:w-1/6">Company Name</th>
-                                                <th class="sm:w-1/6 xs:w-1/6">Status</th>
                                                 <th class="sm:w-1/6 xs:w-1/6">Address</th>
+                                                <th class="sm:w-1/6 xs:w-1/6">Status</th>
                                                 <th class="sm:w-1/6 xs:w-1/6">Action</th>
                                             </tr>
                                         </thead>
@@ -69,13 +69,13 @@
                                                         <p class="text-sm font-medium text-black dark:text-white">{{ $sup->company_name }}</p>
                                                     </td>
                                                     <td class="sm:w-1/6 xs:w-1/6">
+                                                        <p class="text-sm font-medium text-black dark:text-white">{{ $sup->address }}</p>
+                                                    </td>
+                                                    <td class="sm:w-1/6 xs:w-1/6">
                                                         <label class="relative inline-flex items-center cursor-pointer">
                                                             <input type="checkbox" data-id="{{ $sup->id }}" name="status"
                                                                 class="js-switch" {{ $sup->status == 1 ? 'checked' : '' }}>
                                                         </label>
-                                                    </td>
-                                                    <td class="sm:w-1/6 xs:w-1/6">
-                                                        <p class="text-sm font-medium text-black dark:text-white">{{ $sup->address }}</p>
                                                     </td>
                                                     <td class="sm:w-1/6 xs:w-1/6">
                                                         <div class="flex items-center space-x-3.5">
