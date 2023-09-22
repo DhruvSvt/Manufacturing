@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GiftController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +62,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/unit/update/{id}', [UnitController::class, 'update'])->name('unit.update');
 
     Route::post('/unit/status', [UnitController::class, 'status'])->name('unit.status');
+
+    Route::get('/raw-material', [RawMaterialController::class, 'index'])->name('raw-material');
+    Route::get('/raw-material/create', [RawMaterialController::class, 'create'])->name('raw-material.create');
+    Route::post('/raw-material/store', [RawMaterialController::class, 'store'])->name('raw-material.store');
+    Route::get('/raw-material/edit/{id}', [RawMaterialController::class, 'edit'])->name('raw-material.edit');
+    Route::put('/raw-material/update/{id}', [RawMaterialController::class, 'update'])->name('raw-material.update');
+
+    Route::post('/raw-material/status', [RawMaterialController::class, 'status'])->name('raw-material.status');
 
 
     Route::get('/signin', function () {
