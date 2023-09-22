@@ -59,16 +59,24 @@
                                             <!-- Example row -->
                                             @foreach ($suppliers as $sup)
                                                 <tr>
-                                                    <td class="sm:w-1/6 xs:w-1/6">{{ $sup->name }}</td>
-                                                    <td class="sm:w-1/6 xs:w-1/6">{{ $sup->phone }}</td>
-                                                    <td class="sm:w-1/6 xs:w-1/6">{{ $sup->company_name }}</td>
+                                                    <td class="sm:w-1/6 xs:w-1/6">
+                                                        <p class="text-sm font-medium text-black dark:text-white">{{ $sup->name }}</p>
+                                                    </td>
+                                                    <td class="sm:w-1/6 xs:w-1/6">
+                                                        <p class="text-sm font-medium text-black dark:text-white">{{ $sup->phone }}</p>
+                                                    </td>
+                                                    <td class="sm:w-1/6 xs:w-1/6">
+                                                        <p class="text-sm font-medium text-black dark:text-white">{{ $sup->company_name }}</p>
+                                                    </td>
                                                     <td class="sm:w-1/6 xs:w-1/6">
                                                         <label class="relative inline-flex items-center cursor-pointer">
                                                             <input type="checkbox" data-id="{{ $sup->id }}" name="status"
                                                                 class="js-switch" {{ $sup->status == 1 ? 'checked' : '' }}>
                                                         </label>
                                                     </td>
-                                                    <td class="sm:w-1/6 xs:w-1/6">{{ $sup->address }}</td>
+                                                    <td class="sm:w-1/6 xs:w-1/6">
+                                                        <p class="text-sm font-medium text-black dark:text-white">{{ $sup->address }}</p>
+                                                    </td>
                                                     <td class="sm:w-1/6 xs:w-1/6">
                                                         <div class="flex items-center space-x-3.5">
                                                             <a href="{{ route('supplier.edit', $sup->id) }}">
