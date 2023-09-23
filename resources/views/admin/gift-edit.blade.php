@@ -39,11 +39,14 @@
                     <label class="mb-2.5 block text-black dark:text-white">
                         Unit <span class="text-meta-1">*</span>
                     </label>
-                    <input type="number" placeholder="Enter the Units" name="unit" value="{{ $gift->unit }}"
-                        class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                    @error('unit')
-                        <p class="text-red-500 mt-2">{{ $message }}</p>
-                    @enderror
+                    <select
+                    class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    name="unit">
+                    <option value="{{ $gift->unit }}" selected>{{ $gift->short_name  ?? '-' }} </option>
+                        @foreach ($units as $unit)
+                            <option value="{{ $unit->id }}">{{ $unit->full_name }} ({{ $unit->short_name }})</option>
+                        @endforeach
+                </select>
                 </div>
                 <div>
                     <label class="mb-3 block text-sm font-medium text-black dark:text-white">

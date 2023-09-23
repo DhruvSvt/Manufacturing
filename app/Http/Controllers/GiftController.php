@@ -78,8 +78,9 @@ class GiftController extends Controller
      */
     public function edit($id)
     {
+        $units = Unit::whereStatus(true)->get();
         $gift = Gift::find($id);
-        return view('admin.gift-edit', compact('gift'));
+        return view('admin.gift-edit', compact('gift','units'));
     }
 
     /**
@@ -97,7 +98,6 @@ class GiftController extends Controller
             'name' => 'required',
             'price' => 'required',
             'unit' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $old_image = $gift->image;
@@ -105,16 +105,15 @@ class GiftController extends Controller
         if ($request->hasFile('image')) {
             $fileName = time() . '.' . $request->image->extension();
             $request->image->storeAs('public/images', $fileName);
-
+            $gift->image = $fileName;
             if ($gift->image) {
                 Storage::delete('public/images/' . $old_image);
             }
         }
-
         $gift->name = $request->name;
         $gift->price = $request->price;
         $gift->unit = $request->unit;
-        $gift->image = $fileName;
+        
         $gift->save();
 
         return redirect()->route('gift');
