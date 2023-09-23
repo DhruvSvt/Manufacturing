@@ -6,7 +6,7 @@
             <!-- Breadcrumb Start -->
             <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <h2 class="text-title-md2 font-bold text-black dark:text-white">
-                    Sign In
+                    Panacia Health Care
                 </h2>
 
             </div>
@@ -17,14 +17,14 @@
                 <div class="flex flex-wrap items-center">
                     <div class="hidden w-full xl:block xl:w-1/2">
                         <div class="py-17.5 px-26 text-center">
-                            <a class="mb-5.5 inline-block" href="index.html">
+                            <a class="mb-5.5 inline-block" href="/">
                                 <img class="hidden dark:block" src="{{ config('app.url') }}/src/images/logo/logo.svg"
                                     alt="Logo" />
                             </a>
 
 
                             <span class="mt-15 inline-block">
-                                <img src="src/images/illustration/illustration-03.svg" alt="illustration" />
+                                <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="illustration" />
                             </span>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                                     <div class="col-md-6 offset-md-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-        
+
                                             <label class="form-check-label" for="remember">
                                                 {{ __('Remember Me') }}
                                             </label>
