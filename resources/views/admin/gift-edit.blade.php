@@ -4,7 +4,7 @@
     <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center m-6">
             <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                Edit Gift
+                Edit items
             </h2>
         </div>
         <form action="{{ route('gift.update', $gift->id) }}" method="POST" enctype="multipart/form-data">

@@ -50,11 +50,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::post('/supplier/status', [SuppliersController::class, 'status'])->name('supplier.status');
 
-    Route::get('/gift', [GiftController::class, 'index'])->name('gift');
-    Route::get('/gift/create', [GiftController::class, 'create'])->name('gift.create');
-    Route::post('/gift/store', [GiftController::class, 'store'])->name('gift.store');
-    Route::get('/gift/edit/{id}', [GiftController::class, 'edit'])->name('gift.edit');
-    Route::put('/gift/update/{id}', [GiftController::class, 'update'])->name('gift.update');
+    Route::get('/item', [GiftController::class, 'index'])->name('gift');
+    Route::get('/item/create', [GiftController::class, 'create'])->name('gift.create');
+    Route::post('/item/store', [GiftController::class, 'store'])->name('gift.store');
+    Route::get('/item/edit/{id}', [GiftController::class, 'edit'])->name('gift.edit');
+    Route::put('/item/update/{id}', [GiftController::class, 'update'])->name('gift.update');
 
     Route::post('/gift.status', [GiftController::class, 'status'])->name('gift.status');
 

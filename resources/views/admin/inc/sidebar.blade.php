@@ -16,7 +16,6 @@
                     fill="" />
             </svg>
         </button>
-
     </div>
     <!-- SIDEBAR HEADER -->
 
@@ -153,7 +152,7 @@
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('gift') }}" :class="page === 'settings' && '!text-white'">
-                                        Gift Items
+                                        Items
                                     </a>
                                 </li>
                                 <li>
