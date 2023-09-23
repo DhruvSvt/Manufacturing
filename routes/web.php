@@ -9,6 +9,7 @@ use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -104,3 +105,19 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('migrate', function () {
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('migrate');
+});
+
+
+Route::get('/storage-link', function(){
+    $target = storage_path('app/public');
+    $link = public_path('/storage');
+    echo symlink($target, $link);
+    // echo "symbolic link created successfully";
+});
