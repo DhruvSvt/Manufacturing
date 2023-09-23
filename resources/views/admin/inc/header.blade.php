@@ -235,7 +235,7 @@
             <div class="relative" x-data="{ dropdownOpen: false }" @click.outside="dropdownOpen = false">
                 <a class="flex items-center gap-4" href="#" @click.prevent="dropdownOpen = ! dropdownOpen">
                     <span class="hidden text-right lg:block">
-                        <span class="block text-sm font-medium text-black dark:text-white">Thomas Anree</span>
+                        <span class="block text-sm font-medium text-black dark:text-white">Admin</span>
                     </span>
 
                     <span class="h-12 w-12 rounded-full">
@@ -253,7 +253,7 @@
                 <!-- Dropdown Start -->
                 <div x-show="dropdownOpen"
                     class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                    <ul class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
+                    {{-- <ul class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
                         <li>
                             <a href="profile.html"
                                 class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
@@ -269,7 +269,7 @@
                                 My Profile
                             </a>
                         </li>
-                    </ul>
+                    </ul> --}}
                     <button
                         class="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
                         <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"

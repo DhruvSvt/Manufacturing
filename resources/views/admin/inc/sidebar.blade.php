@@ -29,12 +29,7 @@
                     <!-- Menu Item Dashboard -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'Dashboard' ? '':'Dashboard')"
-                            :class="{
-                                'bg-graydark dark:bg-meta-4': (selected === 'Dashboard') || (page ===
-                                    'ecommerce' ||
-                                    page === 'analytics')
-                            }">
+                            href="{{ route('admin-index') }}">
                             <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -91,11 +86,6 @@
                                         href="{{ route('admin-page') }}"
                                         :class="page === 'formElements' && '!text-white'">Admin Page</a>
                                 </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="form-layout.html"
-                                        :class="page === 'formLayout' && '!text-white'">Employees</a>
-                                </li>
                             </ul>
                         </div>
                         <!-- Dropdown Menu End -->
@@ -105,9 +95,9 @@
                     <!-- Menu Item Master -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'Pages' ? '':'Pages')"
+                            href="#" @click.prevent="selected = (selected === 'Masters' ? '':'Masters')"
                             :class="{
-                                'bg-graydark dark:bg-meta-4': (selected === 'Pages') || (page === 'settings' ||
+                                'bg-graydark dark:bg-meta-4': (selected === 'Masters') || (page === 'settings' ||
                                     page === 'fileManager' || page === 'dataTables' || page ===
                                     'pricingTables' || page === 'errorPage' || page === 'mailSuccess')
                             }">
@@ -146,7 +136,7 @@
 
                         <!-- Dropdown Menu Start -->
                         <div class="translate transform overflow-hidden"
-                            :class="(selected === 'Pages') ? 'block' : 'hidden'">
+                            :class="(selected === 'Masters') ? 'block' : 'hidden'">
                             <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
@@ -168,7 +158,8 @@
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('raw-material') }}" :class="page === 'settings' && '!text-white'">
+                                        href="{{ route('raw-material') }}"
+                                        :class="page === 'settings' && '!text-white'">
                                         Raw Material
                                     </a>
                                 </li>
@@ -184,30 +175,171 @@
                         <!-- Dropdown Menu End -->
                     </li>
                     <!-- Menu Item Master -->
-                    <!-- Menu Item Tables -->
+
+                    <!-- Menu Item Purchase -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="{{ route('table') }}" @click="selected = (selected === 'Tables' ? '':'Tables')"
-                            :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Tables') && (page === 'Tables') }">
-                            <svg class="fill-current" width="18" height="19" viewBox="0 0 18 19"
-                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_130_9756)">
-                                    <path
-                                        d="M15.7501 0.55835H2.2501C1.29385 0.55835 0.506348 1.34585 0.506348 2.3021V15.8021C0.506348 16.7584 1.29385 17.574 2.27822 17.574H15.7782C16.7345 17.574 17.5501 16.7865 17.5501 15.8021V2.3021C17.522 1.34585 16.7063 0.55835 15.7501 0.55835ZM6.69385 10.599V6.4646H11.3063V10.5709H6.69385V10.599ZM11.3063 11.8646V16.3083H6.69385V11.8646H11.3063ZM1.77197 6.4646H5.45635V10.5709H1.77197V6.4646ZM12.572 6.4646H16.2563V10.5709H12.572V6.4646ZM2.2501 1.82397H15.7501C16.0313 1.82397 16.2563 2.04897 16.2563 2.33022V5.2271H1.77197V2.3021C1.77197 2.02085 1.96885 1.82397 2.2501 1.82397ZM1.77197 15.8021V11.8646H5.45635V16.3083H2.2501C1.96885 16.3083 1.77197 16.0834 1.77197 15.8021ZM15.7501 16.3083H12.572V11.8646H16.2563V15.8021C16.2563 16.0834 16.0313 16.3083 15.7501 16.3083Z"
-                                        fill="" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_130_9756">
-                                        <rect width="18" height="18" fill="white"
-                                            transform="translate(0 0.052124)" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
+                            href="#" @click.prevent="selected = (selected === 'Purchase' ? '':'Purchase')"
+                            :class="{
+                                'bg-graydark dark:bg-meta-4': (selected === 'Purchase') || (page === 'raw-material' ||
+                                    page === 'gifts' || page === 'products')
+                            }">
+                            {{-- <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14.2875 0.506226H3.7125C2.75625 0.506226 1.96875 1.29373 1.96875 2.24998V15.75C1.96875 16.7062 2.75625 17.5219 3.74063 17.5219H14.3156C15.2719 17.5219 16.0875 16.7344 16.0875 15.75V2.24998C16.0313 1.29373 15.2438 0.506226 14.2875 0.506226ZM14.7656 15.75C14.7656 16.0312 14.5406 16.2562 14.2594 16.2562H3.7125C3.43125 16.2562 3.20625 16.0312 3.20625 15.75V2.24998C3.20625 1.96873 3.43125 1.74373 3.7125 1.74373H14.2875C14.5688 1.74373 14.7938 1.96873 14.7938 2.24998V15.75H14.7656Z"
+                                    fill="" />
+                                <path
+                                    d="M12.7965 2.6156H9.73086C9.22461 2.6156 8.80273 3.03748 8.80273 3.54373V7.25623C8.80273 7.76248 9.22461 8.18435 9.73086 8.18435H12.7965C13.3027 8.18435 13.7246 7.76248 13.7246 7.25623V3.5156C13.6965 3.03748 13.3027 2.6156 12.7965 2.6156ZM12.4309 6.8906H10.0684V3.88123H12.4309V6.8906Z"
+                                    fill="" />
+                                <path
+                                    d="M4.97773 4.35938H7.03086C7.36836 4.35938 7.67773 4.07812 7.67773 3.7125C7.67773 3.34687 7.39648 3.09375 7.03086 3.09375H4.94961C4.61211 3.09375 4.30273 3.375 4.30273 3.74063C4.30273 4.10625 4.61211 4.35938 4.97773 4.35938Z"
+                                    fill="" />
+                                <path
+                                    d="M4.97773 7.9312H7.03086C7.36836 7.9312 7.67773 7.64995 7.67773 7.28433C7.67773 6.9187 7.39648 6.63745 7.03086 6.63745H4.94961C4.61211 6.63745 4.30273 6.9187 4.30273 7.28433C4.30273 7.64995 4.61211 7.9312 4.97773 7.9312Z"
+                                    fill="" />
+                                <path
+                                    d="M13.0789 10.2374H4.97891C4.64141 10.2374 4.33203 10.5187 4.33203 10.8843C4.33203 11.2499 4.61328 11.5312 4.97891 11.5312H13.0789C13.4164 11.5312 13.7258 11.2499 13.7258 10.8843C13.7258 10.5187 13.4164 10.2374 13.0789 10.2374Z"
+                                    fill="" />
+                                <path
+                                    d="M13.0789 13.8093H4.97891C4.64141 13.8093 4.33203 14.0906 4.33203 14.4562C4.33203 14.8218 4.61328 15.1031 4.97891 15.1031H13.0789C13.4164 15.1031 13.7258 14.8218 13.7258 14.4562C13.7258 14.0906 13.4164 13.8093 13.0789 13.8093Z"
+                                    fill="" />
+                            </svg> --}}
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Purchase
 
-                            Tables
+                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                                :class="{ 'rotate-180': (selected === 'Task') }" width="20" height="20"
+                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                                    fill="" />
+                            </svg>
                         </a>
+
+                        <!-- Dropdown Menu Start -->
+                        <div class="translate transform overflow-hidden"
+                            :class="(selected === 'Purchase') ? 'block' : 'hidden'">
+                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('purchase-material') }}"
+                                        :class="page === 'raw-material' && '!text-white'">
+                                        Raw Material
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="#" :class="page === 'gifts' && '!text-white'">
+                                        Gifts
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="#" :class="page === 'products' && '!text-white'">
+                                        Products
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Dropdown Menu End -->
                     </li>
-                    <!-- Menu Item Tables -->
+                    <!-- Menu Item Purchase -->
+
+                    <!-- Menu Item Stocks -->
+                    <li>
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                            href="#" @click.prevent="selected = (selected === 'Stocks' ? '':'Stocks')"
+                            :class="{
+                                'bg-graydark dark:bg-meta-4': (selected === 'Stocks') || (page === 'raw-material' ||
+                                    page === 'gifts' || page === 'products')
+                            }">
+                            <i class="fa-solid fa-warehouse"></i>
+                            Stocks
+                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                                :class="{ 'rotate-180': (selected === 'Task') }" width="20" height="20"
+                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                                    fill="" />
+                            </svg>
+                        </a>
+
+                        <!-- Dropdown Menu Start -->
+                        <div class="translate transform overflow-hidden"
+                            :class="(selected === 'Stocks') ? 'block' : 'hidden'">
+                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="#" :class="page === 'raw-material' && '!text-white'">
+                                        Raw Material
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="#" :class="page === 'gifts' && '!text-white'">
+                                        Gifts
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="#" :class="page === 'products' && '!text-white'">
+                                        Products
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Dropdown Menu End -->
+                    </li>
+                    <!-- Menu Item Stocks -->
+
+                    <!-- Menu Item Production -->
+                    <li>
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                            href="#" @click.prevent="selected = (selected === 'Production' ? '':'Production')"
+                            :class="{
+                                'bg-graydark dark:bg-meta-4': (selected === 'Production') || (page === 'raw-material' ||
+                                    page === 'gifts' || page === 'products')
+                            }">
+                            <i class="fa fa-industry" aria-hidden="true"></i>
+                            Production
+                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                                :class="{ 'rotate-180': (selected === 'Task') }" width="20" height="20"
+                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                                    fill="" />
+                            </svg>
+                        </a>
+
+                        <!-- Dropdown Menu Start -->
+                        <div class="translate transform overflow-hidden"
+                            :class="(selected === 'Production') ? 'block' : 'hidden'">
+                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="#" :class="page === 'raw-material' && '!text-white'">
+                                        Raw Material
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="#" :class="page === 'gifts' && '!text-white'">
+                                        Gifts
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="#" :class="page === 'products' && '!text-white'">
+                                        Products
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Dropdown Menu End -->
+                    </li>
+                    <!-- Menu Item Production -->
+
                 </ul>
             </div>
             <!-- Support Group -->
@@ -264,7 +396,7 @@
             </div>
 
             <!-- Others Group -->
-            <div>
+            {{-- <div>
                 <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">
                     OTHERS
                 </h3>
@@ -325,8 +457,7 @@
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="/admin" :class="page === 'resetPassword' && '!text-white'">Reset
-                                        Password
-                                        ></a>
+                                        Password </a>
                                 </li>
                             </ul>
                         </div>
@@ -334,7 +465,7 @@
                     </li>
                     <!-- Menu Item Auth Pages -->
                 </ul>
-            </div>
+            </div> --}}
         </nav>
         <!-- Sidebar Menu -->
     </div>

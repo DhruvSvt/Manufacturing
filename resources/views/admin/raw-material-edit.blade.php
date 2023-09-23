@@ -42,10 +42,9 @@
                     </label>
                     <select
                         class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                        name="unit">
-                        <option value="{{ $raw_material->unit }}" selected>{{ $unit->short_name  ?? '-' }} </option>
+                        name="unit">                        
                         @foreach ($units as $unit)
-                            <option value="{{ $unit->id }}">{{ $unit->full_name }} ({{ $unit->short_name }})</option>
+                            <option value="{{ $unit->id }}" {{ $unit->id == $raw_material->unit ? 'selected' : '' }} >{{ $unit->full_name }} ({{ $unit->short_name }})</option>
                         @endforeach
                     </select>
                     @error('unit')

@@ -49,14 +49,24 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
     <div class="flex h-screen overflow-hidden">
 
         <!-- ===== Sidebar Start ===== -->
-        @include('admin.inc.sidebar')
+        @php
+            $sidebar = $sidebar ?? true;
+        @endphp
+        @if($sidebar)
+            @include('admin.inc.sidebar')
+        @endif
         <!-- ===== Sidebar End ===== -->
 
         <!-- ===== Content Area Start ===== -->
         <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
 
             <!-- ===== Header Start ===== -->
-            @include('admin.inc.header')
+            @php
+                $header = $header ?? true;
+            @endphp
+            @if($header)
+                @include('admin.inc.header')
+            @endif
             <!-- ===== Header End ===== -->
 
             @yield('content')

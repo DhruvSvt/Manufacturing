@@ -22,9 +22,9 @@
                     <div class="mt-4 flex items-end justify-between">
                         <div>
                             <h4 class="text-title-md font-bold text-black dark:text-white">
-                                $3.456K
+                                3.456K
                             </h4>
-                            <span class="text-sm font-medium">Total views</span>
+                            <span class="text-sm font-medium">Total Raw Material</span>
                         </div>
 
                         <span class="flex items-center gap-1 text-sm font-medium text-meta-3">
@@ -61,9 +61,9 @@
                     <div class="mt-4 flex items-end justify-between">
                         <div>
                             <h4 class="text-title-md font-bold text-black dark:text-white">
-                                $45,2K
+                                45,2K
                             </h4>
-                            <span class="text-sm font-medium">Total Profit</span>
+                            <span class="text-sm font-medium">Total Gifts</span>
                         </div>
 
                         <span class="flex items-center gap-1 text-sm font-medium text-meta-3">
