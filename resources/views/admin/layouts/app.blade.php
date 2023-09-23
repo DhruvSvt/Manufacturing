@@ -24,6 +24,14 @@
     <!-- Include jQuery from a CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <style>
+        [type=button], [type=reset], [type=submit], button {
+            -webkit-appearance: button;
+            background-color: none!important;
+            background-image: none;
+        }
+    </style>
+
 
 </head>
 
@@ -57,10 +65,12 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
 
     </div>
     <!-- ===== Page Wrapper End ===== -->
-    
+
     <!-- ===== Page Footer ===== -->
     @include('admin.inc.footer')
     <!-- ===== Page Footer ===== -->
+
+    @yield('scripts')
 </body>
 
 </html>

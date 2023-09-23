@@ -3,6 +3,7 @@
 use App\Http\Controllers\GiftController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RawMaterialController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
@@ -71,6 +72,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::post('/raw-material/status', [RawMaterialController::class, 'status'])->name('raw-material.status');
 
+    Route::resource('product', ProductController::class);
+    Route::post('/product/fetch-raw-materials', [ProductController::class, 'rawMaterials'])->name('product.raw-materials');
+    Route::post('/product/status', [ProductController::class, 'status'])->name('product.status');
 
     Route::get('/signin', function () {
         return view('admin.signin');

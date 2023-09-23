@@ -5,7 +5,7 @@
     <!-- SIDEBAR HEADER -->
     <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <a href="{{ route('admin-index') }}">
-            <img src="{{ config('app.url') }}/src/images/logo/logo.svg" alt="Logo" />
+            <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="Logo" />
         </a>
 
         <button class="block lg:hidden" @click.stop="sidebarToggle = !sidebarToggle">
@@ -16,7 +16,7 @@
                     fill="" />
             </svg>
         </button>
-        
+
     </div>
     <!-- SIDEBAR HEADER -->
 
@@ -170,6 +170,12 @@
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('raw-material') }}" :class="page === 'settings' && '!text-white'">
                                         Raw Material
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('product.index') }}" :class="page === 'settings' && '!text-white'">
+                                        Products
                                     </a>
                                 </li>
 
