@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StocksController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
@@ -87,6 +88,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     
     Route::get('purchase/item',[PurchaseController::class,'item'])->name('purchase-item');
     Route::get('/purchase/material',[PurchaseController::class,'material'])->name('purchase-material');
+
+    Route::get('stocks/material',[StocksController::class,'material_index'])->name('material-stock');
 
     Route::get('/signin', function () {
         return view('admin.signin');
