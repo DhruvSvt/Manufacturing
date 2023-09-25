@@ -66,7 +66,7 @@
                             <label class="mb-2.5 block text-black dark:text-white">
                                 Price <span class="text-meta-1">*</span>
                             </label>
-                            <input type="number" placeholder="Enter the Price" name="price" min="0"
+                            <input type="number" placeholder="Enter your Username" name="price" min="0"
                                 class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                             @error('price')
                                 <p class="text-red-500 mt-2">{{ $message }}</p>
