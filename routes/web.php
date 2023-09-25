@@ -9,6 +9,7 @@ use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Models\Purchase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
@@ -77,10 +78,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('product', ProductController::class);
     Route::post('/product/fetch-raw-materials', [ProductController::class, 'rawMaterials'])->name('product.raw-materials');
     Route::post('/product/status', [ProductController::class, 'status'])->name('product.status');
-    Route::get('/purchase',[PurchaseController::class,'index'])->name('purchase');
-    Route::get('/purchase/material',[PurchaseController::class,'material'])->name('purchase-material');
-    Route::post('/purchase/store', [PurchaseController::class, 'materialStore'])->name('purchase.materialStore');
 
+    Route::get('/material/index',[PurchaseController::class,'material_index'])->name('material-index');
+    Route::post('/purchase/material/store', [PurchaseController::class, 'materialStore'])->name('purchase.materialStore');
+    
+    Route::get('/item/index',[PurchaseController::class,'item_index'])->name('item-index');
+    Route::post('/purchase/item/store', [PurchaseController::class, 'itemStore'])->name('purchase.itemStore');
+    
+    Route::get('purchase/item',[PurchaseController::class,'item'])->name('purchase-item');
+    Route::get('/purchase/material',[PurchaseController::class,'material'])->name('purchase-material');
 
     Route::get('/signin', function () {
         return view('admin.signin');
@@ -121,3 +127,9 @@ Route::get('/storage-link', function(){
     echo symlink($target, $link);
     // echo "symbolic link created successfully";
 });
+
+// Route::get('/test',function(){
+//     $purchase = Purchase::find(8);
+//     $purchase->modal;
+//     return $purchase;
+// });

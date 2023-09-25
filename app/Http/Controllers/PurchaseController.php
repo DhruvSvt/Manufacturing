@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gift;
+use App\Models\ItemStock;
 use App\Models\Purchase;
 use App\Models\RawMaterial;
 use App\Models\Stock;
@@ -15,9 +17,16 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function material_index()
     {
-        return view('admin.purchase.purchase');
+        // return view('admin.purchase.purchase');
+        return redirect()->back();
+    }
+
+    public function item_index()
+    {
+        // return view('admin.purchase.purchase');
+        return redirect()->back();
     }
 
     /**
@@ -49,30 +58,67 @@ class PurchaseController extends Controller
 
         // Create for Purchase
         $purchase = new Purchase([
-            'type' => 'raw material',
+            'type' => 'App\Models\RawMaterial',
             'modal_id' => $request->modal_id,
             'supplier_id' => $request->supplier_id,
             'quantity' => $request->quantity,
             'price' => $request->price,
             'expiry_date' => $request->expiry_date
         ]);
-        
-        dd($purchase);
-        // $purchase->save();
 
-        // // getting id from purchase table for stocks      
+        $purchase->save();
 
-        // // Create for Stocks
-        // $stock = new Stock([
-        //     'purchase_id' => $purchase->id,
-        //     'expiry_date' => $request->expiry_date,
-        //     'quantity' => $request->quantity,
-        // ]);
+        // getting id from purchase table for stocks      
 
-        // $stock->save();
+        // Create for Stocks
+        $stock = new Stock([
+            'purchase_id' => $purchase->id,
+            'expiry_date' => $request->expiry_date,
+            'quantity' => $request->quantity,
+        ]);
 
-        // // redirect to the route 
-        // return redirect()->route('purchase');
+        $stock->save();
+
+        // redirect to the route 
+        return redirect()->route('material-index');
+    }
+    public function itemStore(Request $request)
+    {
+        $request->validate([
+            'modal_id' => 'required',
+            'supplier_id' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
+            'expiry_date' => 'required'
+        ]);
+
+
+        // Create for Purchase
+        $item = new Purchase([
+            'type' => 'App\Models\Gift',
+            'modal_id' => $request->modal_id,
+            'supplier_id' => $request->supplier_id,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'expiry_date' => $request->expiry_date
+        ]);
+
+
+        $item->save();
+
+        // getting id from purchase table for ItemStocks      
+
+        // Create for Stocks
+        $stock = new ItemStock([
+            'purchase_id' => $item->id,
+            'expiry_date' => $request->expiry_date,
+            'quantity' => $request->quantity,
+        ]);
+
+        $stock->save();
+
+        // redirect to the route 
+        return redirect()->route('item-index');
     }
 
     /**
@@ -122,8 +168,24 @@ class PurchaseController extends Controller
 
     public function material()
     {
-        $raw_material = RawMaterial::all();
+        $masters = RawMaterial::all();
         $suppilers = Suppliers::all();
-        return view('admin.purchase.purchase-raw-material', compact('raw_material', 'suppilers'));
+        $label = "Raw Material";
+        $route = route('purchase.materialStore');
+        return view('admin.purchase.purchase-master', compact('label', 'route', 'masters', 'suppilers'));
+    }
+
+    public function item()
+    {
+        $masters = Gift::all();
+        $suppilers = Suppliers::all();
+        $label = "Item";
+        $route = route('purchase.itemStore');
+        return view('admin.purchase.purchase-master')->with([
+            'label' => $label,
+            'route' => $route,
+            'masters' => $masters,
+            'suppilers' => $suppilers
+        ]);
     }
 }

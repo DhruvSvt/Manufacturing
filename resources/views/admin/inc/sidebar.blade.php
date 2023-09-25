@@ -229,8 +229,8 @@
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="#" :class="page === 'gifts' && '!text-white'">
-                                        Gifts
+                                        href="{{ route('purchase-item') }}" :class="page === 'gifts' && '!text-white'">
+                                        Item
                                     </a>
                                 </li>
                                 <li>

@@ -21,4 +21,8 @@ class Purchase extends Model
     {
         return $this->belongsTo(RawMaterial::class);
     }
+
+    public function modal(){
+        return $this->belongsTo($this->type) ?? '';
+    }
 }

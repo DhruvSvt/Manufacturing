@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('purchase', function (Blueprint $table) {
+        Schema::create('item_stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('type')->nullable(); //App\Models\RawMaterial, App\Models\Item [material,item]
-            $table->string('modal_id')->nullable();
-            $table->string('supplier_id')->nullable();
-            $table->string('quantity')->nullable();
-            $table->string('price')->nullable();
+            $table->string('purchase_id')->nullable();
             $table->date('expiry_date')->nullable();
+            $table->enum('type',['DEBIT','CREDIT'])->nullable();
+            $table->string('quantity')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase');
+        Schema::dropIfExists('item_stocks');
     }
 };

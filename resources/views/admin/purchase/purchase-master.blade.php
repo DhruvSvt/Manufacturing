@@ -1,4 +1,4 @@
-@extends('admin.layouts.app', ['title' => 'Purchase-Page'])
+@extends('admin.layouts.app', ['title' => 'Purchase '.$label])
 @section('content')
     <!-- ===== Main Content Start ===== -->
     <main>
@@ -6,23 +6,23 @@
             <!-- Breadcrumb Start -->
             <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
                 <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                    Purchase Raw Material
+                    Purchase {{ $label }}
                 </h2>
             </div>
-            <form action="{{ route('purchase.materialStore') }}" method="POST">
+            <form action="{{ $route }}" method="POST">
                 @csrf
                 <div class="p-6.5">
                     <div class="mb-4.5 flex flex-col gap-6 xl:flex-row">
                         <div class="w-full xl:w-1/2">
                             <label class="mb-2.5 block text-black dark:text-white">
-                                Raw Material Name <span class="text-meta-1">*</span>
+                                {{ $label }} Name <span class="text-meta-1">*</span>
                             </label>
                             <select
                                 class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                                 name="modal_id">
-                                <option value="">Choose raw-material name</option>
-                                @foreach ($raw_material as $rm)
-                                    <option value="{{ $rm->id }}">{{ $rm->name }}</option>
+                                <option value="">Choose {{ $label }} name</option>
+                                @foreach ($masters as $m)
+                                    <option value="{{ $m->id }}">{{ $m->name }}</option>
                                 @endforeach
                             </select>
                             @error('modal_id')
