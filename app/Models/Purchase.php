@@ -12,14 +12,19 @@ class Purchase extends Model
         'modal_id',
         'supplier_id',
         'quantity',
-        'price',  
-        'expiry_date',  
+        'price',
+        'expiry_date',
     ];
     use HasFactory;
 
     public function raw_material()
     {
-        return $this->belongsTo(RawMaterial::class);
+        return $this->belongsTo(RawMaterial::class,'modal_id');
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Gift::class,'modal_id');
     }
 
     public function modal(){

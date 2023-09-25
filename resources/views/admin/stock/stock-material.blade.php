@@ -1,4 +1,4 @@
-@extends('admin.layouts.app', ['title' => $label . 'Stocks'])
+@extends('admin.layouts.app', ['title' => $label . ' Stocks'])
 @section('content')
     <!-- ===== Main Content Start ===== -->
     <main>
@@ -6,7 +6,7 @@
             <!-- Breadcrumb Start -->
             <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
                 <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                    Available  {{ $label  }} Stocks
+                    Available {{ $label }} Stocks
                 </h2>
             </div>
 
@@ -41,21 +41,25 @@
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">S.no</th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">{{ $label }} Name</th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Purchasing Date</th>
-                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Available {{ $label }}</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Available {{ $label }}
+                                            </th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Expiry Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($master as $key=> $m)
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($master->sortBy('expiry_date') as $key => $m)
                                             <tr>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $key+1 }}.
+                                                        {{ $i++ }})
                                                     </p>
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{-- {{ $m->quantity }} --}}Name
+                                                        {{ $m->purchase->raw_material->name }}
                                                     </p>
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
@@ -71,11 +75,18 @@
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
                                                         {{ $m->expiry_date }}
+                                                        @if (\Carbon\Carbon::parse($m->expiry_date)->lte(\Carbon\Carbon::now()))
+                                                            <span class="text-meta-1">expired</span>
+                                                        @elseif (\Carbon\Carbon::parse($m->expiry_date)->diffInDays(\Carbon\Carbon::now()) <= 30)
+                                                            <span class="text-meta-1"
+                                                                style="color: orange !important;">expiring soon</span>
+                                                        @endif
                                                     </p>
                                                 </td>
                                             </tr>
                                         @endforeach
-                                       
+
+
                                     </tbody>
                                 </table>
                             </div>

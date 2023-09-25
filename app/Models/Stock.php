@@ -9,9 +9,14 @@ class Stock extends Model
 {
     protected $fillable = [
         'purchase_id',
-        'quantity',  
-        'type',  
-        'expiry_date',  
+        'quantity',
+        'type',
+        'expiry_date',
     ];
     use HasFactory;
+
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class);
+    }
 }
