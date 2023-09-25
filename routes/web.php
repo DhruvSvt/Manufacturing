@@ -82,14 +82,17 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::get('/material/index',[PurchaseController::class,'material_index'])->name('material-index');
     Route::post('/purchase/material/store', [PurchaseController::class, 'materialStore'])->name('purchase.materialStore');
-    
+
     Route::get('/item/index',[PurchaseController::class,'item_index'])->name('item-index');
     Route::post('/purchase/item/store', [PurchaseController::class, 'itemStore'])->name('purchase.itemStore');
-    
+
     Route::get('purchase/item',[PurchaseController::class,'item'])->name('purchase-item');
     Route::get('/purchase/material',[PurchaseController::class,'material'])->name('purchase-material');
 
     Route::get('stocks/material',[StocksController::class,'material_index'])->name('material-stock');
+    Route::get('stocks/item',[StocksController::class,'item_index'])->name('item-stock');
+
+    Route::get('stocks/details',[StocksController::class,'stock_details'])->name('stock-details');
 
     Route::get('/signin', function () {
         return view('admin.signin');

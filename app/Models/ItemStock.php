@@ -13,5 +13,10 @@ class ItemStock extends Model
         'type',
         'expiry_date',
     ];
+
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class);
+    }
     use HasFactory;
 }
