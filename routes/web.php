@@ -86,11 +86,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/item/index',[PurchaseController::class,'item_index'])->name('item-index');
     Route::post('/purchase/item/store', [PurchaseController::class, 'itemStore'])->name('purchase.itemStore');
 
-    Route::get('purchase/item',[PurchaseController::class,'item'])->name('purchase-item');
     Route::get('/purchase/material',[PurchaseController::class,'material'])->name('purchase-material');
+    Route::get('purchase/item',[PurchaseController::class,'item'])->name('purchase-item');
 
     Route::get('stocks/material',[StocksController::class,'material_index'])->name('material-stock');
     Route::get('stocks/item',[StocksController::class,'item_index'])->name('item-stock');
+    
+    Route::get('stocks/material/detail',[StocksController::class,'material_detail'])->name('material-detail');
+    Route::get('stocks/material/detail/{id}',[StocksController::class,'material_detail_id'])->name('material-detail-id');
+    // Route::get('stocks/item',[StocksController::class,'item_index'])->name('item-stock');
 
     Route::get('stocks/details',[StocksController::class,'stock_details'])->name('stock-details');
 

@@ -13,10 +13,13 @@ class Stock extends Model
         'type',
         'expiry_date',
     ];
-    use HasFactory;
-
+   
     public function purchase()
     {
         return $this->belongsTo(Purchase::class);
+        // return $this->morphMany(Purchase::class, 'commentable');
     }
+
+    use HasFactory;
+
 }

@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Gift;
 use App\Models\ItemStock;
+use App\Models\MaterialStock;
 use App\Models\Purchase;
 use App\Models\RawMaterial;
-use App\Models\Stock;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
 
@@ -71,8 +71,9 @@ class PurchaseController extends Controller
         // getting id from purchase table for stocks      
 
         // Create for Stocks
-        $stock = new Stock([
+        $stock = new MaterialStock([
             'purchase_id' => $purchase->id,
+            'raw_material_id' => $request->modal_id,
             'expiry_date' => $request->expiry_date,
             'quantity' => $request->quantity,
         ]);

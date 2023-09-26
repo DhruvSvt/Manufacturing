@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ItemStock;
+use App\Models\MaterialStock;
 use App\Models\RawMaterial;
 use App\Models\Stock;
 use Carbon\Carbon;
@@ -14,7 +15,7 @@ class StocksController extends Controller
     {
 
         //  Raw Material Information
-        $raw_material = Stock::all();
+        $raw_material = MaterialStock::all();
         $total_raw_material = 0;
         foreach ($raw_material as $rm) {
             if (\Carbon\Carbon::parse($rm->expiry_date)->gt(\Carbon\Carbon::now())) {
@@ -36,7 +37,7 @@ class StocksController extends Controller
     public function material_index()
     {
         $label = 'Raw Material';
-        $master = Stock::all();
+        $master = MaterialStock::all();
         return view('admin.stock.stock-material',)->with([
             'label' => $label,
             'master' => $master,
@@ -51,5 +52,34 @@ class StocksController extends Controller
             'label' => $label,
             'master' => $master,
         ]);
+    }
+
+    public function material_detail()
+    {
+        $label = 'Raw Material';
+        // $check_expiring = MaterialStock::all();
+        $check_expiring = MaterialStock::groupBy('raw_material_id')
+            ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
+            ->where('expiry_date', '<=', \Carbon\Carbon::now())
+            ->get();
+        $master = MaterialStock::groupBy('raw_material_id')
+            ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
+            ->where('expiry_date', '>', \Carbon\Carbon::now())
+            ->get();
+        return view('admin.stock.stock-material',)->with([
+            'label' => $label,
+            'master' => $master,
+            'check_expiring' => $check_expiring
+        ]);
+    }
+
+    public function material_detail_id($raw_material_id)
+    {
+        $label = 'Raw Material';
+
+        // Fetch entries with matching raw_material_id
+        $raw_materials = MaterialStock::where('raw_material_id', $raw_material_id)->get();
+
+        return view('admin.stock.stock-material-detail', compact('raw_materials', 'label'));
     }
 }

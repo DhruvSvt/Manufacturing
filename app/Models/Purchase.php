@@ -27,7 +27,11 @@ class Purchase extends Model
         return $this->belongsTo(Gift::class,'modal_id');
     }
 
-    public function modal(){
+    public function modal(){    
         return $this->belongsTo($this->type) ?? '';
+    }
+
+    public function commentable(){
+        return $this->morphTo();
     }
 }
