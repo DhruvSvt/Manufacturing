@@ -56,16 +56,19 @@ class StocksController extends Controller
 
     public function material_detail()
     {
-        $label = 'Raw Material';
-        // $check_expiring = MaterialStock::all();
+        $label = 'Raw Material';        
+        //for Right side table 
         $check_expiring = MaterialStock::groupBy('raw_material_id')
             ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
             ->where('expiry_date', '<=', \Carbon\Carbon::now())
             ->get();
+
+        //for Left side table 
         $master = MaterialStock::groupBy('raw_material_id')
             ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
             ->where('expiry_date', '>', \Carbon\Carbon::now())
             ->get();
+            
         return view('admin.stock.stock-material',)->with([
             'label' => $label,
             'master' => $master,

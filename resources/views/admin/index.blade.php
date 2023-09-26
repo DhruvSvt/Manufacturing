@@ -63,7 +63,7 @@
                             <h4 class="text-title-md font-bold text-black dark:text-white">
                                 45,2K
                             </h4>
-                            <span class="text-sm font-medium">Total Gifts</span>
+                            <span class="text-sm font-medium">Total Items</span>
                         </div>
 
                         <span class="flex items-center gap-1 text-sm font-medium text-meta-3">
