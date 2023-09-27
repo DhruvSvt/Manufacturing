@@ -72,7 +72,20 @@
                                                         <p class="text-sm font-medium text-black dark:text-white">
                                                             @foreach ($product->raw_material as $key => $item)
                                                                 {{ $key+1 }}.)
+                                                                {{ $item->name ?? '-' }} Qty:- {{ $item->qty ?? '-' }} {{ $product->raw_material->parent->short_name }}
+                                                                <br>
+                                                            @endforeach
+                                                        </p>
+                                                    @endif
+                                                    @if($product->raw_material && count($product->raw_material) > 0)
+                                                        <p class="text-sm font-medium text-black dark:text-white">
+                                                            @foreach ($product->raw_material as $key => $item)
+                                                                {{ $key+1 }}.)
                                                                 {{ $item->name ?? '-' }} Qty:- {{ $item->qty ?? '-' }}
+
+                                                                {{-- Access the parent relationship for each raw material item --}}
+                                                                {{ $item->parent->short_name ?? '-' }}
+
                                                                 <br>
                                                             @endforeach
                                                         </p>
