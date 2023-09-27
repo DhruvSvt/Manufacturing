@@ -320,10 +320,10 @@
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="#" :class="page === 'raw-material' && '!text-white'">
-                                        Raw Material
+                                        Create
                                     </a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="#" :class="page === 'gifts' && '!text-white'">
                                         Items
@@ -334,7 +334,7 @@
                                         href="#" :class="page === 'products' && '!text-white'">
                                         Products
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                         <!-- Dropdown Menu End -->
