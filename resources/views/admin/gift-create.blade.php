@@ -1,4 +1,4 @@
-@extends('admin.layouts.app', ['title' => 'Gift-Create'])
+@extends('admin.layouts.app', ['title' => 'Item-Create'])
 @section('content')
     <!-- ===== Form Area Start ===== -->
     <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

@@ -1,28 +1,21 @@
-@extends('admin.layouts.app',['title'=>'Item-Page'])
+@extends('admin.layouts.app', ['title' => $label . ' Stocks'])
 @section('content')
-
     <!-- ===== Main Content Start ===== -->
     <main>
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
             <!-- Breadcrumb Start -->
             <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
                 <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                    Top Items
+                    Available {{ $label }} Stocks
                 </h2>
             </div>
 
-            <div class=" flex flex-col sm:flex-row sm:items-center sm:justify-start">
-                <a href="{{ route('gift.create') }}">
-                    <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray m-3">
-                        Add Items
-                    </button>
-                </a>
-            </div>
             <!-- Breadcrumb End -->
             <div class="flex flex-col gap-5 md:gap-7 2xl:gap-10">
 
                 <!-- ====== Data Table Two Start -->
-                <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4">
+                <div
+                    class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4">
                     <div class="data-table-common data-table-two max-w-full overflow-x-auto">
                         <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                             <div class="datatable-top">
@@ -45,61 +38,55 @@
                                 <table class="table w-full table-auto datatable-table" id="dataTableTwo">
                                     <thead>
                                         <tr>
-                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Image</th>
-                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Name</th>
-                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Price</th>
-                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Unit</th>
-                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Status</th>
-                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Action</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">S.no</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">{{ $label }} Name</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Purchasing Date</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Available {{ $label }}
+                                            </th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Expiry Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($gifts as $gift)
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($master->sortBy('expiry_date') as $key => $m)
                                             <tr>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-                                                        <p class="text-sm font-medium text-black dark:text-white">
-                                                            @if($gift->image)
-                                                            <img src="{{ asset('storage/images/' . $gift->image) }}" style="width: 100px; height: 85px;">
-                                                            @else
-                                                            <span>No image found!</span>
-                                                            @endif
-                                                        </p>
-                                                    </div>
-                                                </td>
-                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $gift->name }}
+                                                        {{ $i++ }})
                                                     </p>
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $gift->price }}
+                                                        {{ $m->purchase->item->name }}
                                                     </p>
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $gift->parent ? $gift->parent->short_name : '-' }}
+                                                        {{ $m->created_at->format('d-m-Y') }}
                                                     </p>
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                                    <label class="relative inline-flex items-center cursor-pointer">
-                                                        <input type="checkbox" data-id="{{ $gift->id }}"
-                                                            name="status" class="js-switch"
-                                                            {{ $gift->status == 1 ? 'checked' : '' }} value=""
-                                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                                                    </label>
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $m->quantity }}
+                                                    </p>
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                                    <div class="flex items-center space-x-3.5">
-                                                        <a href="{{ route('gift.edit',$gift->id) }}">
-                                                            <i data-v-3d6d2adb="" title="Edit"
-                                                                class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
-                                                        </a>
-                                                    </div>
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $m->expiry_date }}
+                                                        @if (\Carbon\Carbon::parse($m->expiry_date)->lte(\Carbon\Carbon::now()))
+                                                            <span class="text-meta-1">expired</span>
+                                                        @elseif (\Carbon\Carbon::parse($m->expiry_date)->diffInDays(\Carbon\Carbon::now()) <= 30)
+                                                            <span class="text-meta-1"
+                                                                style="color: orange !important;">expiring soon</span>
+                                                        @endif
+                                                    </p>
                                                 </td>
                                             </tr>
                                         @endforeach
+
+
                                     </tbody>
                                 </table>
                             </div>
@@ -130,35 +117,4 @@
         </div>
     </main>
     <!-- ===== Main Content End ===== -->
-    <script>
-        let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-
-        elems.forEach(function(html) {
-            let switchery = new Switchery(html, {
-                size: 'small'
-            });
-        });
-
-        // Ajax Request
-        $(document).ready(function() {
-            $('.js-switch').change(function() {
-                let status = $(this).prop('checked') === true ? 1 : 0;
-                let giftId = $(this).data('id');
-                $.ajax({
-                    type: "POST", // Change this to POST
-                    dataType: "json",
-                    url: '{{ route('gift.status') }}',
-                    data: {
-                        '_token': '{{ csrf_token() }}', // Add the CSRF token
-                        'status': status,
-                        'gift_id': giftId
-                    },
-                    success: function(data) {
-                        console.log(data.message);
-                    }
-                });
-            });
-        });
-    </script>
-
 @endsection

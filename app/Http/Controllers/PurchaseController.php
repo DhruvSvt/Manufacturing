@@ -112,6 +112,7 @@ class PurchaseController extends Controller
         // Create for Stocks
         $stock = new ItemStock([
             'purchase_id' => $item->id,
+            'item_id' =>  $request->modal_id,
             'expiry_date' => $request->expiry_date,
             'quantity' => $request->quantity,
         ]);

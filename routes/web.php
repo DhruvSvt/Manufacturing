@@ -94,6 +94,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     
     Route::get('stocks/material/detail',[StocksController::class,'material_detail'])->name('material-detail');
     Route::get('stocks/material/detail/{id}',[StocksController::class,'material_detail_id'])->name('material-detail-id');
+
+    Route::get('stocks/item/detail',[StocksController::class,'item_detail'])->name('item-detail');
+    Route::get('stocks/material/item/{id}',[StocksController::class,'item_detail_id'])->name('item-detail-id');
     // Route::get('stocks/item',[StocksController::class,'item_index'])->name('item-stock');
 
     Route::get('stocks/details',[StocksController::class,'stock_details'])->name('stock-details');
