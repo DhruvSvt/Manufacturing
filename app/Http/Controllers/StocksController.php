@@ -56,19 +56,19 @@ class StocksController extends Controller
 
     public function material_detail()
     {
-        $label = 'Raw Material';        
-        //for Right side table 
+        $label = 'Raw Material';
+        //for Right side table
         $check_expiring = MaterialStock::groupBy('raw_material_id')
             ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
             ->where('expiry_date', '<=', \Carbon\Carbon::now())
             ->get();
 
-        //for Left side table 
+        //for Left side table
         $master = MaterialStock::groupBy('raw_material_id')
             ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
             ->where('expiry_date', '>', \Carbon\Carbon::now())
             ->get();
-            
+
         return view('admin.stock.stock-material',)->with([
             'label' => $label,
             'master' => $master,
@@ -88,33 +88,33 @@ class StocksController extends Controller
 
     public function item_detail()
     {
-        $label = 'Item';        
-        //for Right side table 
+        $label = 'Item';
+        //for Right side table
         $check_expiring = ItemStock::groupBy('item_id')
             ->selectRaw('sum(quantity) as total_quantity, item_id')
             ->where('expiry_date', '<=', \Carbon\Carbon::now())
             ->get();
 
-        //for Left side table 
+        //for Left side table
         $master = ItemStock::groupBy('item_id')
             ->selectRaw('sum(quantity) as total_quantity, item_id')
             ->where('expiry_date', '>', \Carbon\Carbon::now())
             ->get();
-            
-        return view('admin.stock.stock-material',)->with([
+
+        return view('admin.stock.stock-item',)->with([
             'label' => $label,
             'master' => $master,
             'check_expiring' => $check_expiring
         ]);
     }
 
-    public function item_detail_id($raw_material_id)
+    public function item_detail_id($item_id)
     {
         $label = 'Item';
 
         // Fetch entries with matching raw_material_id
-        $raw_materials = MaterialStock::where('item_id', $raw_material_id)->get();
+        $items = ItemStock::where('item_id', $item_id)->get();
 
-        return view('admin.stock.stock-material-detail', compact('raw_materials', 'label'));
+        return view('admin.stock.stock-item-detail', compact('items', 'label'));
     }
 }

@@ -50,7 +50,7 @@
                                         @php
                                             $i = 1;
                                         @endphp
-                                        @foreach ($master->sortBy('expiry_date') as $key => $m)
+                                        @foreach ($items->sortBy('expiry_date') as $key => $item)
                                             <tr>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
@@ -59,25 +59,25 @@
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $m->purchase->item->name }}
+                                                        {{ $item->item->name }}
                                                     </p>
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $m->created_at->format('d-m-Y') }}
+                                                        {{ $item->created_at->format('d-m-Y') }}
                                                     </p>
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $m->quantity }}
+                                                        {{ $item->quantity }} {{ $item->item->parent->short_name }}
                                                     </p>
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $m->expiry_date }}
-                                                        @if (\Carbon\Carbon::parse($m->expiry_date)->lte(\Carbon\Carbon::now()))
+                                                        {{ $item->expiry_date }}
+                                                        @if (\Carbon\Carbon::parse($item->expiry_date)->lte(\Carbon\Carbon::now()))
                                                             <span class="text-meta-1">expired</span>
-                                                        @elseif (\Carbon\Carbon::parse($m->expiry_date)->diffInDays(\Carbon\Carbon::now()) <= 30)
+                                                        @elseif (\Carbon\Carbon::parse($item->expiry_date)->diffInDays(\Carbon\Carbon::now()) <= 30)
                                                             <span class="text-meta-1"
                                                                 style="color: orange !important;">expiring soon</span>
                                                         @endif

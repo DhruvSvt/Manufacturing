@@ -53,19 +53,17 @@
                                                 <tr>
                                                     <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                         <p class="text-sm font-medium text-black dark:text-white">
-                                                            {{ $m->raw_material->name }}
+                                                            {{ $m->item->name }}
                                                         </p>
                                                     </td>
                                                     <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                         <p class="text-sm font-medium text-black dark:text-white">
-                                                            {{ $m->total_quantity }}
-                                                            {{ $m->raw_material->parent->short_name }}
+                                                            {{ $m->total_quantity }} {{ $m->item->parent->short_name }}
                                                         </p>
                                                     </td>
                                                     <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                         <p class="text-sm font-medium text-black dark:text-white">
-                                                            <a
-                                                                href="{{ route('item-detail-id', $m->raw_material_id) }}">
+                                                            <a href="{{ route('item-detail-id', $m->item_id) }}">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
                                                         </p>
@@ -127,7 +125,7 @@
                                                 </th>
                                                 <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Wasted Qunatity
                                                 </th>
-                                                <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Expiry Date</th>
+                                                <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Expiry Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -135,13 +133,12 @@
                                                 <tr>
                                                     <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                         <p class="text-sm font-medium text-black dark:text-white">
-                                                            {{ $ce->raw_material->name }}
+                                                            {{ $ce->item->name }}
                                                         </p>
                                                     </td>
                                                     <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                         <p class="text-sm font-medium text-black dark:text-white">
-                                                            {{ $ce->total_quantity }}
-                                                            {{ $ce->raw_material->parent->short_name }}
+                                                            {{ $ce->total_quantity }} {{ $m->item->parent->short_name }}
                                                         </p>
                                                     </td>
                                                     <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">

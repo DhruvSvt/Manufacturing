@@ -14,5 +14,12 @@ class ItemStock extends Model
         'type',
         'expiry_date',
     ];
+
+    public function item()
+    {
+        return $this->belongsTo(Gift::class,'item_id');
+    }
+
+    
     use HasFactory;
 }
