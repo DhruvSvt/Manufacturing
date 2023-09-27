@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductionCreateController;
 use App\Http\Controllers\StocksController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UnitController;
@@ -89,9 +90,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/purchase/material',[PurchaseController::class,'material'])->name('purchase-material');
     Route::get('purchase/item',[PurchaseController::class,'item'])->name('purchase-item');
 
+    // stocks routes
     Route::get('stocks/material',[StocksController::class,'material_index'])->name('material-stock');
     Route::get('stocks/item',[StocksController::class,'item_index'])->name('item-stock');
-    
+
     Route::get('stocks/material/detail',[StocksController::class,'material_detail'])->name('material-detail');
     Route::get('stocks/material/detail/{id}',[StocksController::class,'material_detail_id'])->name('material-detail-id');
 
@@ -100,6 +102,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // Route::get('stocks/item',[StocksController::class,'item_index'])->name('item-stock');
 
     Route::get('stocks/details',[StocksController::class,'stock_details'])->name('stock-details');
+
+    // production routes
+    Route::get('production/create',[ProductionCreateController::class,'create'])->name('production-create');
+    Route::post('production/store',[ProductionCreateController::class,'store'])->name('production.store');
 
     Route::get('/signin', function () {
         return view('admin.signin');
