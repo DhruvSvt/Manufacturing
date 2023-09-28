@@ -11,7 +11,7 @@
             @csrf
             <div class="p-6.5">
                 <div class=" w-full flex mb-4.5 flex gap-6 xl:flex-row">
-                    <div class="mb-4.5 w-1/2">
+                    <div class="w-1/2">
                         <label class="mb-2.5 block text-black dark:text-white">
                             Choose Product
                         </label>
@@ -63,6 +63,26 @@
                 Submit
             </button>
         </form>
+        @if (Session::has('success'))
+            <script>
+                swal("Success", "{{ Session::get('success') }}", 'success', {
+                    buttons: {
+                        confirm: "OK",
+                    },
+                });
+            </script>
+        @endif
+
+        @if (Session::has('error'))
+            <script>
+                swal("Error", "{{ Session::get('error') }}", 'error', {
+                    buttons: {
+                        confirm: "OK",
+                    },
+                });
+            </script>
+        @endif
+
     </div>
 
     <!-- ===== Form Area End ===== -->
