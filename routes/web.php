@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
+
     return redirect(route('admin-index'));
 })->middleware('auth');
 
@@ -91,7 +92,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::get('stocks/material',[StocksController::class,'material_index'])->name('material-stock');
     Route::get('stocks/item',[StocksController::class,'item_index'])->name('item-stock');
-    
+
     Route::get('stocks/material/detail',[StocksController::class,'material_detail'])->name('material-detail');
     Route::get('stocks/material/detail/{id}',[StocksController::class,'material_detail_id'])->name('material-detail-id');
 
