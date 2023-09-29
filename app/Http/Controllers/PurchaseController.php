@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Gift;
 use App\Models\ItemStock;
 use App\Models\MaterialStock;
+use App\Models\Product;
+use App\Models\ProductStock;
 use App\Models\Purchase;
 use App\Models\RawMaterial;
 use App\Models\Suppliers;
@@ -39,6 +41,42 @@ class PurchaseController extends Controller
         //
     }
 
+    public function material()
+    {
+        $masters = RawMaterial::all();
+        $suppilers = Suppliers::all();
+        $label = "Raw Material";
+        $route = route('purchase.materialStore');
+        return view('admin.purchase.purchase-master', compact('label', 'route', 'masters', 'suppilers'));
+    }
+
+    public function item()
+    {
+        $masters = Gift::all();
+        $suppilers = Suppliers::all();
+        $label = "Item";
+        $route = route('purchase.itemStore');
+        return view('admin.purchase.purchase-master')->with([
+            'label' => $label,
+            'route' => $route,
+            'masters' => $masters,
+            'suppilers' => $suppilers
+        ]);
+    }
+    public function product()
+    {
+        $masters = Product::all();
+        $suppilers = Suppliers::all();
+        $label = "Product";
+        $route = route('purchase.productStore');
+        // $route = route('purchase.productStore');
+        return view('admin.purchase.purchase-master')->with([
+            'label' => $label,
+            'route' => $route,
+            'masters' => $masters,
+            'suppilers' => $suppilers
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -81,7 +119,7 @@ class PurchaseController extends Controller
         $stock->save();
 
         // redirect to the route 
-        return redirect()->route('material-index');
+        return redirect()->back()->with('success','Successfully Purchased !!');
     }
     public function itemStore(Request $request)
     {
@@ -120,7 +158,46 @@ class PurchaseController extends Controller
         $stock->save();
 
         // redirect to the route 
-        return redirect()->route('item-index');
+        return redirect()->back()->with('success','Successfully Purchased !!');
+    }
+    public function productStore(Request $request)
+    {
+        $request->validate([
+            'modal_id' => 'required',
+            'supplier_id' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
+            'expiry_date' => 'required'
+        ]);
+
+
+        // Create for Purchase
+        $product = new Purchase([
+            'type' => 'App\Models\Product',
+            'modal_id' => $request->modal_id,
+            'supplier_id' => $request->supplier_id,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'expiry_date' => $request->expiry_date
+        ]);
+
+
+        $product->save();
+
+        // getting id from purchase table for ProductStocks      
+
+        // Create for Stocks
+        $stock = new ProductStock([
+            'purchase_id' => $product->id,
+            'product_id' =>  $request->modal_id,
+            'expiry_date' => $request->expiry_date,
+            'quantity' => $request->quantity,
+        ]);
+
+        $stock->save();
+
+        // redirect to the route 
+        return redirect()->back()->with('success','Successfully Purchased !!');
     }
 
     /**
@@ -166,28 +243,5 @@ class PurchaseController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function material()
-    {
-        $masters = RawMaterial::all();
-        $suppilers = Suppliers::all();
-        $label = "Raw Material";
-        $route = route('purchase.materialStore');
-        return view('admin.purchase.purchase-master', compact('label', 'route', 'masters', 'suppilers'));
-    }
-
-    public function item()
-    {
-        $masters = Gift::all();
-        $suppilers = Suppliers::all();
-        $label = "Item";
-        $route = route('purchase.itemStore');
-        return view('admin.purchase.purchase-master')->with([
-            'label' => $label,
-            'route' => $route,
-            'masters' => $masters,
-            'suppilers' => $suppilers
-        ]);
     }
 }

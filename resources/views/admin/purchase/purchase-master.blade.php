@@ -1,4 +1,4 @@
-@extends('admin.layouts.app', ['title' => 'Purchase '.$label])
+@extends('admin.layouts.app', ['title' => 'Purchase ' . $label])
 @section('content')
     <!-- ===== Main Content Start ===== -->
     <main>
@@ -93,6 +93,15 @@
                     Submit
                 </button>
             </form>
+            @if (Session::has('success'))
+                <script>
+                    swal("Success", "{{ Session::get('success') }}", 'success', {
+                        buttons: {
+                            confirm: "OK",
+                        },
+                    });
+                </script>
+            @endif
         </div>
     </main>
     <!-- ===== Main Content End ===== -->

@@ -82,14 +82,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/product/fetch-raw-materials', [ProductController::class, 'rawMaterials'])->name('product.raw-materials');
     Route::post('/product/status', [ProductController::class, 'status'])->name('product.status');
 
-    Route::get('/material/index',[PurchaseController::class,'material_index'])->name('material-index');
-    Route::post('/purchase/material/store', [PurchaseController::class, 'materialStore'])->name('purchase.materialStore');
+    // Purchase routes
 
-    Route::get('/item/index',[PurchaseController::class,'item_index'])->name('item-index');
-    Route::post('/purchase/item/store', [PurchaseController::class, 'itemStore'])->name('purchase.itemStore');
-
+    
     Route::get('/purchase/material',[PurchaseController::class,'material'])->name('purchase-material');
     Route::get('purchase/item',[PurchaseController::class,'item'])->name('purchase-item');
+    Route::get('purchase/product',[PurchaseController::class,'product'])->name('purchase-product');
+
+    Route::post('/purchase/material/store', [PurchaseController::class, 'materialStore'])->name('purchase.materialStore');
+    Route::post('/purchase/item/store', [PurchaseController::class, 'itemStore'])->name('purchase.itemStore');
+    Route::post('purchase/product/store',[PurchaseController::class,'productStore'])->name('purchase.productStore');
 
     // stocks routes
     Route::get('stocks/material',[StocksController::class,'material_index'])->name('material-stock');
