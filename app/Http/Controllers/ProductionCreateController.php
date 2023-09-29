@@ -23,7 +23,6 @@ class ProductionCreateController extends Controller
 
     }
 
-
     public function store(Request $request)
     {
         // Getting raw material stock 
@@ -60,14 +59,15 @@ class ProductionCreateController extends Controller
                 ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
                 ->first();
 
-            if (!isset($rmStock) && $rmStock->total_quantity < $actual_qty) {
+
+            if (!isset($rmStock) || $rmStock->total_quantity < $actual_qty) {
                 $canProduce = false;
                 break; // Stop checking other materials if one is not available
             }
         }
 
         if ($canProduce) {
-            // $production->save();
+            $production->save();
 
             // Update the raw material stock
             try {
