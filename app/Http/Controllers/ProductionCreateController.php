@@ -62,6 +62,8 @@ class ProductionCreateController extends Controller
 
             if (!isset($rmStock) || $rmStock->total_quantity < $actual_qty) {
                 $canProduce = false;
+                
+                // return $needQuantiy;
                 break; // Stop checking other materials if one is not available
             }
         }
@@ -99,7 +101,11 @@ class ProductionCreateController extends Controller
                 return redirect()->back()->with('error', 'Error updating stock: ' . $e->getMessage());
             }
         } else {
-            return redirect()->back()->with('error', 'Insufficient raw material stock to complete production.');
+            $needQuantity = $actual_qty - $rmStock->total_quantity;
+            return redirect()->back()->with([
+                'error' => 'Insufficient raw material stock to complete production.',
+                'needQuantity' => $needQuantity
+            ]);
         }
     }
 }

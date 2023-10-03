@@ -164,7 +164,8 @@
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('product.index') }}" :class="page === 'settings' && '!text-white'">
+                                        href="{{ route('product.index') }}"
+                                        :class="page === 'settings' && '!text-white'">
                                         Products
                                     </a>
                                 </li>
@@ -181,7 +182,7 @@
                             href="#" @click.prevent="selected = (selected === 'Purchase' ? '':'Purchase')"
                             :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Purchase') || (page === 'raw-material' ||
-                                    page === 'gifts' || page === 'products')
+                                    page === 'gifts' || page === 'products' || page === 'others')
                             }">
                             {{-- <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -229,14 +230,22 @@
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('purchase-item') }}" :class="page === 'gifts' && '!text-white'">
-                                        Item
+                                        href="{{ route('purchase-product') }}"
+                                        :class="page === 'products' && '!text-white'">
+                                        Finnish Goods
                                     </a>
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('purchase-product') }}" :class="page === 'products' && '!text-white'">
-                                        Products
+                                        href="{{ route('purchase-item') }}"
+                                        :class="page === 'gifts' && '!text-white'">
+                                        Gift
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="#" :class="page === 'others' && '!text-white'">
+                                        Others
                                     </a>
                                 </li>
                             </ul>
@@ -253,8 +262,7 @@
                             :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Stocks') || (page === 'raw-material' ||
                                     page === 'gifts' || page === 'products')
-                            }"
-                            >
+                            }">
                             <i class="fa-solid fa-warehouse"></i>
                             Stocks
                             <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
@@ -272,7 +280,8 @@
                             <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
                                     <a class="group relative flex items--center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('material-detail') }}" :class="page === 'raw-material' && '!text-white'">
+                                        href="{{ route('material-detail') }}"
+                                        :class="page === 'raw-material' && '!text-white'">
                                         Raw Material
                                     </a>
                                 </li>
@@ -319,7 +328,8 @@
                             <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('production-create') }}" :class="page === 'raw-material' && '!text-white'">
+                                        href="{{ route('production-create') }}"
+                                        :class="page === 'raw-material' && '!text-white'">
                                         Create
                                     </a>
                                 </li>
