@@ -10,8 +10,8 @@
         <form action="{{ route('production.store') }}" method="POST">
             @csrf
             <div class="p-6.5">
-                <div class=" w-full flex mb-4.5 flex gap-6 xl:flex-row">
-                    <div class="w-1/2">
+                <div class="w-full flex flex-col gap-4.5 xl:flex-row">
+                    <div class="w-full xl:w-1/2">
                         <label class="mb-2.5 block text-black dark:text-white">
                             Choose Product
                         </label>
@@ -19,7 +19,7 @@
                             <select
                                 class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                                 name="product">
-                                <option selected>-- None --</option>    
+                                <option selected>-- None --</option>
                                 @foreach ($products as $product)
                                     <option value="{{ $product->id }}">{{ $product->name }}</option>
                                 @endforeach
@@ -36,7 +36,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="w-1/2 xl:w-1/2">
+                    <div class="w-full xl:w-1/2">
                         <label class="mb-2.5 block text-black dark:text-white">
                             Quantity <span class="text-meta-1">*</span>
                         </label>
@@ -46,8 +46,7 @@
                             <p class="text-red-500 mt-2">{{ $message }}</p>
                         @enderror
                     </div>
-
-                    <div class="w-1/2 xl:w-1/2">
+                    <div class="w-full xl:w-1/2">
                         <label class="mb-2.5 block text-black dark:text-white">
                             Batch No. <span class="text-meta-1">*</span>
                         </label>
@@ -59,6 +58,7 @@
                     </div>
                 </div>
             </div>
+
             <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray m-5">
                 Submit
             </button>
@@ -85,10 +85,6 @@
                 });
             </script>
         @endif
-
-
-
-
     </div>
 
     <!-- ===== Form Area End ===== -->
