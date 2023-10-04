@@ -13,10 +13,10 @@
             <!-- Breadcrumb End -->
             <div class="flex flex-col gap-5 md:gap-7 2xl:gap-10">
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="sm:grid grid-cols-2 gap-4">
                     <!-- ====== Data Table One Start -->
                     <div
-                        class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4">
+                        class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4 mb-6">
                         <div class="data-table-common data-table-two max-w-full overflow-x-auto">
                             <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                                 <div class="datatable-top">

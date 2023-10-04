@@ -30,7 +30,7 @@
             </button>
             <!-- Hamburger Toggle BTN -->
             <a class="block flex-shrink-0 lg:hidden" href="index.html">
-                <img src="src/images/logo/logo-icon.svg" alt="Logo" />
+                <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="Logo" style="width:100px"  />
             </a>
         </div>
 
