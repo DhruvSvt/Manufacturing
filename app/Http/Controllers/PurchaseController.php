@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Gift;
 use App\Models\ItemStock;
 use App\Models\MaterialStock;
+use App\Models\Other;
 use App\Models\Product;
 use App\Models\ProductStock;
 use App\Models\Purchase;
@@ -74,6 +75,19 @@ class PurchaseController extends Controller
             'label' => $label,
             'route' => $route,
             'masters' => $masters,
+            'suppilers' => $suppilers
+        ]);
+    }
+
+    public function other()
+    {
+        $suppilers = Suppliers::all();
+        $label = "Other";
+        $route = route('purchase.otherStore');
+        // $route = route('purchase.productStore');
+        return view('admin.purchase.purchase-other')->with([
+            'label' => $label,
+            'route' => $route,
             'suppilers' => $suppilers
         ]);
     }
@@ -196,6 +210,43 @@ class PurchaseController extends Controller
         ]);
 
         $stock->save();
+
+        // redirect to the route 
+        return redirect()->back()->with('success','Successfully Purchased !!');
+    }
+    public function otherStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'supplier_id' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
+            'expiry_date' => 'required'
+        ]);
+
+        // Create for Purchase
+        $other = new Other([
+            'name' => $request->name,
+            'supplier_id' => $request->supplier_id,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'remark' => $request->remark,
+            'expiry_date' => $request->expiry_date
+        ]);
+
+        $other->save();
+
+        // getting id from purchase table for ProductStocks      
+
+        // Create for Stocks
+        // $stock = new ProductStock([
+        //     'purchase_id' => $other->id,
+        //     'product_id' =>  $request->modal_id,
+        //     'expiry_date' => $request->expiry_date,
+        //     'quantity' => $request->quantity,
+        // ]);
+
+        // $stock->save();
 
         // redirect to the route 
         return redirect()->back()->with('success','Successfully Purchased !!');
