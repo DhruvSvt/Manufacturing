@@ -140,13 +140,13 @@
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('unit') }}" :class="page === 'settings' && '!text-white'">
-                                        Unit
+                                        Raw Material Unit
                                     </a>
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('supplier') }}" :class="page === 'settings' && '!text-white'">
-                                        Suppliers
+                                        Party Name
                                     </a>
                                 </li>
                                 <li>

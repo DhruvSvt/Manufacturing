@@ -29,8 +29,8 @@
                 </span>
             </button>
             <!-- Hamburger Toggle BTN -->
-            <a class="block flex-shrink-0 lg:hidden" href="index.html">
-                <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="Logo" style="width:100px" />
+            <a class="block flex-shrink-0 lg:hidden" href="{{ route('admin-index') }}">
+                <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="Logo" style="width:72px" />
             </a>
         </div>
 
