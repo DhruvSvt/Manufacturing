@@ -101,6 +101,7 @@ class PurchaseController extends Controller
             'supplier_id' => $request->supplier_id,
             'quantity' => $request->quantity,
             'price' => $request->price,
+            'remark' => $request->remark,
             'expiry_date' => $request->expiry_date
         ]);
 

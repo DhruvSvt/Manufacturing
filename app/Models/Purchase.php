@@ -13,6 +13,7 @@ class Purchase extends Model
         'supplier_id',
         'quantity',
         'price',
+        'remark',
         'expiry_date',
     ];
     use HasFactory;

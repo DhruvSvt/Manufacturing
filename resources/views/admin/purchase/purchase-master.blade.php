@@ -89,6 +89,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="p-6.5">
+                    <div class="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                        <div class="w-full xl:w-1/2">
+                            <label class="mb-2.5 block text-black dark:text-white">
+                                Remark
+                            </label>
+                           <textarea name="remark" rows="4" cols="50"
+                                class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></textarea>
+                            @error('remark')
+                                <p class="text-red-500 mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
                 <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray m-5">
                     Submit
                 </button>
