@@ -84,7 +84,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Purchase routes
 
-    
+
     Route::get('/purchase/material',[PurchaseController::class,'material'])->name('purchase-material');
     Route::get('purchase/item',[PurchaseController::class,'item'])->name('purchase-item');
     Route::get('purchase/product',[PurchaseController::class,'product'])->name('purchase-product');
@@ -123,6 +123,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/table', function () {
         return view('admin.tables');
     })->name('table');
+
+    Route::get('/chart/material',function(){
+        return view('admin.reports.report-material');
+    })->name('material-chart');
 });
 
 
