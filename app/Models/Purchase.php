@@ -11,6 +11,7 @@ class Purchase extends Model
         'type',
         'modal_id',
         'supplier_id',
+        'brand',
         'quantity',
         'price',
         'remark',
@@ -28,7 +29,7 @@ class Purchase extends Model
         return $this->belongsTo(Gift::class,'modal_id');
     }
 
-    public function modal(){    
+    public function modal(){
         return $this->belongsTo($this->type) ?? '';
     }
 

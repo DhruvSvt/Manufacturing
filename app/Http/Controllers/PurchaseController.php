@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Gift;
 use App\Models\ItemStock;
 use App\Models\MaterialStock;
@@ -45,15 +46,23 @@ class PurchaseController extends Controller
     public function material()
     {
         $masters = RawMaterial::all();
+        $brand = Brand::all();
         $suppilers = Suppliers::all();
         $label = "Raw Material";
         $route = route('purchase.materialStore');
-        return view('admin.purchase.purchase-master', compact('label', 'route', 'masters', 'suppilers'));
+        return view('admin.purchase.purchase-master')->with([
+            'label' => $label,
+            'route' => $route,
+            'masters' => $masters,
+            'suppilers' => $suppilers,
+            'brand' => $brand
+        ]);
     }
 
     public function item()
     {
         $masters = Gift::all();
+        $brand = Brand::all();
         $suppilers = Suppliers::all();
         $label = "Item";
         $route = route('purchase.itemStore');
@@ -61,12 +70,14 @@ class PurchaseController extends Controller
             'label' => $label,
             'route' => $route,
             'masters' => $masters,
-            'suppilers' => $suppilers
+            'suppilers' => $suppilers,
+            'brand' => $brand
         ]);
     }
     public function product()
     {
         $masters = Product::all();
+        $brand = Brand::all();
         $suppilers = Suppliers::all();
         $label = "Product";
         $route = route('purchase.productStore');
@@ -75,6 +86,7 @@ class PurchaseController extends Controller
             'label' => $label,
             'route' => $route,
             'masters' => $masters,
+            'brand' => $brand,
             'suppilers' => $suppilers
         ]);
     }
@@ -82,12 +94,14 @@ class PurchaseController extends Controller
     public function other()
     {
         $suppilers = Suppliers::all();
+        $brand = Brand::all();
         $label = "Other";
         $route = route('purchase.otherStore');
         // $route = route('purchase.productStore');
         return view('admin.purchase.purchase-other')->with([
             'label' => $label,
             'route' => $route,
+            'brand' => $brand,
             'suppilers' => $suppilers
         ]);
     }
@@ -113,15 +127,15 @@ class PurchaseController extends Controller
             'type' => 'App\Models\RawMaterial',
             'modal_id' => $request->modal_id,
             'supplier_id' => $request->supplier_id,
+            'brand' => $request->brand,
             'quantity' => $request->quantity,
             'price' => $request->price,
             'remark' => $request->remark,
             'expiry_date' => $request->expiry_date
         ]);
-
         $purchase->save();
 
-        // getting id from purchase table for stocks      
+        // getting id from purchase table for stocks
 
         // Create for Stocks
         $stock = new MaterialStock([
@@ -133,8 +147,8 @@ class PurchaseController extends Controller
 
         $stock->save();
 
-        // redirect to the route 
-        return redirect()->back()->with('success','Successfully Purchased !!');
+        // redirect to the route
+        return redirect()->back()->with('success', 'Successfully Purchased !!');
     }
     public function itemStore(Request $request)
     {
@@ -152,6 +166,7 @@ class PurchaseController extends Controller
             'type' => 'App\Models\Gift',
             'modal_id' => $request->modal_id,
             'supplier_id' => $request->supplier_id,
+            'brand' => $request->brand,
             'quantity' => $request->quantity,
             'price' => $request->price,
             'expiry_date' => $request->expiry_date
@@ -160,7 +175,7 @@ class PurchaseController extends Controller
 
         $item->save();
 
-        // getting id from purchase table for ItemStocks      
+        // getting id from purchase table for ItemStocks
 
         // Create for Stocks
         $stock = new ItemStock([
@@ -172,8 +187,8 @@ class PurchaseController extends Controller
 
         $stock->save();
 
-        // redirect to the route 
-        return redirect()->back()->with('success','Successfully Purchased !!');
+        // redirect to the route
+        return redirect()->back()->with('success', 'Successfully Purchased !!');
     }
     public function productStore(Request $request)
     {
@@ -191,6 +206,7 @@ class PurchaseController extends Controller
             'type' => 'App\Models\Product',
             'modal_id' => $request->modal_id,
             'supplier_id' => $request->supplier_id,
+            'brand' => $request->brand,
             'quantity' => $request->quantity,
             'price' => $request->price,
             'expiry_date' => $request->expiry_date
@@ -199,7 +215,7 @@ class PurchaseController extends Controller
 
         $product->save();
 
-        // getting id from purchase table for ProductStocks      
+        // getting id from purchase table for ProductStocks
 
         // Create for Stocks
         $stock = new ProductStock([
@@ -211,8 +227,8 @@ class PurchaseController extends Controller
 
         $stock->save();
 
-        // redirect to the route 
-        return redirect()->back()->with('success','Successfully Purchased !!');
+        // redirect to the route
+        return redirect()->back()->with('success', 'Successfully Purchased !!');
     }
     public function otherStore(Request $request)
     {
@@ -228,6 +244,7 @@ class PurchaseController extends Controller
         $other = new Other([
             'name' => $request->name,
             'supplier_id' => $request->supplier_id,
+            'brand' => $request->brand,
             'quantity' => $request->quantity,
             'price' => $request->price,
             'remark' => $request->remark,
@@ -236,7 +253,7 @@ class PurchaseController extends Controller
 
         $other->save();
 
-        // getting id from purchase table for ProductStocks      
+        // getting id from purchase table for ProductStocks
 
         // Create for Stocks
         // $stock = new ProductStock([
@@ -248,8 +265,8 @@ class PurchaseController extends Controller
 
         // $stock->save();
 
-        // redirect to the route 
-        return redirect()->back()->with('success','Successfully Purchased !!');
+        // redirect to the route
+        return redirect()->back()->with('success', 'Successfully Purchased !!');
     }
 
     /**
