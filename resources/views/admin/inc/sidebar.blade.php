@@ -233,13 +233,6 @@
                                         </div>
                                     </div>
                                 </div> --}}
-
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('gift') }}" :class="page === 'settings' && '!text-white'">
-                                        Gifts
-                                    </a>
-                                </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('raw-material') }}"
@@ -249,9 +242,22 @@
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('gift') }}" :class="page === 'settings' && '!text-white'">
+                                        Gifts
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('product.index') }}"
                                         :class="page === 'settings' && '!text-white'">
                                         Products
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('headquarters') }}"
+                                        :class="page === 'settings' && '!text-white'">
+                                        Headquarters
                                     </a>
                                 </li>
 

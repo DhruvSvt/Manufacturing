@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\HeadquartersController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionCreateController;
 use App\Http\Controllers\StocksController;
@@ -84,6 +85,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/brand/store', [BrandController::class, 'store'])->name('brand.store');
     Route::put('/brand/update/{id}', [BrandController::class, 'update'])->name('brand.update');
     Route::post('/brand/status', [BrandController::class, 'status'])->name('brand.status');
+
+    Route::get('/headquarters',[HeadquartersController::class,'index'])->name('headquarters');
+    // Route::post('/brand/store', [BrandController::class, 'store'])->name('brand.store');
+    // Route::put('/brand/update/{id}', [BrandController::class, 'update'])->name('brand.update');
+    // Route::post('/brand/status', [BrandController::class, 'status'])->name('brand.status');
 
     Route::resource('product', ProductController::class);
     Route::post('/product/fetch-raw-materials', [ProductController::class, 'rawMaterials'])->name('product.raw-materials');
