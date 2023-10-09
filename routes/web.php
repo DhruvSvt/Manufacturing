@@ -4,6 +4,7 @@ use App\Http\Controllers\GiftController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RawMaterialController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionCreateController;
 use App\Http\Controllers\StocksController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Models\Brand;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -77,6 +79,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/raw-material/update/{id}', [RawMaterialController::class, 'update'])->name('raw-material.update');
 
     Route::post('/raw-material/status', [RawMaterialController::class, 'status'])->name('raw-material.status');
+
+    Route::get('/brand',[BrandController::class,'index'])->name('brand');
+    Route::post('/brand/store', [BrandController::class, 'store'])->name('brand.store');
+    Route::put('/brand/update/{id}', [BrandController::class, 'update'])->name('brand.update');
+    Route::post('/brand/status', [BrandController::class, 'status'])->name('brand.status');
 
     Route::resource('product', ProductController::class);
     Route::post('/product/fetch-raw-materials', [ProductController::class, 'rawMaterials'])->name('product.raw-materials');
