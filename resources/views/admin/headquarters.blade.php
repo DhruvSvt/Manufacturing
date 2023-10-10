@@ -27,15 +27,15 @@
                     <h3 class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
                         Add Headquarters Name
                     </h3>
-                    <form action="">
+                    <form action="{{ route('headquarter.store') }}" method="POST">
                         @csrf
                         <div class="w-full xl:w-1/2 m-auto mt-5">
                             <label class="mb-2.5 block text-black dark:text-white">
                                 State Name<span class="text-meta-1">*</span>
                             </label>
-                            <input type="text" placeholder="Enter State Name" name="name"
+                            <input type="text" placeholder="Enter State Name" name="state"
                                 class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                            @error('name')
+                            @error('state_name')
                             <p class="text-red-500 mt-2">{{ $message }}</p>
                             @enderror
                         </div>
@@ -43,9 +43,9 @@
                             <label class="mb-2.5 block text-black dark:text-white">
                                 Headquarters Name <span class="text-meta-1">*</span>
                             </label>
-                            <input type="text" placeholder="Enter Headquarters Name" name="name"
+                            <input type="text" placeholder="Enter Headquarters Name" name="headquarter"
                                 class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                            @error('name')
+                            @error('headquarter_name')
                             <p class="text-red-500 mt-2">{{ $message }}</p>
                             @enderror
                         </div>
@@ -53,9 +53,9 @@
                             <label class="mb-2.5 block text-black dark:text-white">
                                 Region name <span class="text-meta-1">*</span>
                             </label>
-                            <input type="text" placeholder="Enter Region name" name="name"
+                            <input type="text" placeholder="Enter Region name" name="region"
                                 class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                            @error('name')
+                            @error('region_name')
                             <p class="text-red-500 mt-2">{{ $message }}</p>
                             @enderror
                         </div>
@@ -101,25 +101,41 @@
                             <table class="table w-full table-auto datatable-table" id="dataTableTwo">
                                 <thead>
                                     <tr>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Name</th>
+                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">State Name</th>
+                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Headquarter Name</th>
+                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Region Name</th>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Status</th>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($brands as $brand ) --}}
+                                    @foreach ($headquarters as $headquarter )
                                     <tr>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                                                 <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{-- {{ $brand->name }} --}}name
+                                                    {{ $headquarter->state }}
                                                 </p>
                                             </div>
                                         </td>
-                                        {{-- <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $headquarter->headquarter }}
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $headquarter->region }}
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" data-id="{{ $brand->id }}" name="status"
-                                                    class="js-switch" {{ $brand->status == 1 ? 'checked' : '' }}
+                                                <input type="checkbox" data-id="{{ $headquarter->id }}" name="status"
+                                                    class="js-switch" {{ $headquarter->status == 1 ? 'checked' : '' }}
                                                 value=""
                                                 class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4
                                                 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer
@@ -150,19 +166,45 @@
                                                                 Edit Brand Name
                                                             </h3>
                                                             <form
-                                                                action="{{ route('brand.update',['id' => $brand->id ]) }}"
+                                                                action="{{ route('headquarter.update',['id' => $headquarter->id]) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <div class="w-full xl:w-1/2 m-auto mt-5">
                                                                     <label
                                                                         class="mb-2.5 block text-black dark:text-white">
-                                                                        Brand Name <span class="text-meta-1">*</span>
+                                                                        State Name<span class="text-meta-1">*</span>
                                                                     </label>
-                                                                    <input type="text" placeholder="Enter Brand Name"
-                                                                        name="name" value="{{ $brand->name }}"
+                                                                    <input type="text" value="{{ $headquarter->state }}"
+                                                                        name="state"
                                                                         class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                                                                    @error('name')
+                                                                    @error('state_name')
+                                                                    <p class="text-red-500 mt-2">{{ $message }}</p>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="w-full xl:w-1/2 m-auto mt-5">
+                                                                    <label
+                                                                        class="mb-2.5 block text-black dark:text-white">
+                                                                        Headquarters Name <span
+                                                                            class="text-meta-1">*</span>
+                                                                    </label>
+                                                                    <input type="text"
+                                                                        value="{{ $headquarter->headquarter }}"
+                                                                        name="headquarter"
+                                                                        class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                                                                    @error('headquarter_name')
+                                                                    <p class="text-red-500 mt-2">{{ $message }}</p>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="w-full xl:w-1/2 m-auto mt-5">
+                                                                    <label
+                                                                        class="mb-2.5 block text-black dark:text-white">
+                                                                        Region name <span class="text-meta-1">*</span>
+                                                                    </label>
+                                                                    <input type="text" value="{{ $headquarter->region }}"
+                                                                        name="region"
+                                                                        class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                                                                    @error('region_name')
                                                                     <p class="text-red-500 mt-2">{{ $message }}</p>
                                                                     @enderror
                                                                 </div>
@@ -181,9 +223,9 @@
                                                 </div>
                                                 <!-- Edit Brand Model End -->
                                             </div>
-                                        </td> --}}
+                                        </td>
                                     </tr>
-                                    {{-- @endforeach --}}
+                                    @endforeach
 
                                 </tbody>
                             </table>
@@ -228,15 +270,15 @@
         $(document).ready(function() {
             $('.js-switch').change(function() {
                 let status = $(this).prop('checked') === true ? 1 : 0;
-                let brandId = $(this).data('id');
+                let headquarterId = $(this).data('id');
                 $.ajax({
                     type: "POST", // Change this to POST
                     dataType: "json",
-                    url: '{{ route('brand.status') }}',
+                    url: '{{ route('headquarter.status') }}',
                     data: {
                         '_token': '{{ csrf_token() }}', // Add the CSRF token
                         'status': status,
-                        'brand_id': brandId
+                        'headquarter_id': headquarterId
                     },
                     success: function(data) {
                         console.log(data.message);

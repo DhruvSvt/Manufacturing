@@ -86,10 +86,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/brand/update/{id}', [BrandController::class, 'update'])->name('brand.update');
     Route::post('/brand/status', [BrandController::class, 'status'])->name('brand.status');
 
-    Route::get('/headquarters',[HeadquartersController::class,'index'])->name('headquarters');
-    // Route::post('/brand/store', [BrandController::class, 'store'])->name('brand.store');
+    Route::get('/headquarter',[HeadquartersController::class,'index'])->name('headquarters');
+    Route::post('/headquarter/store',[HeadquartersController::class,'store'])->name('headquarter.store');
+    Route::post('/headquarter/status', [HeadquartersController::class, 'status'])->name('headquarter.status');
+    Route::put('/headquarter/update/{id}', [HeadquartersController::class, 'update'])->name('headquarter.update');
     // Route::put('/brand/update/{id}', [BrandController::class, 'update'])->name('brand.update');
-    // Route::post('/brand/status', [BrandController::class, 'status'])->name('brand.status');
 
     Route::resource('product', ProductController::class);
     Route::post('/product/fetch-raw-materials', [ProductController::class, 'rawMaterials'])->name('product.raw-materials');
