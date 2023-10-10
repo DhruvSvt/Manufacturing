@@ -12,7 +12,7 @@
         </div>
 
         <!-- Add Brand Model Start -->
-        <div x-data="{modalOpen: false}">
+        <div x-data="{modalOpen: false}" >
 
             <button @click="modalOpen = true" class="rounded-md bg-primary py-3 px-9 font-medium text-white">
                 Add Headquarters

@@ -21,7 +21,7 @@ class BrandController extends Controller
 
         $brand = new Brand;
         $brand->name = $request->name;
-        $brand->save();
+        $brand->save()  ;
 
         return redirect()->route('brand');
     }

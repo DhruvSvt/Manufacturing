@@ -78,7 +78,7 @@ class PurchaseController extends Controller
     {
         $masters = Product::all();
         $brand = Brand::all();
-        $suppilers = Suppliers::all();
+        $suppilers = Suppliers::all();  
         $label = "Product";
         $route = route('purchase.productStore');
         // $route = route('purchase.productStore');
