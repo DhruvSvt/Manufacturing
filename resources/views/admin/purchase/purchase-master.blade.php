@@ -26,7 +26,7 @@
 </style>
 <!-- ===== Main Content Start ===== -->
 <main>
-    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10 my-10 bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <!-- Breadcrumb Start -->
         <div class="mb-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
             <h2 class="lg:text-4xl md:text-3xl text-3xl font-bold text-black dark:text-white text-center">
@@ -88,11 +88,11 @@
                             </label>
                             <!-- Add Brand Model Start -->
 
-                            <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
+                            {{-- <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
                                 class="rounded-md bg-primary float-right py-2 px-3 font-medium text-white text-sm"
                                 type="button">
                                 Add Brand
-                            </button>
+                            </button> --}}
                         </div>
 
 
@@ -185,9 +185,10 @@
                 Submit
             </button>
         </form>
+
         <!-- Main modal -->
-        <div id="authentication-modal" tabindex="-1" aria-hidden="true"
-            class="fixed top-50 left-50 right-50 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        {{-- <div id="authentication-modal" tabindex="-1" aria-hidden="true"
+            class="fixed top-50 left-50 right-50 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full">
             <div class="relative w-full max-w-md max-h-full">
                 <!-- Modal content -->
                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -239,14 +240,14 @@
                                 to your account</button>
                             <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
                                 Not registered? <a href="#"
-                                    class="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
+                                    class="text-blue-700 hover:underline dark:text-blue-500">Create
+                                    account</a>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </div> --}}
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {

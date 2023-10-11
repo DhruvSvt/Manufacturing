@@ -42,7 +42,7 @@
                                                 <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">{{ $label }} Name
                                                 </th>
                                                 <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Available
-                                                    {{ $label }}
+                                                    {{ $label }} Qty.
                                                 </th>
                                                 <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">View</th>
                                             </tr>

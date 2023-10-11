@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ItemStock;
 use App\Models\MaterialStock;
+use App\Models\ProductStock;
 use App\Models\RawMaterial;
 use App\Models\Stock;
 use Carbon\Carbon;
@@ -116,5 +117,38 @@ class StocksController extends Controller
         $items = ItemStock::where('item_id', $item_id)->get();
 
         return view('admin.stock.stock-item-detail', compact('items', 'label'));
+    }
+
+
+    public function product_detail()
+    {
+        $label = 'Product';
+        //for Right side table
+        $check_expiring = ProductStock::groupBy('product_id')
+            ->selectRaw('sum(quantity) as total_quantity, product_id')
+            ->where('expiry_date', '<=', \Carbon\Carbon::now())
+            ->get();
+
+        //for Left side table
+        $master = ProductStock::groupBy('product_id')
+            ->selectRaw('sum(quantity) as total_quantity, product_id')
+            ->where('expiry_date', '>', \Carbon\Carbon::now())
+            ->get();
+
+        return view('admin.stock.stock-product',)->with([
+            'label' => $label,
+            'master' => $master,
+            'check_expiring' => $check_expiring
+        ]);
+    }
+
+    public function product_detail_id($product_id)
+    {
+        $label = 'Product';
+
+        // Fetch entries with matching raw_material_id
+        $products = ProductStock::where('product_id', $product_id)->get();
+
+        return view('admin.stock.stock-product-detail', compact('products', 'label'));
     }
 }

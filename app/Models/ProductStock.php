@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductStock extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'purchase_id',
         'product_id',
@@ -14,5 +16,9 @@ class ProductStock extends Model
         'type',
         'expiry_date',
     ];
-    use HasFactory;
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class,'product_id');
+    }
 }

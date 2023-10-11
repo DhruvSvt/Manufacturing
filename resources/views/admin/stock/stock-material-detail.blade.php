@@ -41,7 +41,7 @@
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">S.no</th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">{{ $label }} Name</th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Purchasing Date</th>
-                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Available {{ $label }}
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Available {{ $label }} Qty.
                                             </th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Expiry Date</th>
                                         </tr>

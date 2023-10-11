@@ -41,8 +41,7 @@
                                             <tr>
                                                 <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">{{ $label }} Name
                                                 </th>
-                                                <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Available
-                                                    {{ $label }}
+                                                <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Available {{ $label }} qty.
                                                 </th>
                                                 <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">View</th>
                                             </tr>
@@ -58,7 +57,8 @@
                                                     </td>
                                                     <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                         <p class="text-sm font-medium text-black dark:text-white">
-                                                            {{ $m->total_quantity }} {{ $m->item->parent->short_name }}
+                                                            {{ $m->total_quantity }} {{ $m->item->parent ? $m->item->parent->short_name : '-' }}
+
                                                         </p>
                                                     </td>
                                                     <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">

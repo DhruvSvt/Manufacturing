@@ -120,6 +120,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('stocks/material/item/{id}',[StocksController::class,'item_detail_id'])->name('item-detail-id');
     // Route::get('stocks/item',[StocksController::class,'item_index'])->name('item-stock');
 
+    Route::get('stocks/product/detail',[StocksController::class,'product_detail'])->name('product-detail');
+    Route::get('stocks/product/detail/{id}',[StocksController::class,'product_detail_id'])->name('product-detail-id');
+
     Route::get('stocks/details',[StocksController::class,'stock_details'])->name('stock-details');
 
     // production routes
