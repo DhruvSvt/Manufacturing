@@ -7,10 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Production extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'product_id',
         'qty',
         'batch_no',
     ];
-    use HasFactory;
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function product_material()
+    {
+        return $this->belongsTo(ProductRawMaterial::class,'product_id', 'product_id');
+    }
+
 }

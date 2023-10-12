@@ -13,4 +13,5 @@ class ProductRawMaterial extends Model
     {
         return $this->belongsTo(RawMaterial::class,'raw_material_id');
     }
+
 }

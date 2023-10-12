@@ -163,9 +163,11 @@
                         @enderror
                     </div>
                 </div>
-                <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray">
-                    Submit
-                </button>
+                <div class="flex justify-end " >
+                    <button class="flex w-100  rounded bg-primary p-3 font-medium text-gray">
+                        Submit
+                    </button>
+                </div>
             </form>
 
             <!-- Main modal -->

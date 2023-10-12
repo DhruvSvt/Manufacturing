@@ -129,6 +129,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('production/create',[ProductionCreateController::class,'create'])->name('production-create');
     Route::post('production/store',[ProductionCreateController::class,'store'])->name('production.store');
 
+    // Final production routes
+    Route::get('production/final',[ProductionCreateController::class,'final_create'])->name('production-final-create');
+
     Route::get('/signin', function () {
         return view('admin.signin');
     })->name('signin');
