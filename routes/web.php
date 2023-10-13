@@ -97,8 +97,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/product/status', [ProductController::class, 'status'])->name('product.status');
 
     // Purchase routes
-
-
     Route::get('/purchase/material',[PurchaseController::class,'material'])->name('purchase-material');
     Route::get('purchase/item',[PurchaseController::class,'item'])->name('purchase-item');
     Route::get('purchase/product',[PurchaseController::class,'product'])->name('purchase-product');
@@ -127,10 +125,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // production routes
     Route::get('production/create',[ProductionCreateController::class,'create'])->name('production-create');
-    Route::post('production/store',[ProductionCreateController::class,'store'])->name('production.store');
+    Route::post('production/final/store',[ProductionCreateController::class,'store'])->name('production.store');
 
     // Final production routes
     Route::get('production/final',[ProductionCreateController::class,'final_create'])->name('production-final-create');
+    Route::post('production/final',[ProductionCreateController::class,'final_store'])->name('production.final.store');
 
     Route::get('/signin', function () {
         return view('admin.signin');

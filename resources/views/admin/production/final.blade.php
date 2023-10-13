@@ -14,7 +14,7 @@
             <div class="w-full flex flex-col gap-4.5 xl:flex-row">
                 <div class="w-full xl:w-1/2">
                     <label class="mb-2.5 block text-black dark:text-white">
-                        Choose Product
+                        Product Name
                     </label>
                     <div class="relative z-20 bg-transparent dark:bg-form-input">
                         <input type="text"
@@ -31,7 +31,7 @@
                 </div>
                 <div class="w-full xl:w-1/2">
                     <label class="mb-2.5 block text-black dark:text-white">
-                        Quantity <span class="text-meta-1">*</span>
+                        Quantity
                     </label>
                     <input type="number" placeholder="Enter the Quantity" name="qty"
                         value="{{ $productionData['qty'] }}"
@@ -43,30 +43,24 @@
                 </div>
                 <div class="w-full xl:w-1/2">
                     <label class="mb-2.5 block text-black dark:text-white">
-                        Batch No. <span class="text-meta-1">*</span>
+                        Batch No.
                     </label>
                     <input type="text" placeholder="Enter Batch No." name="batch_no"
                         value="{{ $productionData['batch_no'] }}"
                         class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                         disabled />
-                    @error('batch_no')
-                    <p class="text-red-500 mt-2">{{ $message }}</p>
-                    @enderror
                 </div>
             </div>
 
 
             <div class="w-full flex flex-col gap-4.5 xl:flex-row mt-5">
-                @foreach ($productRawMaterial as $prm)
+                @foreach ($productRawMaterial as $key => $prm)
                 <div class="w-full xl:w-1/2">
                     <label class="mb-2.5 block text-black dark:text-white">
                         {{$prm->raw_material->name ?? '-' }}
                     </label>
-                    <input type="text" placeholder="" name="batch_no" value="{{ $prm->qty ?? '-' }}"
+                    <input type="text" placeholder="" name="qty[{{$key}}]" value="{{ $prm->qty ?? '-' }}"
                         class="w-1/4 rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" /> {{ $prm->raw_material->parent->short_name ?? ' - '}}
-                    @error('batch_no')
-                    <p class="text-red-500 mt-2">{{ $message }}</p>
-                    @enderror
                 </div>
                 @endforeach
             </div>
@@ -156,7 +150,7 @@
 </div>
 <!-- Quantity calculated table --> --}}
 
-<div class="flex flex-col gap-5 md:gap-7 2xl:gap-10 mt-5">
+<div class="flex flex-col gap-5 md:gap-7 2xl:gap-10">
     <!-- Quantity calculated table -->
     <div
         class="lg:m-10 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4">
