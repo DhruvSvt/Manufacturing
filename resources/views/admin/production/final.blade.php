@@ -8,7 +8,7 @@
             Final Challan
         </h2>
     </div>
-    <form action="{{ route('production.store') }}" method="POST">
+    <form action="{{ route('production.final.store') }}" method="POST">
         @csrf
         <div class="p-6.5">
             <div class="w-full flex flex-col gap-4.5 xl:flex-row">
@@ -57,19 +57,20 @@
 
 
             <div class="w-full flex flex-col gap-4.5 xl:flex-row mt-5">
-                @foreach ($products->raw_material as $key => $item)
-                    <div class="w-full xl:w-1/2">
-                        <label class="mb-2.5 block text-black dark:text-white">
-                            {{ $item->name ?? '-' }}
-                        </label>
-                        <input type="text" placeholder="" name="batch_no" value="{{ $item->qty ?? '-' }}"
-                            class="w-1/4 rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                        @error('batch_no')
-                        <p class="text-red-500 mt-2">{{ $message }}</p>
-                        @enderror
-                    </div>
+                @foreach ($productRawMaterial as $prm)
+                <div class="w-full xl:w-1/2">
+                    <label class="mb-2.5 block text-black dark:text-white">
+                        {{$prm->raw_material->name ?? '-' }}
+                    </label>
+                    <input type="text" placeholder="" name="batch_no" value="{{ $prm->qty ?? '-' }}"
+                        class="w-1/4 rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" /> {{ $prm->raw_material->parent->short_name ?? ' - '}}
+                    @error('batch_no')
+                    <p class="text-red-500 mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
                 @endforeach
             </div>
+
 
         </div>
         <div class="flex justify-end">
@@ -78,6 +79,8 @@
             </button>
         </div>
     </form>
+
+
     @if (Session::has('success'))
     <script>
         swal("Success", "{{ Session::get('success') }}", 'success', {
@@ -112,5 +115,93 @@
     @endif --}}
 </div>
 
+{{--
+<!-- Quantity calculated table -->
+<div class="m-2">
+    <div
+        class="lg:m-10 rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 sm:mb-5 xl:pb-1">
+        <h4 class="text-title-md2 font-bold text-black dark:text-white text-center">
+            Final Quantity
+        </h4>
+        <div class="flex flex-col mt-5">
+            <div class="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
+                <div class="p-2.5 xl:p-5 text-center">
+                    <h5 class="text-sm font-medium uppercase xsm:text-base">Required Qty / Unit</h5>
+                </div>
+                <div class="p-2.5 text-center xl:p-5">
+                    <h5 class="text-sm font-medium uppercase xsm:text-base">Actually Qty</h5>
+                </div>
+            </div>
+
+            @foreach($productRawMaterial as $prm)
+            <div class="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-5">
+                <div class="flex items-center p-2.5 xl:p-5 text-center sm:block">
+                    <p class="font-medium text-black dark:text-white">
+                        {{ $prm->qty ?? '-' }} {{ $prm->raw_material->parent->short_name ?? ' - '}}
+                        {{ $prm->raw_material->name ?? '-' }} x {{ $productionData['qty'] }}
+                    </p>
+                </div>
+
+                <div class="flex items-center p-2.5 xl:p-5 text-center">
+                    <p class="font-medium text-black dark:text-white">
+                        {{ ($prm->qty ?? '-') * ($productionData['qty']) }}{{ $prm->raw_material->parent->short_name ??
+                        ' - '}}{{ $prm->raw_material->name ?? '-' }}
+                    </p>
+                </div>
+            </div>
+            @endforeach
+
+        </div>
+    </div>
+</div>
+<!-- Quantity calculated table --> --}}
+
+<div class="flex flex-col gap-5 md:gap-7 2xl:gap-10 mt-5">
+    <!-- Quantity calculated table -->
+    <div
+        class="lg:m-10 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4">
+        <div class="data-table-common data-table-two max-w-full overflow-x-auto">
+            <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                <div class="datatable-container dark:bg-meta-4">
+                    <h4 class="text-title-md2 font-bold text-black dark:text-white text-center px-5 pt-6 pb-2.5 ">
+                        Final Quantity
+                    </h4>
+                    <table class="table w-full table-auto datatable-table" id="dataTableTwo">
+                        <thead>
+                            <tr>
+                                <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6 uppercase">Required Qty / Unit</th>
+                                <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6 uppercase">Actually Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($productRawMaterial as $prm)
+                            <tr>
+                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                        <p class="text-sm font-medium text-black dark:text-white">
+                                            {{ $prm->qty ?? '-' }} {{ $prm->raw_material->parent->short_name ?? ' - '}}
+                                            {{ $prm->raw_material->name ?? '-' }} x {{ $productionData['qty'] }}
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                        <p class="text-sm font-medium text-black dark:text-white">
+                                            {{ ($prm->qty ?? '-') * ($productionData['qty']) }} {{
+                                            $prm->raw_material->parent->short_name ??
+                                            ' - '}} {{ $prm->raw_material->name ?? '-' }}
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Quantity calculated table -->
+</div>
 <!-- ===== Form Area End ===== -->
 @endsection

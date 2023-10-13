@@ -55,8 +55,7 @@
         <!-- Add Brand Model End -->
         <!-- Header End -->
         <div class="flex flex-col gap-5 md:gap-7 2xl:gap-10 mt-5">
-
-            <!-- ====== Data Table Two Start -->
+            <!-- ====== Data Table One Start -->
             <div
                 class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4">
                 <div class="data-table-common data-table-two max-w-full overflow-x-auto">
@@ -164,7 +163,6 @@
                                         </td>
                                     </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>
@@ -189,8 +187,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- ====== Data Table Two End -->
+            <!-- ====== Data Table One End -->
         </div>
     </div>
 </main>
