@@ -13,7 +13,7 @@ class ProductionCreateController extends Controller
 {
     public function create()
     {
-        $products = Product::all();
+        $products = Product::whereStatus(true)->get();
         return view('admin.production.create', compact('products'));
     }
     public function material_detail()
@@ -79,8 +79,8 @@ class ProductionCreateController extends Controller
                 'batch_no' => $request->batch_no
             ]);
             $productionData = Session::get('production');
-            // $productRawMaterial = ProductRawMaterial::where('product_id', $request->product)->get();
-            $products = Product::with('raw_material')->get();
+            $productRawMaterial = ProductRawMaterial::where('product_id', $request->product)->get();
+            // $products = Product::with('raw_material')->get();
 
             // Check the session data using dd
             // dd(Session::get('production'));
@@ -109,14 +109,14 @@ class ProductionCreateController extends Controller
                     }
                 }
 
-                return view('admin.production.final', compact('productionData','products'));
+                return view('admin.production.final', compact('productionData','productRawMaterial'));
                 // return redirect()->back()->with('success', 'Production completed successfully.');
             } catch (\Exception $e) {
                 // Handle exceptions here
                 return redirect()->back()->with('error', 'Error updating stock: ' . $e->getMessage());
             }
         } else {
-            $needQuantity = $actual_qty - $rmStock->total_quantity;
+            $needQuantity = $actual_qty - ($rmStock->total_quantity ?? 0);
 
             // Store the request data in the session
             Session::put('production', $request->all());

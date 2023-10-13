@@ -45,9 +45,9 @@ class PurchaseController extends Controller
 
     public function material()
     {
-        $masters = RawMaterial::all();
-        $brand = Brand::all();
-        $suppilers = Suppliers::all();
+        $masters = RawMaterial::whereStatus(true)->get();
+        $brand = Brand::whereStatus(true)->get();
+        $suppilers = Suppliers::whereStatus(true)->get();
         $label = "Raw Material";
         $route = route('purchase.materialStore');
         return view('admin.purchase.purchase-master')->with([
@@ -78,7 +78,7 @@ class PurchaseController extends Controller
     {
         $masters = Product::all();
         $brand = Brand::all();
-        $suppilers = Suppliers::all();  
+        $suppilers = Suppliers::all();
         $label = "Product";
         $route = route('purchase.productStore');
         // $route = route('purchase.productStore');
