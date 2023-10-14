@@ -192,4 +192,13 @@ class ProductionCreateController extends Controller
         $productions = Production::latest()->get();
         return view('admin.production.proccess', compact('productions'));
     }
+
+    public function status(Request $request)
+    {
+        $production = Production::findOrFail($request->production_id);
+        $production->status = $request->status;
+        $production->save();
+
+        return redirect()->back();
+    }
 }

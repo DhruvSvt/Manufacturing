@@ -88,8 +88,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::get('/headquarter',[HeadquartersController::class,'index'])->name('headquarters');
     Route::post('/headquarter/store',[HeadquartersController::class,'store'])->name('headquarter.store');
-    Route::post('/headquarter/status', [HeadquartersController::class, 'status'])->name('headquarter.status');
     Route::put('/headquarter/update/{id}', [HeadquartersController::class, 'update'])->name('headquarter.update');
+    Route::post('/headquarter/status', [HeadquartersController::class, 'status'])->name('headquarter.status');
     // Route::put('/brand/update/{id}', [BrandController::class, 'update'])->name('brand.update');
 
     Route::resource('product', ProductController::class);
@@ -127,6 +127,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('production/create',[ProductionCreateController::class,'create'])->name('production-create');
     Route::post('production/final/store',[ProductionCreateController::class,'store'])->name('production.store');
     Route::get('production/proccess',[ProductionCreateController::class, 'proccess'])->name('production-proccess');
+    Route::post('/production/status', [ProductionCreateController::class, 'status'])->name('production.status');
 
     // Final production routes
     Route::get('production/final',[ProductionCreateController::class,'final_create'])->name('production-final-create');
