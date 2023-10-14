@@ -1,4 +1,4 @@
-@extends('admin.layouts.app', ['title' => 'Supplier-Page'])
+@extends('admin.layouts.app', ['title' => 'Production-Process'])
 @section('content')
 <!-- ===== Main Content Start ===== -->
 <main>
@@ -6,17 +6,17 @@
         <!-- Breadcrumb Start -->
         <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
             <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                Top Suppliers
+                In Process Production
             </h2>
         </div>
 
-        <div class=" flex flex-col sm:flex-row sm:items-center sm:justify-start">
+        {{-- <div class=" flex flex-col sm:flex-row sm:items-center sm:justify-start">
             <a href="{{ route('supplier.create') }}">
                 <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray m-3">
                     Add Suppliers
                 </button>
             </a>
-        </div>
+        </div> --}}
         <!-- Breadcrumb End -->
         <div class="flex flex-col gap-5 md:gap-7 2xl:gap-10">
 
@@ -46,49 +46,56 @@
                             <table class="table w-full table-auto datatable-table" id="dataTableTwo">
                                 <thead>
                                     <tr>
-                                        <th class="sm:w-1/6 xs:w-1/6">Name</th>
-                                        <th class="sm:w-1/6 xs:w-1/6">Phone</th>
-                                        <th class="sm:w-1/6 xs:w-1/6">Company Name</th>
-                                        <th class="sm:w-1/6 xs:w-1/6">Address</th>
-                                        <th class="sm:w-1/6 xs:w-1/6">Status</th>
-                                        <th class="sm:w-1/6 xs:w-1/6">Action</th>
+                                        <th class="sm:w-1/6 xs:w-1/6">S.no</th>
+                                        <th class="sm:w-1/6 xs:w-1/6">Product Name</th>
+                                        <th class="sm:w-1/6 xs:w-1/6">Quantity</th>
+                                        <th class="sm:w-1/6 xs:w-1/6">Batch No</th>
+                                        <th class="sm:w-1/6 xs:w-1/6">Create at</th>
+                                        <th class="sm:w-1/6 xs:w-1/6">Complete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {{-- Your table data goes here --}}
                                     <!-- Example row -->
-                                    @foreach ($suppliers as $sup)
+                                    @foreach ($productions as $key => $production)
                                     <tr>
                                         <td class="sm:w-1/6 xs:w-1/6">
-                                            <p class="text-sm font-medium text-black dark:text-white">{{ $sup->name }}
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ $key+1 }}
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
-                                            <p class="text-sm font-medium text-black dark:text-white">{{ $sup->phone }}
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ $production->product->name }}
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
-                                            <p class="text-sm font-medium text-black dark:text-white">{{
-                                                $sup->company_name }}</p>
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ $production->qty }}
+                                            </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
-                                            <p class="text-sm font-medium text-black dark:text-white">{{ $sup->address
-                                                }}</p>
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ $production->batch_no }}
+                                            </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
-                                            <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" data-id="{{ $sup->id }}" name="status"
-                                                    class="js-switch" {{ $sup->status == 1 ? 'checked' : '' }}>
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ $production->created_at->format('d-m-Y') }}
+                                            </p>
+                                        </td>
+                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                            <div class="flex items-center"></div>
+                                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                                <input type="checkbox" data-id="{{ $production->id }}" name="status" {{
+                                                    $production->status == 1 ? 'checked' : '' }}
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                                                focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                                                focus:ring-2 dark:bg-gray-700 dark:border-gray-600" value="">
                                             </label>
                                         </td>
-                                        <td class="sm:w-1/6 xs:w-1/6">
-                                            <div class="flex items-center space-x-3.5">
-                                                <a href="{{ route('supplier.edit', $sup->id) }}">
-                                                    <i data-v-3d6d2adb="" title="Edit"
-                                                        class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
-                                                </a>
-                                            </div>
-                                        </td>
+
+
                                     </tr>
                                     @endforeach
                                     <!-- Repeat for each row of data -->
@@ -121,7 +128,7 @@
     </div>
 </main>
 <!-- ===== Main Content End ===== -->
-<script>
+{{-- <script>
     let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
             elems.forEach(function(html) {
@@ -150,5 +157,5 @@
                     });
                 });
             });
-</script>
+</script> --}}
 @endsection

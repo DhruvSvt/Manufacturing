@@ -94,11 +94,6 @@ class ProductionCreateController extends Controller
         }
     }
 
-    public function final_create()
-    {
-        return view('admin.production.final');
-    }
-
     public function final_store(Request $request)
     {
         // Retrieve the data from the session
@@ -190,5 +185,11 @@ class ProductionCreateController extends Controller
                 'needQuantity' => $needQuantity
             ]);
         }
+    }
+
+    public function proccess()
+    {
+        $productions = Production::latest()->get();
+        return view('admin.production.proccess', compact('productions'));
     }
 }
