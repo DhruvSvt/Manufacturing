@@ -127,6 +127,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('production/create',[ProductionCreateController::class,'create'])->name('production-create');
     Route::post('production/final/store',[ProductionCreateController::class,'store'])->name('production.store');
     Route::get('production/proccess',[ProductionCreateController::class, 'proccess'])->name('production-proccess');
+    Route::get('production/complete',[ProductionCreateController::class, 'complete'])->name('production-complete');
     Route::post('/production/status', [ProductionCreateController::class, 'status'])->name('production.status');
 
     // Final production routes

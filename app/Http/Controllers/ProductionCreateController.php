@@ -193,6 +193,12 @@ class ProductionCreateController extends Controller
         return view('admin.production.proccess', compact('productions'));
     }
 
+    public function complete()
+    {
+        $productions = Production::whereStatus(true)->latest()->get();
+        return view('admin.production.complete', compact('productions'));
+    }
+
     public function status(Request $request)
     {
         $production = Production::findOrFail($request->production_id);
