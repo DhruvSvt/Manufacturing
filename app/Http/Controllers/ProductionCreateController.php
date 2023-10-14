@@ -111,22 +111,19 @@ class ProductionCreateController extends Controller
             'qty' => $sessionData['qty'],
             'batch_no' => $sessionData['batch_no']
         ]);
-        //dd(2); pass
 
-        // $product = Product::findOrFail($request->product);
         $raw_materials = ProductRawMaterial::where('product_id', $sessionData['product_id'])->get();
 
         $canProduce = true;
 
-        foreach ($raw_materials as $rmc) {
-            $actual_qty = $qty * $rmc->qty;
+        foreach ($raw_materials as $key => $rmc) {
+            $actual_qty = $request->input('qty')[$key] * $rmc->qty;
 
             $rmStock = MaterialStock::where('raw_material_id', $rmc->raw_material_id)
                 ->where('expiry_date', '>', \Carbon\Carbon::now())
                 ->groupBy('raw_material_id')
                 ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
                 ->first();
-
 
             if (!isset($rmStock) || $rmStock->total_quantity < $actual_qty) {
                 $canProduce = false;
