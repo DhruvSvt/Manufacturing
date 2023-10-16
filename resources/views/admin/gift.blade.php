@@ -1,4 +1,4 @@
-@extends('admin.layouts.app',['title'=>'Item-Page'])
+@extends('admin.layouts.app',['title'=>'Gift-Page'])
 @section('content')
 
     <!-- ===== Main Content Start ===== -->
@@ -7,14 +7,14 @@
             <!-- Breadcrumb Start -->
             <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
                 <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                    Top Items
+                    Top Gifts
                 </h2>
             </div>
 
             <div class=" flex flex-col sm:flex-row sm:items-center sm:justify-start">
                 <a href="{{ route('gift.create') }}">
                     <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray m-3">
-                        Add Items
+                        Add Gift
                     </button>
                 </a>
             </div>

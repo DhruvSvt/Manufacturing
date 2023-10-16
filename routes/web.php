@@ -6,6 +6,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HeadquartersController;
+use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionCreateController;
 use App\Http\Controllers\StocksController;
@@ -133,6 +134,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // Final production routes
     Route::get('production/final',[ProductionCreateController::class,'final_create'])->name('production-final-create');
     Route::post('production/final',[ProductionCreateController::class,'final_store'])->name('production.final.store');
+
+    // Gift Issue routes
+    Route::get('gift/issue',[IssueController::class,'index'])->name('gift-challan');
+    Route::post('/gift/issue/store', [IssueController::class, 'store'])->name('gift-store');
+    // Route::put('/gift/issue', [IssueController::class, 'issue_gift'])->name('gift.issue');
 
     Route::get('/signin', function () {
         return view('admin.signin');

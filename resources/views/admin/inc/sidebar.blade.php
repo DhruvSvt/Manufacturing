@@ -482,8 +482,14 @@
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="#" :class="page === 'gifts' && '!text-white'">
+                                        href="{{ route('gift-challan') }}" :class="page === 'gifts' && '!text-white'">
                                         Gift Issue Challan
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="#" :class="page === 'gifts' && '!text-white'">
+                                        Sample Issue Challan
                                     </a>
                                 </li>
                             </ul>
