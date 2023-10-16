@@ -13,10 +13,13 @@ class IssueController extends Controller
 {
     public function index()
     {
+
         $gifts = Gift::whereStatus(true)->get();
         $party = Suppliers::whereStatus(true)->get();
         $hq_name = Headquarters::whereStatus(true)->get();
-        return view('admin.challans.gift', compact('party', 'hq_name', 'gifts'));
+
+        $issues = GiftIssue::latest()->get();
+        return view('admin.challans.gift', compact('party', 'hq_name', 'gifts','issues'));
     }
 
     public function store(Request $request)
@@ -40,35 +43,38 @@ class IssueController extends Controller
             'amount' => $request->amount
         ]);
 
+
         $gifts = ItemStock::where('item_id', $request->gift)->get();
 
-        $canProduce = true;
+        if ($gifts->count() > 0) {
+            $canIssue = true;
 
-        foreach ($gifts as $gift) {
-            $actual_qty = $qty * $gift->qty;
+            foreach ($gifts as $gift) {
 
-            $giftStock = ItemStock::where('item_id', $request->gift)
-                ->where('expiry_date', '>', \Carbon\Carbon::now())
-                ->whereOr('quantity', '>', 0)
-                ->groupBy('item_id')
-                ->selectRaw('sum(quantity) as total_quantity, item_id')
-                ->first();
+                $giftStock = ItemStock::where('item_id', $request->gift)
+                    ->where('expiry_date', '>', \Carbon\Carbon::now())
+                    ->whereOr('quantity', '>', 0)
+                    ->groupBy('item_id')
+                    ->selectRaw('sum(quantity) as total_quantity, item_id')
+                    ->first();
 
-
-            if (!isset($giftStock) || $giftStock->total_quantity < $actual_qty) {
-                $canProduce = false;
-                break; // Stop checking other materials if one is not available
+                if (!isset($giftStock) || $giftStock->total_quantity < $qty) {
+                    $canIssue = false;
+                    break; // Stop checking other materials if one is not available
+                }
             }
+        } else {
+            $canIssue = false;
         }
 
-        if ($canProduce) {
+        if ($canIssue) {
 
             $giftIssue->save();
 
             // Update the raw material stock
             try {
                 foreach ($gifts as $gift) {
-                    $actual_qty = $qty * $gift->qty;
+                    // $actual_qty = $qty * $gift->qty;
 
                     $giftStocks = ItemStock::where('item_id', $request->gift)
                         ->where('expiry_date', '>', \Carbon\Carbon::now())
@@ -76,13 +82,13 @@ class IssueController extends Controller
                         ->get();
 
                     foreach ($giftStocks as $item) {
-                        if ($actual_qty > 0)
-                            if ($item->quantity >= $actual_qty) {
-                                $item->quantity -= $actual_qty;
-                                $actual_qty = 0;
+                        if ($qty > 0)
+                            if ($item->quantity >= $qty) {
+                                $item->quantity -= $qty;
+                                $qty = 0;
                                 $item->save();
                             } else {
-                                $actual_qty -= $item->quantity;
+                                $qty -= $item->quantity;
                                 $item->quantity = 0;
                                 $item->save();
                             }
@@ -95,7 +101,7 @@ class IssueController extends Controller
                 return redirect()->back()->with('error', 'Error updating gift stock: ' . $e->getMessage());
             }
         } else {
-            $needQuantity = $actual_qty - $giftStock->total_quantity;
+            $needQuantity = $qty - ($giftStock->total_quantity ?? 0);
             return redirect()->back()->with([
                 'error' => 'Insufficient Gift stock to issue Challan.',
                 'needQuantity' => $needQuantity
