@@ -87,13 +87,11 @@
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <label class="relative inline-flex items-center cursor-pointer">
                                                         <input type="checkbox" data-id="{{ $production->id }}"
-                                                            name="status" class="js-switch"
-                                                            {{ $production->status == 1 ? 'checked' : '' }} value=""
-                                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                            name="status" class="ds-switch h-4 w-4 "
+                                                            {{ $production->status == 1 ? 'checked' : '' }} value="">
+                                                            {{-- class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"> --}}
                                                     </label>
                                                 </td>
-
-
                                             </tr>
                                         @endforeach
                                         <!-- Repeat for each row of data -->
@@ -127,17 +125,17 @@
     </main>
     <!-- ===== Main Content End ===== -->
     <script>
-        let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        // let elems = Array.prototype.slice.call(document.querySelectorAll('.ds-switch'));
 
-        elems.forEach(function(html) {
-            let switchery = new Switchery(html, {
-                size: 'small'
-            });
-        });
+        // elems.forEach(function(html) {
+        //     let switchery = new Switchery(html, {
+        //         size: 'small'
+        //     });
+        // });
 
         // Ajax Request
         $(document).ready(function() {
-            $('.js-switch').change(function() {
+            $('.ds-switch').change(function() {
                 let status = $(this).prop('checked') === true ? 1 : 0;
                 let productionId = $(this).data('id');
                 $.ajax({
