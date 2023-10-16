@@ -89,7 +89,7 @@ class StocksController extends Controller
 
     public function item_detail()
     {
-        $label = 'Item';
+        $label = 'Gifts';
         //for Right side table
         $check_expiring = ItemStock::groupBy('item_id')
             ->selectRaw('sum(quantity) as total_quantity, item_id')
