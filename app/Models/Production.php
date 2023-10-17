@@ -25,4 +25,13 @@ class Production extends Model
         return $this->belongsTo(ProductRawMaterial::class,'product_id', 'product_id');
     }
 
+    public function finish_raw_material()
+    {
+        return $this->hasMany(FinalUsedRawMatrial::class,'production_id');
+    }
+
+    public function product_raw_material()
+    {
+        return $this->hasMany(ProductRawMaterial::class,'product_id', 'product_id');
+    }
 }

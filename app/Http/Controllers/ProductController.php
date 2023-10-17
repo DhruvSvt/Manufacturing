@@ -18,10 +18,11 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('raw_material')->get();
-        return view('admin.product',compact('products'));
+        return view('admin.product', compact('products'));
     }
 
-    public function rawMaterials(){
+    public function rawMaterials()
+    {
         $selected_materials = request()->selected_raw_materials ?? [];
         $raw_materials = RawMaterial::whereNotIn('id', $selected_materials)->get();
         return response()->json($raw_materials);
@@ -53,7 +54,7 @@ class ProductController extends Controller
         $product->save();
 
         $rawProducts = json_decode(request()->raw_materials);
-        foreach ($rawProducts as $item){
+        foreach ($rawProducts as $item) {
             $raw_material = new ProductRawMaterial;
             $raw_material->product_id = $product->id;
             $raw_material->raw_material_id = $item->id;
@@ -87,7 +88,7 @@ class ProductController extends Controller
         $raw_materials = RawMaterial::whereStatus(true)->get();
         $product = Product::with('raw_material')->find($product);
 
-        return view('admin.product-edit',compact('product','raw_materials'));
+        return view('admin.product-edit', compact('product', 'raw_materials'));
     }
 
     /**
@@ -106,13 +107,13 @@ class ProductController extends Controller
         $product->save();
 
         //removing old
-        foreach($product->raw_material as $raw_material){
+        foreach ($product->raw_material as $raw_material) {
             ProductRawMaterial::where(['raw_material_id' => $raw_material->id, 'product_id' => $product->id])->delete();
         }
 
         //adding new
         $rawProducts = json_decode(request()->raw_materials);
-        foreach ($rawProducts as $item){
+        foreach ($rawProducts as $item) {
             $raw_material = new ProductRawMaterial;
             $raw_material->product_id = $product->id;
             $raw_material->raw_material_id = $item->id;

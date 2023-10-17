@@ -135,9 +135,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('production/final',[ProductionCreateController::class,'final_create'])->name('production-final-create');
     Route::post('production/final',[ProductionCreateController::class,'final_store'])->name('production.final.store');
 
-    // Gift Issue routes
-    Route::get('gift/issue',[IssueController::class,'index'])->name('gift-challan');
+    //Issue Challan routes
+    Route::get('gift/issue',[IssueController::class,'gift_index'])->name('gift-challan');
     Route::post('/gift/issue/store', [IssueController::class, 'store'])->name('gift-store');
+    Route::get('raw-material/issue',[IssueController::class,'raw_material_index'])->name('raw-material-challan');
     // Route::put('/gift/issue', [IssueController::class, 'issue_gift'])->name('gift.issue');
 
     Route::get('/signin', function () {

@@ -6,12 +6,13 @@ use App\Models\Gift;
 use App\Models\GiftIssue;
 use App\Models\Headquarters;
 use App\Models\ItemStock;
+use App\Models\Production;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
 
 class IssueController extends Controller
 {
-    public function index()
+    public function gift_index()
     {
 
         $gifts = Gift::whereStatus(true)->get();
@@ -22,7 +23,7 @@ class IssueController extends Controller
         return view('admin.challans.gift', compact('party', 'hq_name', 'gifts', 'issues'));
     }
 
-    public function store(Request $request)
+    public function gift_store(Request $request)
     {
 
         $request->validate([
@@ -107,5 +108,12 @@ class IssueController extends Controller
                 'needQuantity' => $needQuantity
             ]);
         }
+    }
+
+    public function raw_material_index()
+    {
+        $issues = Production::with(['finish_raw_material','product_raw_material'])->whereStatus(true)->latest()->get();
+
+        return view('admin.challans.raw-material',compact('issues'));
     }
 }
