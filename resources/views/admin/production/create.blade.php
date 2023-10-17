@@ -55,6 +55,28 @@
                 </div>
             </div>
         </div>
+        <div class="p-6.5">
+            <div class="w-full flex flex-col gap-4.5 xl:flex-row">
+                <div class="w-full xl:w-1/2">
+                    <div class="relative z-20 bg-transparent dark:bg-form-input">
+                        <label class="mb-2.5 block text-black dark:text-white">
+                            Expiry Date <span class="text-meta-1">*</span>
+                        </label>
+                        <input type="date" name="expiry_date"
+                            class="w-1/2 rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                        @error('expiry_date')
+                        <p class="text-red-500 mt-2">{{ $message }}</p>
+                        @enderror
+                        <span class="absolute top-1/2 right-4 z-30 -translate-y-1/2">
+                            <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="flex justify-end">
             <button class="flex w-100 rounded bg-primary p-3 font-medium text-gray m-5">
                 Submit

@@ -82,13 +82,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::post('/raw-material/status', [RawMaterialController::class, 'status'])->name('raw-material.status');
 
-    Route::get('/brand',[BrandController::class,'index'])->name('brand');
+    Route::get('/brand', [BrandController::class, 'index'])->name('brand');
     Route::post('/brand/store', [BrandController::class, 'store'])->name('brand.store');
     Route::put('/brand/update/{id}', [BrandController::class, 'update'])->name('brand.update');
     Route::post('/brand/status', [BrandController::class, 'status'])->name('brand.status');
 
-    Route::get('/headquarter',[HeadquartersController::class,'index'])->name('headquarters');
-    Route::post('/headquarter/store',[HeadquartersController::class,'store'])->name('headquarter.store');
+    Route::get('/headquarter', [HeadquartersController::class, 'index'])->name('headquarters');
+    Route::post('/headquarter/store', [HeadquartersController::class, 'store'])->name('headquarter.store');
     Route::put('/headquarter/update/{id}', [HeadquartersController::class, 'update'])->name('headquarter.update');
     Route::post('/headquarter/status', [HeadquartersController::class, 'status'])->name('headquarter.status');
     // Route::put('/brand/update/{id}', [BrandController::class, 'update'])->name('brand.update');
@@ -98,47 +98,47 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/product/status', [ProductController::class, 'status'])->name('product.status');
 
     // Purchase routes
-    Route::get('/purchase/material',[PurchaseController::class,'material'])->name('purchase-material');
-    Route::get('purchase/item',[PurchaseController::class,'item'])->name('purchase-item');
-    Route::get('purchase/product',[PurchaseController::class,'product'])->name('purchase-product');
-    Route::get('purchase/other',[PurchaseController::class,'other'])->name('purchase-other');
+    Route::get('/purchase/material', [PurchaseController::class, 'material'])->name('purchase-material');
+    Route::get('purchase/item', [PurchaseController::class, 'item'])->name('purchase-item');
+    Route::get('purchase/product', [PurchaseController::class, 'product'])->name('purchase-product');
+    Route::get('purchase/other', [PurchaseController::class, 'other'])->name('purchase-other');
 
     Route::post('/purchase/material/store', [PurchaseController::class, 'materialStore'])->name('purchase.materialStore');
     Route::post('/purchase/item/store', [PurchaseController::class, 'itemStore'])->name('purchase.itemStore');
-    Route::post('purchase/product/store',[PurchaseController::class,'productStore'])->name('purchase.productStore');
-    Route::post('purchase/product/other',[PurchaseController::class,'otherStore'])->name('purchase.otherStore');
+    Route::post('purchase/product/store', [PurchaseController::class, 'productStore'])->name('purchase.productStore');
+    Route::post('purchase/product/other', [PurchaseController::class, 'otherStore'])->name('purchase.otherStore');
 
     // stocks routes
-    Route::get('stocks/material',[StocksController::class,'material_index'])->name('material-stock');
-    Route::get('stocks/item',[StocksController::class,'item_index'])->name('item-stock');
+    Route::get('stocks/material', [StocksController::class, 'material_index'])->name('material-stock');
+    Route::get('stocks/item', [StocksController::class, 'item_index'])->name('item-stock');
 
-    Route::get('stocks/material/detail',[StocksController::class,'material_detail'])->name('material-detail');
-    Route::get('stocks/material/detail/{id}',[StocksController::class,'material_detail_id'])->name('material-detail-id');
+    Route::get('stocks/material/detail', [StocksController::class, 'material_detail'])->name('material-detail');
+    Route::get('stocks/material/detail/{id}', [StocksController::class, 'material_detail_id'])->name('material-detail-id');
 
-    Route::get('stocks/item/detail',[StocksController::class,'item_detail'])->name('item-detail');
-    Route::get('stocks/material/item/{id}',[StocksController::class,'item_detail_id'])->name('item-detail-id');
+    Route::get('stocks/item/detail', [StocksController::class, 'item_detail'])->name('item-detail');
+    Route::get('stocks/item/detail/{id}', [StocksController::class, 'item_detail_id'])->name('item-detail-id');
     // Route::get('stocks/item',[StocksController::class,'item_index'])->name('item-stock');
 
-    Route::get('stocks/product/detail',[StocksController::class,'product_detail'])->name('product-detail');
-    Route::get('stocks/product/detail/{id}',[StocksController::class,'product_detail_id'])->name('product-detail-id');
+    Route::get('stocks/product/detail', [StocksController::class, 'product_detail'])->name('product-detail');
+    Route::get('stocks/product/detail/{id}', [StocksController::class, 'product_detail_id'])->name('product-detail-id');
 
-    Route::get('stocks/details',[StocksController::class,'stock_details'])->name('stock-details');
+    Route::get('stocks/details', [StocksController::class, 'stock_details'])->name('stock-details');
 
     // production routes
-    Route::get('production/create',[ProductionCreateController::class,'create'])->name('production-create');
-    Route::post('production/final/store',[ProductionCreateController::class,'store'])->name('production.store');
-    Route::get('production/proccess',[ProductionCreateController::class, 'proccess'])->name('production-proccess');
-    Route::get('production/complete',[ProductionCreateController::class, 'complete'])->name('production-complete');
+    Route::get('production/create', [ProductionCreateController::class, 'create'])->name('production-create');
+    Route::post('production/final/store', [ProductionCreateController::class, 'store'])->name('production.store');
+    Route::get('production/proccess', [ProductionCreateController::class, 'proccess'])->name('production-proccess');
+    Route::get('production/complete', [ProductionCreateController::class, 'complete'])->name('production-complete');
     Route::post('/production/status', [ProductionCreateController::class, 'status'])->name('production.status');
 
     // Final production routes
-    Route::get('production/final',[ProductionCreateController::class,'final_create'])->name('production-final-create');
-    Route::post('production/final',[ProductionCreateController::class,'final_store'])->name('production.final.store');
+    Route::get('production/final', [ProductionCreateController::class, 'final_create'])->name('production-final-create');
+    Route::post('production/final', [ProductionCreateController::class, 'final_store'])->name('production.final.store');
 
     //Issue Challan routes
-    Route::get('gift/issue',[IssueController::class,'gift_index'])->name('gift-challan');
-    Route::post('/gift/issue/store', [IssueController::class, 'store'])->name('gift-store');
-    Route::get('raw-material/issue',[IssueController::class,'raw_material_index'])->name('raw-material-challan');
+    Route::get('gift/issue', [IssueController::class, 'gift_index'])->name('gift-challan');
+    Route::post('/gift/issue/store', [IssueController::class, 'gift_store'])->name('gift-store');
+    Route::get('raw-material/issue', [IssueController::class, 'raw_material_index'])->name('raw-material-challan');
     // Route::put('/gift/issue', [IssueController::class, 'issue_gift'])->name('gift.issue');
 
     Route::get('/signin', function () {
@@ -153,7 +153,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         return view('admin.tables');
     })->name('table');
 
-    Route::get('/chart/material',function(){
+    Route::get('/chart/material', function () {
         return view('admin.reports.report-material');
     })->name('material-chart');
 });
@@ -178,7 +178,7 @@ Route::get('migrate', function () {
 });
 
 
-Route::get('/storage-link', function(){
+Route::get('/storage-link', function () {
     $target = storage_path('app/public');
     $link = public_path('/storage');
     echo symlink($target, $link);

@@ -33,16 +33,6 @@ class PurchaseController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     public function material()
     {
         $masters = RawMaterial::whereStatus(true)->get();
@@ -61,9 +51,9 @@ class PurchaseController extends Controller
 
     public function item()
     {
-        $masters = Gift::all();
-        $brand = Brand::all();
-        $suppilers = Suppliers::all();
+        $masters = Gift::whereStatus(true)->get();
+        $brand = Brand::whereStatus(true)->get();
+        $suppilers = Suppliers::whereStatus(true)->get();
         $label = "Item";
         $route = route('purchase.itemStore');
         return view('admin.purchase.purchase-master')->with([
@@ -76,9 +66,9 @@ class PurchaseController extends Controller
     }
     public function product()
     {
-        $masters = Product::all();
-        $brand = Brand::all();
-        $suppilers = Suppliers::all();
+        $masters = Product::whereStatus(true)->get();
+        $brand = Brand::whereStatus(true)->get();
+        $suppilers = Suppliers::whereStatus(true)->get();
         $label = "Product";
         $route = route('purchase.productStore');
         // $route = route('purchase.productStore');
@@ -93,8 +83,8 @@ class PurchaseController extends Controller
 
     public function other()
     {
-        $suppilers = Suppliers::all();
-        $brand = Brand::all();
+        $suppilers = Suppliers::whereStatus(true)->get();
+        $brand = Brand::whereStatus(true)->get();
         $label = "Other";
         $route = route('purchase.otherStore');
         // $route = route('purchase.productStore');
@@ -220,6 +210,7 @@ class PurchaseController extends Controller
         // Create for Stocks
         $stock = new ProductStock([
             'purchase_id' => $product->id,
+            'product_type' => 'App\Models\Purchase',
             'product_id' =>  $request->modal_id,
             'expiry_date' => $request->expiry_date,
             'quantity' => $request->quantity,
@@ -253,19 +244,6 @@ class PurchaseController extends Controller
 
         $other->save();
 
-        // getting id from purchase table for ProductStocks
-
-        // Create for Stocks
-        // $stock = new ProductStock([
-        //     'purchase_id' => $other->id,
-        //     'product_id' =>  $request->modal_id,
-        //     'expiry_date' => $request->expiry_date,
-        //     'quantity' => $request->quantity,
-        // ]);
-
-        // $stock->save();
-
-        // redirect to the route
         return redirect()->back()->with('success', 'Successfully Purchased !!');
     }
 

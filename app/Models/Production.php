@@ -13,6 +13,7 @@ class Production extends Model
         'product_id',
         'qty',
         'batch_no',
+        'expiry_date',
     ];
 
     public function product()

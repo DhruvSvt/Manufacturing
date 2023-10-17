@@ -7,6 +7,7 @@ use App\Models\MaterialStock;
 use App\Models\Product;
 use App\Models\Production;
 use App\Models\ProductRawMaterial;
+use App\Models\ProductStock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -69,7 +70,8 @@ class ProductionCreateController extends Controller
             Session::put('production', [
                 'product_id' => $request->product,
                 'qty' => $qty,
-                'batch_no' => $request->batch_no
+                'batch_no' => $request->batch_no,
+                'expiry_date' => $request->expiry_date
             ]);
             $productionData = Session::get('production');
             $productRawMaterial = ProductRawMaterial::where('product_id', $request->product)->get();
@@ -104,7 +106,8 @@ class ProductionCreateController extends Controller
         $production = new Production([
             'product_id' => $sessionData['product_id'],
             'qty' => $sessionData['qty'],
-            'batch_no' => $sessionData['batch_no']
+            'batch_no' => $sessionData['batch_no'],
+            'expiry_date' => $sessionData['expiry_date']
         ]);
 
         $raw_materials = ProductRawMaterial::where('product_id', $sessionData['product_id'])->get();
@@ -131,6 +134,15 @@ class ProductionCreateController extends Controller
             // return $production;
             $production->save();
 
+            $product_stock = new ProductStock([
+                'purchase_id' => $production->id,
+                'product_type' => 'App\Models\Production',
+                'product_id' =>  $sessionData['product_id'],
+                'expiry_date' => $sessionData['expiry_date'],
+                'quantity' => $sessionData['qty'],
+            ]);
+
+            $product_stock->save();
             foreach ($raw_materials as $key => $item) {
                 $final = new FinalUsedRawMatrial;
                 $final->production_id = $production->id;
@@ -170,8 +182,7 @@ class ProductionCreateController extends Controller
                 // Handle exceptions here
                 return redirect()->back()->with('error', 'Error updating stock: ' . $e->getMessage());
             }
-        }
-        else {
+        } else {
             $needQuantity = $actual_qty - $rmStock->total_quantity;
 
             // Store the request data in the session
