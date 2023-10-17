@@ -11,6 +11,7 @@ class ProductStock extends Model
 
     protected $fillable = [
         'purchase_id',
+        'product_type',
         'product_id',
         'quantity',
         'type',
