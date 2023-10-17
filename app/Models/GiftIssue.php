@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GiftIssue extends Model
 {
+    use HasFactory;
     protected $fillable = ([
         'gift_id',
         'supplier_id',
@@ -14,5 +15,15 @@ class GiftIssue extends Model
         'qty',
         'amount',
     ]);
-    use HasFactory;
+
+    public function supplier()
+    {
+        return $this->belongsTo(Suppliers::class,'supplier_id');
+    }
+
+    public function headquarter()
+    {
+        return $this->belongsTo(Headquarters::class, 'headquarter_id');
+    }
+
 }

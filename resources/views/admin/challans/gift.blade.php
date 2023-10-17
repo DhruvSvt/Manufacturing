@@ -157,11 +157,26 @@
                                                     {{ $issue->created_at->format('d-m-Y')  }}
                                                 </p>
                                             </td>
-                                            {{-- <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                 <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $issue->price }}
+                                                    {{ $issue->supplier->name  }}
                                                 </p>
-                                            </td> --}}
+                                            </td>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $issue->headquarter->headquarter  }}
+                                                </p>
+                                            </td>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $issue->qty }}
+                                                </p>
+                                            </td>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $issue->amount }}
+                                                </p>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

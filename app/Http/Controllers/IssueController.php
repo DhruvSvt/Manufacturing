@@ -19,7 +19,7 @@ class IssueController extends Controller
         $hq_name = Headquarters::whereStatus(true)->get();
 
         $issues = GiftIssue::latest()->get();
-        return view('admin.challans.gift', compact('party', 'hq_name', 'gifts','issues'));
+        return view('admin.challans.gift', compact('party', 'hq_name', 'gifts', 'issues'));
     }
 
     public function store(Request $request)
