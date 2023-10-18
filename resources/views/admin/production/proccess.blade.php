@@ -54,14 +54,18 @@
                                         <th class="sm:w-1/6 xs:w-1/6">Complete</th>
                                     </tr>
                                 </thead>
+                                <?php
+                                $i=1
+                                ?>
                                 <tbody>
                                     {{-- Your table data goes here --}}
                                     <!-- Example row -->
                                     @foreach ($productions as $key => $production)
+                                    @if ($production->status === 0)
                                     <tr>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $key + 1 }}
+                                                {{ $i++ }}
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
@@ -99,6 +103,7 @@
                                             </label>
                                         </td>
                                     </tr>
+                                    @endif
                                     @endforeach
                                     <!-- Repeat for each row of data -->
                                 </tbody>
@@ -130,29 +135,27 @@
     </div>
 </main>
 <!-- ===== Main Content End ===== -->
+
 <script>
     $(document).ready(function() {
         $('.ds-switch').change(function() {
             let checkbox = $(this);
             let row = checkbox.closest('tr');
-            if(checkbox.prop('checked', true))
-            {
-                row.hide();
-            }
-            else{
 
-                if (checkbox.prop('checked')) {
-                    if (confirm("Do you really want to complete this production ? ")) {
-                        row.hide();
-                    } else {
-                        // Uncheck the checkbox if the user cancels
-                        checkbox.prop('checked', false);
-                    }
+            if (checkbox.prop('checked')) {
+                if (confirm("Do you really want to complete this production?")) {
+                    row.hide();
+                } else {
+                    // Uncheck the checkbox if the user cancels
+                    checkbox.prop('checked', false);
                 }
+            } else {
+                // If the checkbox was unchecked, do nothing
             }
         });
     });
 </script>
+
 
 <script>
     // Ajax Request
