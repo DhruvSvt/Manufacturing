@@ -424,19 +424,19 @@
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('production-create') }}"
                                         :class="page === 'raw-material' && '!text-white'">
-                                        Create
+                                        Create Goods
                                     </a>
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('production-proccess') }}" :class="page === 'gifts' && '!text-white'">
-                                        In Proccess
+                                        In Process Goods
                                     </a>
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('production-complete') }}" :class="page === 'products' && '!text-white'">
-                                        Completed
+                                        Completed Goods 
                                     </a>
                                 </li>
                             </ul>
@@ -476,7 +476,7 @@
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="#" :class="page === 'products' && '!text-white'">
+                                        href="{{ route('finish-good-challan') }}" :class="page === 'products' && '!text-white'">
                                         Finish Goods Challan
                                     </a>
                                 </li>
