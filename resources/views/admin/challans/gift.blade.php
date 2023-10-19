@@ -142,6 +142,7 @@
                                     <thead>
                                         <tr>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Date</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Gift Name</th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Party Name </th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">H.Q. Name </th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Qty</th>
@@ -155,6 +156,11 @@
                                             <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                 <p class="text-sm font-medium text-black dark:text-white">
                                                     {{ $issue->created_at->format('d-m-Y')  }}
+                                                </p>
+                                            </td>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $issue->gift->name  }}
                                                 </p>
                                             </td>
                                             <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">

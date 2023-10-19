@@ -16,6 +16,11 @@ class GiftIssue extends Model
         'amount',
     ]);
 
+    public function gift()
+    {
+        return $this->belongsTo(Gift::class, 'gift_id');
+    }
+
     public function supplier()
     {
         return $this->belongsTo(Suppliers::class,'supplier_id');
