@@ -18,6 +18,7 @@ class ProductionCreateController extends Controller
         $products = Product::whereStatus(true)->get();
         return view('admin.production.create', compact('products'));
     }
+
     public function material_detail()
     {
         $label = 'Raw Material';
@@ -217,5 +218,13 @@ class ProductionCreateController extends Controller
         $production->save();
 
         return redirect()->back();
+    }
+
+    public function pdf_generate($id)
+    {
+        $production = Production::findOrFail($id);
+        $issue = Production::with(['finish_raw_material', 'product_raw_material'])->findOrFail($id);
+        return view('admin.production.production-pdf',compact('production','issue'));
+
     }
 }

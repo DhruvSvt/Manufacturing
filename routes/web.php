@@ -128,8 +128,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('production/create', [ProductionCreateController::class, 'create'])->name('production-create');
     Route::post('production/final/store', [ProductionCreateController::class, 'store'])->name('production.store');
     Route::get('production/proccess', [ProductionCreateController::class, 'proccess'])->name('production-proccess');
-    Route::get('production/complete', [ProductionCreateController::class, 'complete'])->name('production-complete');
     Route::post('/production/status', [ProductionCreateController::class, 'status'])->name('production.status');
+
+    Route::get('production/complete', [ProductionCreateController::class, 'complete'])->name('production-complete');
+    Route::get('production/pdf/{id}', [ProductionCreateController::class,'pdf_generate'])->name('print-production');
 
     // Final production routes
     Route::get('production/final', [ProductionCreateController::class, 'final_create'])->name('production-final-create');
@@ -140,7 +142,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/gift/issue/store', [IssueController::class, 'gift_store'])->name('gift-store');
 
     Route::get('raw-material/issue', [IssueController::class, 'raw_material_index'])->name('raw-material-challan');
-    
+
     Route::get('finish-good/issue', [IssueController::class, 'finish_good_index'])->name('finish-good-challan');
     Route::post('/finish-good/issue/store', [IssueController::class, 'finish_good_store'])->name('finish-good-store');
     // Route::put('/gift/issue', [IssueController::class, 'issue_gift'])->name('gift.issue');
