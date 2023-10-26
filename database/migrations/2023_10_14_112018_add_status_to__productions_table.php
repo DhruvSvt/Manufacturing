@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('Productions', function (Blueprint $table) {
+        Schema::table('productions', function (Blueprint $table) {
             $table->tinyInteger('status')->after('batch_no')->nullable()->default(0);
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('Productions', function (Blueprint $table) {
+        Schema::table('productions', function (Blueprint $table) {
             $table->dropColumn('status');
         });
     }
