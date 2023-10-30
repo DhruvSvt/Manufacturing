@@ -85,7 +85,7 @@
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                            <a href="{{ route('print-production',$production->id) }}"
+                                            <a href="{{ route('print-production',$production->id) }}" target="_blank"
                                                 class="inline-flex items-center justify-center gap-2.5 rounded-full bg-meta-3 py-2 px-7 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-5">
                                                 <span>
                                                     <i class="fa-solid fa-print"></i>
