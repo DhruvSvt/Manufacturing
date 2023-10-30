@@ -380,64 +380,44 @@
         </div>
         <div class="container mt-3">
             <div class="row w-75">
-                <table class="table border border-dark mt-3 ">
+                <table class="table-bordered border-dark mt-3 ">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th scope="col">SR.NO.</th>
                             <th scope="col">NAME OF MATERIAL</th>
                             <th scope="col">REQ.QUANTITY</th>
                             <th scope="col">UNIT</th>
-                            <th scope="col">ACCUAL QUANTITY</th>
+                            <th scope="col">ACCTUAL QUANTITY</th>
                         </tr>
                     </thead>
                     <tbody>
                         @if($issue->product_raw_material && count($issue->product_raw_material) > 0)
                         @foreach ($issue->product_raw_material as $key => $item)
                         <tr>
-                            <th scope="row"> {{ $key+1 }}</th>
+                            <th scope="row" class="text-center"> {{ $key+1 }}</th>
                             <td>{{ $item->raw_material->name ?? '-' }}</td>
-                            <td>{{ $item->qty ?? '' }}</td>
-                            <td>{{ $item->raw_material->parent->short_name ?? '-' }}</td>
-                            <td></td>
+                            <td class="text-center">{{ $item->qty ?? '' }}</td>
+                            <td class="text-center">{{ $item->raw_material->parent->short_name ?? '-' }}</td>
+                            {{-- <td>{{ $item->$newarr['qty'] }}</td> --}}
+                            <td class="text-center">{{ $newarr[$item->raw_material->name] }}</td>
                         </tr>
                         @endforeach
                         @endif
-                        {{-- <tr>
-                            <th scope="row">2</th>
-                            <td>MAGNESIUM SULPHATE</td>
-                            <td>800</td>
-                            <td>GRAM.</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>L-LYSINE MONOLYDRATE</td>
-                            <td>100</td>
-                            <td>GRAM.</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>MAGNESIUM SULPHATE</td>
-                            <td>800</td>
-                            <td>GRAM.</td>
-                            <td></td>
-                        </tr> --}}
                     </tbody>
                 </table>
             </div>
         </div>
 
-            <div class="container mt-3">
-                <div class="row">
-                    <div class="col">
-                        SIGNATURE STORE INCHARGE
-                    </div>
-                    <div class="col">
-                        SIGNATURE CHEMIST INCHARGE
-                    </div>
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col">
+                    SIGNATURE STORE INCHARGE
+                </div>
+                <div class="col">
+                    SIGNATURE CHEMIST INCHARGE
                 </div>
             </div>
+        </div>
 
     </div>
 </body>

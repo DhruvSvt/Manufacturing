@@ -224,7 +224,15 @@ class ProductionCreateController extends Controller
     {
         $production = Production::findOrFail($id);
         $issue = Production::with(['finish_raw_material', 'product_raw_material'])->findOrFail($id);
-        return view('admin.production.production-pdf',compact('production','issue'));
+        $finals = Production::with('finish_raw_material')->findOrFail($id);
+        $newarr = []; // Define $newarr as an empty array
 
+        if ($finals->finish_raw_material && count($finals->finish_raw_material) > 0) {
+            foreach ($finals->finish_raw_material as $key => $item) {
+                $newarr[$item->raw_material->name] = $item->qty;
+            }
+        }
+
+        return view('admin.production.production-pdf', compact('production', 'issue', 'newarr'));
     }
 }
