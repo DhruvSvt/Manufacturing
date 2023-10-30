@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Production;
 use App\Models\ProductRawMaterial;
 use App\Models\ProductStock;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -233,6 +234,12 @@ class ProductionCreateController extends Controller
             }
         }
 
+
+        // $pdf = Pdf::setOption(['debugCss'=>false])->loadView('admin.production.production-pdf', ['production' => $production, 'issue' => $issue, 'newarr' => $newarr]);
+
+        // return $pdf->download($production->product->name.'.pdf');
+
         return view('admin.production.production-pdf', compact('production', 'issue', 'newarr'));
+
     }
 }
