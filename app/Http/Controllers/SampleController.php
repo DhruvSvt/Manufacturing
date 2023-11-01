@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Headquarters;
+use App\Models\Product;
 use App\Models\Sample;
+use App\Models\Suppliers;
 use Illuminate\Http\Request;
 
 class SampleController extends Controller
@@ -24,7 +27,10 @@ class SampleController extends Controller
      */
     public function create()
     {
-        //
+        $products = Product::whereStatus(true)->get();
+        $headquarters = Headquarters::whereStatus(true)->get();
+        $suppliers = Suppliers::whereStatus(true)->get();
+        return view('admin.sample.sample-create',compact('products','headquarters','suppliers'));
     }
 
     /**
@@ -35,7 +41,15 @@ class SampleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'product_id' => 'required',
+            'headquarter_id' => 'required',
+            'supplier_id' => 'required',
+            'qty' => 'required'
+        ]);
+
+        Sample::create($request->post());
+        return redirect()->route('sample.index');
     }
 
     /**

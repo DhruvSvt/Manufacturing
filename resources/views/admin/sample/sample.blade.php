@@ -10,7 +10,7 @@
             </h2>
         </div>
         <div class=" flex flex-col sm:flex-row sm:items-center sm:justify-start">
-            <a href="{{ route('admin-create') }}">
+            <a href="{{ route('sample.create') }}">
                 <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray m-3">
                     Assign Sample
                 </button>

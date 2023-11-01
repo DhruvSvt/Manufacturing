@@ -1,7 +1,7 @@
 @extends('admin.layouts.app', ['title' => 'Add Product'])
 @section('content')
     <!-- ===== Form Area Start ===== -->
-    <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div class=" max-w-screen-2xl p-4 md:p-6 2xl:p-10 my-10 md:mx-10 bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center m-6">
             <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
                 Add Product
