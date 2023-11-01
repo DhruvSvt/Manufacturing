@@ -9,6 +9,7 @@ use App\Http\Controllers\HeadquartersController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionCreateController;
+use App\Http\Controllers\SampleController;
 use App\Http\Controllers\StocksController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UnitController;
@@ -123,6 +124,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('stocks/product/detail/{id}', [StocksController::class, 'product_detail_id'])->name('product-detail-id');
 
     Route::get('stocks/details', [StocksController::class, 'stock_details'])->name('stock-details');
+
+    // sample
+    Route::get('sample',[SampleController::class,'index'])->name('sample');
 
     // production routes
     Route::get('production/create', [ProductionCreateController::class, 'create'])->name('production-create');

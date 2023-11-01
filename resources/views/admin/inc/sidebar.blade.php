@@ -57,8 +57,7 @@
                     <!-- Menu Item Admin -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'Forms' ? '':'Forms')"
-                            :class="{
+                            href="#" @click.prevent="selected = (selected === 'Forms' ? '':'Forms')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Forms') || (page ===
                                     'formElements' ||
                                     page === 'formLayout')
@@ -94,8 +93,7 @@
                     <!-- Menu Item Master -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'Masters' ? '':'Masters')"
-                            :class="{
+                            href="#" @click.prevent="selected = (selected === 'Masters' ? '':'Masters')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Masters') || (page === 'settings' ||
                                     page === 'fileManager' || page === 'dataTables' || page ===
                                     'pricingTables' || page === 'errorPage' || page === 'mailSuccess' || page ===
@@ -130,7 +128,7 @@
                                 viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
-                                    fill=""/>
+                                    fill="" />
                             </svg>
                         </a>
 
@@ -175,8 +173,7 @@
                                                 class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                                 data-modal-hide="authentication-modal">
                                                 <svg class="w-3 h-3" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 14 14">
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                     <path stroke="currentColor" stroke-linecap="round"
                                                         stroke-linejoin="round" stroke-width="2"
                                                         d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -252,13 +249,6 @@
                                         Finnish Products
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="#"
-                                        :class="page === 'settings' && '!text-white'">
-                                        Sample
-                                    </a>
-                                </li>
                                 {{-- <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('headquarters') }}"
@@ -275,8 +265,7 @@
                     <!-- Menu Item Purchase -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'Purchase' ? '':'Purchase')"
-                            :class="{
+                            href="#" @click.prevent="selected = (selected === 'Purchase' ? '':'Purchase')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Purchase') || (page === 'raw-material' ||
                                     page === 'gifts' || page === 'products' || page === 'others')
                             }">
@@ -333,8 +322,7 @@
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('purchase-item') }}"
-                                        :class="page === 'gifts' && '!text-white'">
+                                        href="{{ route('purchase-item') }}" :class="page === 'gifts' && '!text-white'">
                                         Gifts
                                     </a>
                                 </li>
@@ -355,8 +343,7 @@
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                             href="{{ route('stock-details') }}"
-                            @click.prevent="selected = (selected === 'Stocks' ? '':'Stocks')"
-                            :class="{
+                            @click.prevent="selected = (selected === 'Stocks' ? '':'Stocks')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Stocks') || (page === 'raw-material' ||
                                     page === 'gifts' || page === 'products')
                             }">
@@ -395,6 +382,12 @@
                                         Finnish Products
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('sample') }}" :class="page === 'settings' && '!text-white'">
+                                        Sample
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <!-- Dropdown Menu End -->
@@ -404,8 +397,7 @@
                     <!-- Menu Item Production -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'Production' ? '':'Production')"
-                            :class="{
+                            href="#" @click.prevent="selected = (selected === 'Production' ? '':'Production')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Production') || (page === 'raw-material' ||
                                     page === 'gifts' || page === 'products')
                             }">
@@ -433,13 +425,15 @@
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('production-proccess') }}" :class="page === 'gifts' && '!text-white'">
+                                        href="{{ route('production-proccess') }}"
+                                        :class="page === 'gifts' && '!text-white'">
                                         In Process Goods
                                     </a>
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('production-complete') }}" :class="page === 'products' && '!text-white'">
+                                        href="{{ route('production-complete') }}"
+                                        :class="page === 'products' && '!text-white'">
                                         Completed Goods
                                     </a>
                                 </li>
@@ -452,8 +446,7 @@
                     <!-- Menu Item Challans -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'Challans' ? '':'Challans')"
-                            :class="{
+                            href="#" @click.prevent="selected = (selected === 'Challans' ? '':'Challans')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Challans') || (page === 'raw-material' ||
                                     page === 'gifts' || page === 'products')
                             }">
@@ -474,13 +467,15 @@
                             <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
                                     <a class="group relative flex items--center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('raw-material-challan') }}" :class="page === 'raw-material' && '!text-white'">
+                                        href="{{ route('raw-material-challan') }}"
+                                        :class="page === 'raw-material' && '!text-white'">
                                         Raw Material Issue Challan
                                     </a>
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('finish-good-challan') }}" :class="page === 'products' && '!text-white'">
+                                        href="{{ route('finish-good-challan') }}"
+                                        :class="page === 'products' && '!text-white'">
                                         Finish Goods Challan
                                     </a>
                                 </li>
@@ -507,8 +502,7 @@
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                             href="{{ route('stock-details') }}"
-                            @click.prevent="selected = (selected === 'Reports' ? '':'Reports')"
-                            :class="{
+                            @click.prevent="selected = (selected === 'Reports' ? '':'Reports')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Reports') || (page === 'raw-material' ||
                                     page === 'gifts' || page === 'products')
                             }">
@@ -567,8 +561,8 @@
                             href="invoice.html" @click="selected = (selected === 'Invoice' ? '':'Invoice')"
                             :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Invoice') && (page === 'Invoice') }"
                             :class="page === 'Invoice' && 'bg-graydark'">
-                            <svg class="fill-current" width="18" height="19" viewBox="0 0 18 19"
-                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="fill-current" width="18" height="19" viewBox="0 0 18 19" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_130_9787)">
                                     <path
                                         d="M15.8343 2.49902C15.8343 1.43027 14.9624 0.530273 13.8655 0.530273H4.13428C3.06553 0.530273 2.16553 1.40215 2.16553 2.49902V16.6178C2.16553 16.8428 2.30615 17.0678 2.50303 17.1803C2.6999 17.2928 2.95303 17.2646 3.1499 17.1521L4.55615 16.224L6.44053 17.4615C6.66553 17.6021 6.91865 17.6021 7.14365 17.4615L8.9999 16.224L10.8562 17.4615C10.9687 17.5459 11.0812 17.574 11.1937 17.574C11.3062 17.574 11.4468 17.5459 11.5312 17.4615L13.3874 16.224L14.7937 17.1803C14.9905 17.3209 15.2437 17.3209 15.4405 17.2084C15.6374 17.0959 15.778 16.8709 15.778 16.6459L15.8343 2.49902ZM14.0343 15.099C13.6687 14.8459 13.1905 14.8459 12.8249 15.099L11.2218 16.1678L9.61865 15.099C9.42178 14.9865 9.2249 14.9021 8.9999 14.9021C8.80303 14.9021 8.57803 14.9584 8.40928 15.099L6.80615 16.1678L5.20303 15.099C4.8374 14.8459 4.35928 14.8459 3.99365 15.099L3.45928 15.4365V2.49902C3.45928 2.10527 3.76865 1.7959 4.1624 1.7959H13.9218C14.3155 1.7959 14.6249 2.10527 14.6249 2.49902V15.4365L14.0343 15.099Z"
@@ -594,8 +588,7 @@
                                 </g>
                                 <defs>
                                     <clipPath id="clip0_130_9787">
-                                        <rect width="18" height="18" fill="white"
-                                            transform="translate(0 0.052124)" />
+                                        <rect width="18" height="18" fill="white" transform="translate(0 0.052124)" />
                                     </clipPath>
                                 </defs>
                             </svg>
@@ -617,14 +610,13 @@
                     <!-- Menu Item Auth Pages -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'AuthPages' ? '':'AuthPages')"
-                            :class="{
+                            href="#" @click.prevent="selected = (selected === 'AuthPages' ? '':'AuthPages')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'AuthPages') || (page ===
                                     'register' ||
                                     page === 'login' || page === 'forgetPassword')
                             }">
-                            <svg class="fill-current" width="18" height="19" viewBox="0 0 18 19"
-                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="fill-current" width="18" height="19" viewBox="0 0 18 19" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_130_9814)">
                                     <path
                                         d="M12.7127 0.55835H9.53457C8.80332 0.55835 8.18457 1.1771 8.18457 1.90835V3.84897C8.18457 4.18647 8.46582 4.46772 8.80332 4.46772C9.14082 4.46772 9.45019 4.18647 9.45019 3.84897V1.88022C9.45019 1.82397 9.47832 1.79585 9.53457 1.79585H12.7127C13.3877 1.79585 13.9221 2.33022 13.9221 3.00522V15.0709C13.9221 15.7459 13.3877 16.2802 12.7127 16.2802H9.53457C9.47832 16.2802 9.45019 16.2521 9.45019 16.1959V14.2552C9.45019 13.9177 9.16894 13.6365 8.80332 13.6365C8.43769 13.6365 8.18457 13.9177 8.18457 14.2552V16.1959C8.18457 16.9271 8.80332 17.5459 9.53457 17.5459H12.7127C14.0908 17.5459 15.1877 16.4209 15.1877 15.0709V3.03335C15.1877 1.65522 14.0627 0.55835 12.7127 0.55835Z"
@@ -635,8 +627,7 @@
                                 </g>
                                 <defs>
                                     <clipPath id="clip0_130_9814">
-                                        <rect width="18" height="18" fill="white"
-                                            transform="translate(0 0.052124)" />
+                                        <rect width="18" height="18" fill="white" transform="translate(0 0.052124)" />
                                     </clipPath>
                                 </defs>
                             </svg>
