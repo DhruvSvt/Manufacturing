@@ -69,7 +69,8 @@
                 </li>
 
                 <!-- Notification Menu Area -->
-                <li class="relative" x-data="{ dropdownOpen: false, notifying: true }" @click.outside="dropdownOpen = false">
+                <li class="relative" x-data="{ dropdownOpen: false, notifying: true }"
+                    @click.outside="dropdownOpen = false">
 
                     <!-- Dropdown Start -->
                     {{-- <div x-show="dropdownOpen"
@@ -135,7 +136,8 @@
                 <!-- Notification Menu Area -->
 
                 <!-- Chat Notification Area -->
-                {{-- <li class="relative" x-data="{ dropdownOpen: false, notifying: true }" @click.outside="dropdownOpen = false">
+                {{-- <li class="relative" x-data="{ dropdownOpen: false, notifying: true }"
+                    @click.outside="dropdownOpen = false">
                     <!-- Dropdown Start -->
                     <div x-show="dropdownOpen"
                         class="absolute -right-16 mt-2.5 flex h-90 w-75 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-80">
@@ -235,8 +237,8 @@
             <div class="relative" x-data="{ dropdownOpen: false }" @click.outside="dropdownOpen = false">
                 <a class="flex items-center gap-4" href="#" @click.prevent="dropdownOpen = ! dropdownOpen">
                     <span class="hidden text-right lg:block">
-                        <span
-                            class="block text-sm font-medium text-black dark:text-white">{{ Auth::user()->name }}</span>
+                        <span class="block text-sm font-medium text-black dark:text-white">{{ Auth::user()->name
+                            }}</span>
                     </span>
 
                     <span class="h-12 w-12 rounded-full">
@@ -258,8 +260,8 @@
                         <li>
                             <a href="profile.html"
                                 class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
-                                <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M11 9.62499C8.42188 9.62499 6.35938 7.59687 6.35938 5.12187C6.35938 2.64687 8.42188 0.618744 11 0.618744C13.5781 0.618744 15.6406 2.64687 15.6406 5.12187C15.6406 7.59687 13.5781 9.62499 11 9.62499ZM11 2.16562C9.28125 2.16562 7.90625 3.50624 7.90625 5.12187C7.90625 6.73749 9.28125 8.07812 11 8.07812C12.7188 8.07812 14.0938 6.73749 14.0938 5.12187C14.0938 3.50624 12.7188 2.16562 11 2.16562Z"
                                         fill="" />
@@ -274,8 +276,33 @@
                     <a href="{{ route('logout') }}"
                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <button
-                            class="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                            class="flex items-center py-2 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                            <a href="{{ route('unit') }}">
+                                Raw Material Unit
+                            </a>
+                        </button>
 
+                        <button
+                            class="flex items-center py-2 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                            <a href="{{ route('supplier') }}">
+                                Party Name
+                            </a>
+                        </button>
+
+                        <button
+                            class="flex items-center py-2 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                            <a href="{{ route('headquarters') }}">
+                                Headquarters
+                            </a>
+                        </button>
+                        <button
+                            class="flex items-center py-2 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                            <a href="{{ route('brand') }}">
+                                Brand
+                            </a>
+                        </button>
+                        <button
+                            class="flex items-center gap-3.5 py-2 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
 
                             <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -293,6 +320,7 @@
                                 @csrf
                             </form>
                         </button>
+
                     </a>
                 </div>
                 <!-- Dropdown End -->
