@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('product_id')->nullable()->default(0);
             $table->bigInteger('headquarter_id')->nullable()->default(0);
-            $table->bigInteger('supplier_id')->nullable()->default(0);
             $table->string('qty')->nullable();
             $table->tinyInteger('status')->nullable()->default(0);
             $table->timestamps();

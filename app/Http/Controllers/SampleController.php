@@ -30,8 +30,7 @@ class SampleController extends Controller
     {
         $products = Product::whereStatus(true)->get();
         $headquarters = Headquarters::whereStatus(true)->get();
-        $suppliers = Suppliers::whereStatus(true)->get();
-        return view('admin.sample.sample-create', compact('products', 'headquarters', 'suppliers'));
+        return view('admin.sample.sample-create', compact('products', 'headquarters'));
     }
 
     /**
@@ -45,7 +44,6 @@ class SampleController extends Controller
         $request->validate([
             'product_id' => 'required',
             'headquarter_id' => 'required',
-            'supplier_id' => 'required',
             'qty' => 'required'
         ]);
 
