@@ -189,7 +189,7 @@ class IssueController extends Controller
                         ->get();
 
                     foreach ($productStock as $item) {
-                        if ($qty > 0)
+                        if ($qty > 0){
                             if ($item->quantity >= $qty) {
                                 $item->quantity -= $qty;
                                 $qty = 0;
@@ -199,6 +199,7 @@ class IssueController extends Controller
                                 $item->quantity = 0;
                                 $item->save();
                             }
+                        }
                     }
                 }
 

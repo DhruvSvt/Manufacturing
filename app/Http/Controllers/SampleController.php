@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Headquarters;
 use App\Models\Product;
+use App\Models\ProductStock;
 use App\Models\Sample;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class SampleController extends Controller
         $products = Product::whereStatus(true)->get();
         $headquarters = Headquarters::whereStatus(true)->get();
         $suppliers = Suppliers::whereStatus(true)->get();
-        return view('admin.sample.sample-create',compact('products','headquarters','suppliers'));
+        return view('admin.sample.sample-create', compact('products', 'headquarters', 'suppliers'));
     }
 
     /**
@@ -48,8 +49,67 @@ class SampleController extends Controller
             'qty' => 'required'
         ]);
 
-        Sample::create($request->post());
-        return redirect()->route('sample.index');
+        $qty = $request->qty ?? 0;
+
+        $products = ProductStock::where('product_id', $request->product_id)->get();
+
+        if ($products->count() > 0) {
+            $canCreate = true;
+            foreach ($products as $product) {
+
+                $productStock = ProductStock::where('product_id', $request->product_id)
+                    ->where('expiry_date', '>', \Carbon\Carbon::now())
+                    ->whereOr('quantity', '>', 0)
+                    ->groupBy('product_id')
+                    ->selectRaw('sum(quantity) as total_quantity , product_id')
+                    ->first();
+
+                if (!isset($productStock) || $productStock->total_quantity < $qty) {
+                    $canCreate = false;
+                    break;
+                }
+            }
+        } else {
+            $canCreate = false;
+        }
+
+        if ($canCreate) {
+
+            Sample::create($request->post());
+
+            try {
+
+                foreach ($products as $product) {
+                    $productStocks = ProductStock::where('product_id', $request->product_id)
+                        ->where('expiry_date', '>', \Carbon\Carbon::now())
+                        ->orderBy('expiry_date')
+                        ->get();
+
+                    foreach ($productStocks as $item) {
+                        if ($qty > 0) {
+                            if ($item->quantity >= $qty) {
+                                $item->quantity -= $qty;
+                                $qty = 0;
+                                $item->save();
+                            } else {
+                                $qty -= $item->quantity;
+                                $item->quantity = 0;
+                                $item->save();
+                            }
+                        }
+                    }
+                }
+                return redirect()->route('sample.index')->with('success', 'Stocks Assigned Successfully');
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Error updating Product stock: ' . $e->getMessage());
+            }
+        } else {
+            $needQuantity =  $qty - ($productStock->total_quantity ?? 0);
+            return redirect()->back()->with([
+                'error' => 'Insufficient stock to Assign Sample.',
+                'needQuantity' => $needQuantity
+            ]);
+        }
     }
 
     /**

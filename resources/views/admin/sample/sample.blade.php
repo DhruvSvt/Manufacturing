@@ -196,5 +196,28 @@
         </div>
     </div>
 </main>
+@if (Session::has('success'))
+<script>
+    swal("Success", "{{ Session::get('success') }}", 'success', {
+                buttons: {
+                    confirm: "OK",
+                },
+            });
+</script>
+@endif
+
+<!--this alert for diplay the need quantity -->
+@if (Session::has('error'))
+<script>
+    var error = "{{ Session::get('error') }}";
+            var needQuantity = "{{ Session::get('needQuantity') }}";
+
+            swal("Error", error + ' You need ' + needQuantity + ' qunatity more to create it.', 'error', {
+                buttons: {
+                    confirm: "OK",
+                },
+            });
+</script>
+@endif
 <!-- ===== Main Content End ===== -->
 @endsection
