@@ -10,6 +10,7 @@ use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionCreateController;
 use App\Http\Controllers\SampleController;
+use App\Http\Controllers\StockAlertController;
 use App\Http\Controllers\StocksController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UnitController;
@@ -151,6 +152,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('finish-good/issue', [IssueController::class, 'finish_good_index'])->name('finish-good-challan');
     Route::post('/finish-good/issue/store', [IssueController::class, 'finish_good_store'])->name('finish-good-store');
     // Route::put('/gift/issue', [IssueController::class, 'issue_gift'])->name('gift.issue');
+
+    // Stock Alert routes
+    Route::get('stock-alert',[StockAlertController::class, 'index'])->name('stock-alert');
 
     Route::get('/signin', function () {
         return view('admin.signin');

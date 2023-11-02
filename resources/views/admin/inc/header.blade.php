@@ -27,7 +27,7 @@
                             :class="{ '!h-0 dealy-200': !sidebarToggle }"></span>
                     </span>
                 </span>
-            </button>   
+            </button>
             <!-- Hamburger Toggle BTN -->
             <a class="block flex-shrink-0 lg:hidden" href="{{ route('admin-index') }}">
                 <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="Logo" style="width:72px" />
@@ -40,12 +40,21 @@
                 <li class="relative" x-data="{ dropdownOpen: false, notifying: true }"
                     @click.outside="dropdownOpen = false">
                     <a class="relative flex h-8.5 w-8.5 items-center justify-center rounded-full border-[0.5px] border-stroke bg-gray hover:text-primary dark:border-strokedark dark:bg-meta-4 dark:text-white"
-                        href="#" @click.prevent="dropdownOpen = ! dropdownOpen; notifying = false">
+                        href="{{ route('stock-alert') }}">
+                        <?php
+                        $stocks = App\Models\MaterialStock::groupBy('raw_material_id')
+                                ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
+                                ->havingRaw('sum(quantity) < 250')
+                                ->where('expiry_date', '>', \Carbon\Carbon::now())
+                                ->get();
+                        ?>
+                        @if (count($stocks) > 0)
                         <span :class="!notifying &amp;&amp; 'hidden'"
                             class="absolute -top-0.5 right-0 z-1 h-2 w-2 rounded-full bg-meta-1">
                             <span
                                 class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-meta-1 opacity-75"></span>
                         </span>
+                        @endif
 
                         <svg class="fill-current duration-300 ease-in-out" width="18" height="18" viewBox="0 0 18 18"
                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,7 +65,7 @@
                     </a>
 
                     <!-- Dropdown Start -->
-                    <div x-show="dropdownOpen"
+                    {{-- <div x-show="dropdownOpen"
                         class="absolute -right-27 mt-2.5 flex h-90 w-75 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-80"
                         style="display: none;">
                         <div class="px-4.5 py-3">
@@ -112,7 +121,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                     <!-- Dropdown End -->
                 </li>
                 <li>
