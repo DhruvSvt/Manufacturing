@@ -19,10 +19,17 @@ class MaterialStock extends Model
     {
         return $this->belongsTo(RawMaterial::class,'raw_material_id');
     }
+
     public function rawMaterialUnit()
     {
         return $this->belongsTo(RawMaterial::class,'raw_material_id');
     }
+
+    public function purchase(){
+
+        return $this->hasOne(Purchase::class,'id','purchase_id')->where('type', '=', 'App\Models\RawMaterial');
+    }
+
 
     use HasFactory;
 }

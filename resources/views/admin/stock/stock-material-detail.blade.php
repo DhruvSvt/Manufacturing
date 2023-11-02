@@ -41,6 +41,7 @@
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">S.no</th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">{{ $label }} Name</th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Purchasing Date</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Price</th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Available {{ $label }} Qty.
                                             </th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Expiry Date</th>
@@ -65,6 +66,11 @@
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                     <p class="text-sm font-medium text-black dark:text-white">
                                                         {{ $m->created_at->format('d-m-Y') }}
+                                                    </p>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $m->purchase->price ?? '-' }}
                                                     </p>
                                                 </td>
                                                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">

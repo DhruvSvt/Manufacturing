@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ItemStock;
 use App\Models\MaterialStock;
 use App\Models\ProductStock;
+use App\Models\Purchase;
 use App\Models\RawMaterial;
 use App\Models\Stock;
 use Carbon\Carbon;
@@ -82,8 +83,7 @@ class StocksController extends Controller
         $label = 'Raw Material';
 
         // Fetch entries with matching raw_material_id
-        $raw_materials = MaterialStock::where('raw_material_id', $raw_material_id)->get();
-
+        $raw_materials = MaterialStock::with('purchase')->where('raw_material_id', $raw_material_id)->get();
         return view('admin.stock.stock-material-detail', compact('raw_materials', 'label'));
     }
 
