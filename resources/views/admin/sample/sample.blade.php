@@ -46,39 +46,38 @@
                                 <table class="table w-full table-auto datatable-table" id="dataTableTwo">
                                     <thead>
                                         <tr>
-                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Name
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Sample Name
                                             </th>
-                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Available Sample qty.
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Qty.
                                             </th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">View</th>
                                         </tr>
                                     </thead>
 
-                                    {{-- <tbody>
+                                    <tbody>
                                         @foreach ($master as $m)
                                         <tr>
                                             <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                 <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $m->item->name }}
+                                                    {{ $m->product->name }}
                                                 </p>
                                             </td>
                                             <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                 <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $m->total_quantity }} {{ $m->item->parent ?
-                                                    $m->item->parent->short_name : '' }}
+                                                    {{ $m->total_quantity }}
+                                                </p>
+                                            </td>
 
-                                                </p>
-                                            </td>
                                             <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                 <p class="text-sm font-medium text-black dark:text-white">
-                                                    <a href="{{ route('item-detail-id', $m->item_id) }}">
+                                                    <a href="{{ route('sample-detail-id', $m->product_id ) }}">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                 </p>
                                             </td>
                                         </tr>
                                         @endforeach
-                                    </tbody> --}}
+                                    </tbody>
 
                                 </table>
                             </div>
@@ -130,7 +129,7 @@
                                 <table class="table w-full table-auto datatable-table" id="dataTableTwo">
                                     <thead>
                                         <tr>
-                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Name
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Sample Name
                                             </th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Wasted Qunatity
                                             </th>
@@ -165,8 +164,6 @@
                                             </td>
                                         </tr>
                                         @endforeach
-
-
                                     </tbody> --}}
                                 </table>
                             </div>

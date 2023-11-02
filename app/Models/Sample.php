@@ -15,4 +15,12 @@ class Sample extends Model
         'qty'
     ];
 
+    public function product(){
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function headquarter(){
+    return $this->belongsTo(Headquarters::class, 'headquarter_id');
+}
+
 }

@@ -18,7 +18,20 @@ class SampleController extends Controller
      */
     public function index()
     {
-        return view('admin.sample.sample');
+
+        //for Right side table
+        // $check_expiring = ProductStock::groupBy('product_id')
+        //     ->selectRaw('sum(quantity) as total_quantity, product_id')
+        //     ->where('expiry_date', '<=', \Carbon\Carbon::now())
+        //     ->get();
+
+        //for Left side table
+        $master = Sample::groupBy('product_id')
+            ->selectRaw('sum(qty) as total_quantity, product_id')
+            ->get();
+
+        // $samples = Sample::all();
+        return view('admin.sample.sample', compact('master'));
     }
 
     /**
@@ -116,6 +129,16 @@ class SampleController extends Controller
      * @param  \App\Models\Sample  $sample
      * @return \Illuminate\Http\Response
      */
+
+    public function sample_detail_id($product_id)
+    {
+
+        // Fetch entries with matching raw_material_id
+        $sample = Sample::where('product_id', $product_id)->get();
+
+        return view('admin.sample.sample-detail', compact('sample'));
+    }
+
     public function show(Sample $sample)
     {
         //

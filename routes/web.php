@@ -127,7 +127,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // sample
     Route::resource('sample',SampleController::class);
-    // Route::get('sample',[SampleController::class,'index'])->name('sample');
+    Route::get('sample/detail/{id}', [SampleController::class, 'sample_detail_id'])->name('sample-detail-id');
 
     // production routes
     Route::get('production/create', [ProductionCreateController::class, 'create'])->name('production-create');
