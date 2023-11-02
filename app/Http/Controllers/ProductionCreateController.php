@@ -20,13 +20,6 @@ class ProductionCreateController extends Controller
         return view('admin.production.create', compact('products'));
     }
 
-    public function material_detail()
-    {
-        $label = 'Raw Material';
-
-        //for Left side table
-
-    }
 
     public function store(Request $request)
     {

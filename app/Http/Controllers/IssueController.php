@@ -115,7 +115,7 @@ class IssueController extends Controller
 
     public function raw_material_index()
     {
-        $issues = Production::with(['finish_raw_material', 'product_raw_material'])->whereStatus(true)->latest()->get();
+        $issues = Production::with(['finish_raw_material', 'product_raw_material'])->latest()->get();
 
         return view('admin.challans.raw-material', compact('issues'));
     }
