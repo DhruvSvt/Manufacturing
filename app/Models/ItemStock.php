@@ -20,6 +20,11 @@ class ItemStock extends Model
         return $this->belongsTo(Gift::class,'item_id');
     }
 
-    
+    public function purchase()
+    {
+        return $this->hasOne(Purchase::class,'id','purchase_id')->where('type', '=' , 'App\Models\Gift');
+    }
+
+
     use HasFactory;
 }

@@ -114,7 +114,7 @@ class StocksController extends Controller
         $label = 'Item';
 
         // Fetch entries with matching raw_material_id
-        $items = ItemStock::where('item_id', $item_id)->get();
+        $items = ItemStock::with('purchase')->where('item_id', $item_id)->get();
 
         return view('admin.stock.stock-item-detail', compact('items', 'label'));
     }
