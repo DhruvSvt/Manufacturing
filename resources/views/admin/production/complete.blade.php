@@ -48,7 +48,7 @@
                                     <tr>
                                         <th class="sm:w-1/6 xs:w-1/6">S.no</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Product Name</th>
-                                        <th class="sm:w-1/6 xs:w-1/6">Quantity</th>
+                                        <th class="sm:w-1/6 xs:w-1/6">Batch Size</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Batch No</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Create at</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Print</th>
@@ -71,7 +71,7 @@
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $production->qty }}
+                                                {{ $production->batch_size }}
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
