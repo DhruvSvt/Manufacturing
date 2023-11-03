@@ -75,7 +75,7 @@
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $production->qty }}
+                                                {{ $production->batch_size }}
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
@@ -88,19 +88,105 @@
                                                 {{ $production->created_at->format('d-m-Y') }}
                                             </p>
                                         </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                            <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" data-id="{{ $production->id }}" name="status"
-                                                    class="ds-switch h-4 w-4 " {{ $production->status == 1 ? 'checked' :
-                                                '' }} value="">
-                                                {{-- class="w-11 h-6 bg-gray-200 peer-focus:outline-none
-                                                peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800
-                                                rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full
-                                                peer-checked:after:border-white after:content-[''] after:absolute
-                                                after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300
-                                                after:border after:rounded-full after:h-5 after:w-5 after:transition-all
-                                                dark:border-gray-600 peer-checked:bg-blue-600"> --}}
-                                            </label>
+                                        <td class="sm:w-1/6 xs:w-1/6">
+                                            <div x-data="{modalOpen: false}">
+                                                <button @click="modalOpen = true">
+                                                    {{-- <i data-v-3d6d2adb="" title="Edit"
+                                                        class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
+                                                    --}}
+                                                    <label class="relative inline-flex items-center cursor-pointer">
+                                                        <input type="checkbox" data-id="{{ $production->id }}"
+                                                            id="status-{{ $production->id }}" name="status"
+                                                            class="ds-switch h-4 w-4 " {{ $production->status == 1 ?
+                                                        'checked' :
+                                                        '' }} value="">
+                                                    </label>
+                                                </button>
+
+                                                <!-- modal start -->
+                                                <div x-show="modalOpen" x-transition=""
+                                                    class="fixed top-0 left-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5"
+                                                    style="display: none;">
+                                                    <div @click.outside="modalOpen = false"
+                                                        class="w-full max-w-142.5 rounded-lg bg-white py-12 px-8 text-center dark:bg-boxdark md:py-15 md:px-17.5">
+                                                        <h3
+                                                            class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
+                                                            Finish Good
+                                                        </h3>
+                                                        <form
+                                                            action="{{ route('finish-good.update',['id' => $production->id ]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="w-full xl:w-1/2 m-auto mt-5">
+                                                                <label class="mb-2.5 block text-black dark:text-white">
+                                                                    batch No.
+                                                                </label>
+                                                                <input type="text" name="batch_no"
+                                                                    value="{{ $production->batch_no }}" disabled
+                                                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                                                                @error('batch_no')
+                                                                <p class="text-red-500 mt-2">{{ $message }}</p>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="w-full xl:w-1/2 m-auto mt-5">
+                                                                <label class="mb-2.5 block text-black dark:text-white">
+                                                                    Product Name
+                                                                </label>
+                                                                <input type="text" name="name"
+                                                                    value="{{ $production->product->name }}" disabled
+                                                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                                                                @error('name')
+                                                                <p class="text-red-500 mt-2">{{ $message }}</p>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="w-full xl:w-1/2 m-auto mt-5">
+                                                                <label class="mb-2.5 block text-black dark:text-white">
+                                                                    Batch Size
+                                                                </label>
+                                                                <input type="text" name="batch_size"
+                                                                    value="{{ $production->batch_size }}" disabled
+                                                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                                                                @error('batch_size')
+                                                                <p class="text-red-500 mt-2">{{ $message }}</p>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="w-full xl:w-1/2 m-auto mt-5">
+                                                                <label class="mb-2.5 block text-black dark:text-white">
+                                                                    Quantity <span class="text-meta-1">*</span>
+                                                                </label>
+                                                                <input type="number" name="qty"
+                                                                    value="{{ $production->quantity ?? '' }}"
+                                                                    max="{{ $production->batch_size }}"
+                                                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                                                                @error('qty')
+                                                                <p class="text-red-500 mt-2">{{ $message }}</p>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="w-full xl:w-1/2 m-auto mt-5">
+                                                                <label class="mb-2.5 block text-black dark:text-white">
+                                                                    Units <span class="text-meta-1">*</span>
+                                                                </label>
+                                                                <input type="number" name="unit"
+                                                                    value="{{ $production->units ?? '' }}"
+                                                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                                                                @error('unit')
+                                                                <p class="text-red-500 mt-2">{{ $message }}</p>
+                                                                @enderror
+                                                            </div>
+                                                            <button @click="modalOpen = false"
+                                                                class="flex w-100 float-right rounded font-medium text-gray m-3 mt-3 bg-gray p-3 text-center font-medium text-black transition  hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1">
+                                                                Cancel
+                                                            </button>
+                                                            <button
+                                                                class="flex w-100 float-right rounded bg-primary p-3 font-medium mt-3 text-gray m-3">
+                                                                Submit
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!-- modal end -->
+                                            </div>
                                         </td>
                                     </tr>
                                     @endif
@@ -136,7 +222,7 @@
 </main>
 <!-- ===== Main Content End ===== -->
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         $('.ds-switch').change(function() {
             let checkbox = $(this);
@@ -154,10 +240,11 @@
             }
         });
     });
-</script>
+</script> --}}
 
 
-<script>
+
+{{-- <script>
     // Ajax Request
     $(document).ready(function() {
         $('.ds-switch').change(function() {
@@ -178,5 +265,5 @@
             });
         });
     });
-</script>
+</script> --}}
 @endsection

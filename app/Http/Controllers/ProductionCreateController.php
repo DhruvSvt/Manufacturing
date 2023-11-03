@@ -199,6 +199,23 @@ class ProductionCreateController extends Controller
         return view('admin.production.proccess', compact('productions'));
     }
 
+    public function update(Request $request , $id)
+    {
+        $finish_good = Production::findOrFail($id);
+
+        $request->validate([
+            'qty' => 'required|max:' . $finish_good->batch_size,
+            'unit' => 'required',
+        ]);
+
+        $finish_good->quantity = $request->qty;
+        $finish_good->units = $request->unit;
+
+        $finish_good->save();
+
+        return redirect()->route('production-proccess');
+    }
+
     public function complete()
     {
         $productions = Production::whereStatus(true)->latest()->get();
