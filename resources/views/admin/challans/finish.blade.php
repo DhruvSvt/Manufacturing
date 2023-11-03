@@ -89,10 +89,10 @@
                             <p class="text-red-500 mt-2">{{ $message }}</p>
                             @enderror
                         </div>
-                        <button @click="modalOpen = false"
+                        <span @click="modalOpen = false"
                             class="flex w-100 float-right rounded font-medium text-gray m-3 mt-3 bg-gray p-3 text-center font-medium text-black transition  hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1">
                             Cancel
-                        </button>
+                        </span>
                         <button class="flex w-100 float-right rounded bg-primary p-3 font-medium mt-3 text-gray m-3">
                             Submit
                         </button>
