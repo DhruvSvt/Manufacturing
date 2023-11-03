@@ -95,11 +95,8 @@
                                                         class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
                                                     --}}
                                                     <label class="relative inline-flex items-center cursor-pointer">
-                                                        <input type="checkbox" data-id="{{ $production->id }}"
-                                                            id="status-{{ $production->id }}" name="status"
-                                                            class="ds-switch h-4 w-4 " {{ $production->status == 1 ?
-                                                        'checked' :
-                                                        '' }} value="">
+                                                        <input type="checkbox" name="status" class="ds-switch h-4 w-4"
+                                                             value="">
                                                     </label>
                                                 </button>
 
@@ -107,7 +104,7 @@
                                                 <div x-show="modalOpen" x-transition=""
                                                     class="fixed top-0 left-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5"
                                                     style="display: none;">
-                                                    <div @click.outside="modalOpen = false"
+                                                    <div @click.outside="modalOpen = true"
                                                         class="w-full max-w-142.5 rounded-lg bg-white py-12 px-8 text-center dark:bg-boxdark md:py-15 md:px-17.5">
                                                         <h3
                                                             class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
@@ -174,12 +171,14 @@
                                                                 <p class="text-red-500 mt-2">{{ $message }}</p>
                                                                 @enderror
                                                             </div>
-                                                            <button @click="modalOpen = false"
+                                                            <span @click="modalOpen = false" onclick="checkBoxFalse()"
                                                                 class="flex w-100 float-right rounded font-medium text-gray m-3 mt-3 bg-gray p-3 text-center font-medium text-black transition  hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1">
                                                                 Cancel
-                                                            </button>
-                                                            <button
-                                                                class="flex w-100 float-right rounded bg-primary p-3 font-medium mt-3 text-gray m-3">
+                                                            </span>
+                                                            <button data-id="{{ $production->id }}"
+                                                                class="ds-switch flex w-100 float-right rounded bg-primary p-3 font-medium mt-3 text-gray m-3"
+                                                                {{ $production->status == 1 ? 'checked' : '' }}
+                                                                >
                                                                 Submit
                                                             </button>
                                                         </form>
@@ -242,28 +241,74 @@
     });
 </script> --}}
 
+<script>
+    function checkBoxFalse() {
+        $('.ds-switch').prop('checked', false);
+    }
 
-
-{{-- <script>
     // Ajax Request
-    $(document).ready(function() {
-        $('.ds-switch').change(function() {
-            let status = $(this).prop('checked') === true ? 1 : 0;
-            let productionId = $(this).data('id');
-            $.ajax({
-                type: "POST", // Change this to POST
-                dataType: "json",
-                url: "{{ route('production.status') }}",
-                data: {
-                    '_token': '{{ csrf_token() }}', // Add the CSRF token
-                    'status': status,
-                    'production_id': productionId
-                },
-                success: function(data) {
-                    console.log(data.message);
-                }
+        $(document).ready(function() {
+            $('.ds-switch').change(function() {
+                let status = $(this).prop('checked') === true ? 1 : 0;
+                let productionId = $(this).data('id');
+                $.ajax({
+                    type: "POST", // Change this to POST
+                    dataType: "json",
+                    url: "{{ route('production.status') }}",
+                    data: {
+                        '_token': '{{ csrf_token() }}', // Add the CSRF token
+                        'status': status,
+                        'production_id': productionId
+                    },
+                    success: function(data) {
+                        console.log(data.message);
+                    }
+                });
             });
         });
-    });
+
+</script>
+
+{{-- <script>
+    let firstFunctionExecuted = false;
+
+    function checkBoxFalse() {
+        if (!firstFunctionExecuted) {
+            firstFunctionExecuted = true;
+            $('.ds-switch').prop('checked', false);
+
+            // Check and execute the Ajax request conditionally
+            checkAndExecuteAjax();
+        }
+    }
+
+    function checkAndExecuteAjax() {
+        if (!firstFunctionExecuted) {
+            $(document).ready(function() {
+                $('.ds-switch').change(function() {
+                    let status = $(this).prop('checked') === true ? 1 : 0;
+                    let productionId = $(this).data('id');
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "{{ route('production.status') }}",
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'status': status,
+                            'production_id': productionId
+                        },
+                        success: function(data) {
+                            console.log(data.message);
+                        }
+                    });
+                });
+            });
+        }
+    }
 </script> --}}
+
+
+
+
+
 @endsection

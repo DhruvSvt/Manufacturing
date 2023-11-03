@@ -213,7 +213,7 @@ class ProductionCreateController extends Controller
 
         $finish_good->save();
 
-        return redirect()->route('production-proccess');
+        return redirect()->route('production-proccess')->with('success');
     }
 
     public function complete()
