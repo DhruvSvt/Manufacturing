@@ -46,6 +46,7 @@
                                     <thead>
                                         <tr>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Title</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Unit</th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Price</th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Raw Materials</th>
                                             <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Status</th>
@@ -59,6 +60,13 @@
                                                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                                                         <p class="text-sm font-medium text-black dark:text-white">
                                                             {{ $product->name }}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                                        <p class="text-sm font-medium text-black dark:text-white">
+                                                            {{ $product->unit ? $product->short_name : '' }}
                                                         </p>
                                                     </div>
                                                 </td>

@@ -14,4 +14,9 @@ class Product extends Model
         return $this->belongsToMany(RawMaterial::class, 'product_raw_materials','product_id','raw_material_id')
                 ->select('raw_materials.*','qty');
     }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class,'unit_id','id');
+    }
 }

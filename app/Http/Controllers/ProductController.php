@@ -19,6 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('raw_material')->get();
+        // return $products;
         return view('admin.product', compact('products'));
     }
 
@@ -88,9 +89,10 @@ class ProductController extends Controller
     public function edit($product)
     {
         $raw_materials = RawMaterial::whereStatus(true)->get();
+        $units = Unit::whereStatus(true)->get();
         $product = Product::with('raw_material')->find($product);
 
-        return view('admin.product-edit', compact('product', 'raw_materials'));
+        return view('admin.product-edit', compact('product', 'raw_materials','units'));
     }
 
     /**
@@ -106,6 +108,7 @@ class ProductController extends Controller
 
         $product->name = request()->name;
         $product->price = request()->price;
+        $product->unit_id = request()->unit;
         $product->save();
 
         //removing old
