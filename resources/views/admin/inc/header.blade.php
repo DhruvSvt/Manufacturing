@@ -366,7 +366,7 @@
                         <button
                             class="flex items-center py-2 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
                             <a href="{{ route('unit') }}">
-                                Raw Material Unit
+                                Units
                             </a>
                         </button>
 

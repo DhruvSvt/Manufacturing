@@ -175,10 +175,7 @@
                                                                 class="flex w-100 float-right rounded font-medium text-gray m-3 mt-3 bg-gray p-3 text-center font-medium text-black transition  hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1">
                                                                 Cancel
                                                             </span>
-                                                            <button data-id="{{ $production->id }}"
-                                                                class="ds-switch flex w-100 float-right rounded bg-primary p-3 font-medium mt-3 text-gray m-3"
-                                                                {{ $production->status == 1 ? 'checked' : '' }}
-                                                                >
+                                                            <button id="submitBtn" data-id="{{ $production->id }}" class="ds-switch flex w-100 float-right rounded bg-primary p-3 font-medium mt-3 text-gray m-3" {{ $production->status == 1 ? 'checked' : '' }}>
                                                                 Submit
                                                             </button>
                                                         </form>
@@ -246,28 +243,33 @@
         $('.ds-switch').prop('checked', false);
     }
 
-    // Ajax Request
-        $(document).ready(function() {
-            $('.ds-switch').change(function() {
-                let status = $(this).prop('checked') === true ? 1 : 0;
-                let productionId = $(this).data('id');
-                $.ajax({
-                    type: "POST", // Change this to POST
-                    dataType: "json",
-                    url: "{{ route('production.status') }}",
-                    data: {
-                        '_token': '{{ csrf_token() }}', // Add the CSRF token
-                        'status': status,
-                        'production_id': productionId
-                    },
-                    success: function(data) {
-                        console.log(data.message);
-                    }
-                });
+
+    $(document).ready(function() {
+        $('#submitBtn').click(function() {
+            let status = 1;
+            let productionId = $(this).data('id');
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "{{ route('production.status') }}",
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'status': status,
+                    'production_id': productionId
+                },
+                success: function(data) {
+                    console.log(data.message);
+                    // Add your code here to handle the successful update, if needed
+                },
+                error: function(xhr, status, error) {
+                    // Handle the error if the update fails
+                    console.error(error);
+                }
             });
         });
-
+    });
 </script>
+
 
 {{-- <script>
     let firstFunctionExecuted = false;
