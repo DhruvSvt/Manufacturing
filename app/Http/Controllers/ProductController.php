@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductRawMaterial;
 use App\Models\RawMaterial;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use PDO;
 
@@ -36,7 +37,8 @@ class ProductController extends Controller
     public function create()
     {
         $raw_materials = RawMaterial::whereStatus(true)->get();
-        return view('admin.product-create', compact('raw_materials'));
+        $units = Unit::whereStatus(true)->get();
+        return view('admin.product-create', compact('raw_materials','units'));
     }
 
     /**
