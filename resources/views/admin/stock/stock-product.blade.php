@@ -49,6 +49,30 @@
                                     </thead>
 
                                     <tbody>
+                                        @if ($label == 'Product')
+                                        @foreach ($master as $m)
+                                        <tr>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $m->product->name  }}  ({{ $m->product->unit->short_name ?? '' }})
+                                                </p>
+                                            </td>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $m->total_quantity }}
+                                                    {{-- {{ $m->raw_material->parent->short_name }} --}}
+                                                </p>
+                                            </td>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    <a href="{{ route('product-detail-id', $m->product_id) }}">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        @else
                                         @foreach ($master as $m)
                                         <tr>
                                             <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
@@ -71,6 +95,8 @@
                                             </td>
                                         </tr>
                                         @endforeach
+                                        @endif
+
                                     </tbody>
                                 </table>
                             </div>
@@ -130,33 +156,61 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if($label == 'Product')
                                         @foreach ($check_expiring as $key => $ce)
-                                        <tr>
-                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                                <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $ce->product->name }}
-                                                </p>
-                                            </td>
-                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                                <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $ce->total_quantity }}
-                                                    {{-- {{ $ce->raw_material->parent->short_name }} --}}
-                                                </p>
-                                            </td>
-                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                                <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $ce->expiry_date }}
-                                                    @if(\Carbon\Carbon::parse($ce->expiry_date)->lte(\Carbon\Carbon::now()))
-                                                    <span class="text-meta-1">expired</span>
-                                                    @elseif(\Carbon\Carbon::parse($ce->expiry_date)->diffInDays(\Carbon\Carbon::now())
-                                                    <= 30) <span class="text-meta-1" style="color: orange !important;">
-                                                        expiring soon</span>
-                                                    @endif
-                                                </p>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $ce->product->name }} ({{ $ce->product->unit->short_name ?? '' }})
+                                                    </p>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $ce->total_quantity }}
+                                                        {{-- {{ $ce->raw_material->parent->short_name }} --}}
+                                                    </p>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $ce->expiry_date }}
+                                                        @if(\Carbon\Carbon::parse($ce->expiry_date)->lte(\Carbon\Carbon::now()))
+                                                        <span class="text-meta-1">expired</span>
+                                                        @elseif(\Carbon\Carbon::parse($ce->expiry_date)->diffInDays(\Carbon\Carbon::now())
+                                                        <= 30) <span class="text-meta-1" style="color: orange !important;">
+                                                            expiring soon</span>
+                                                            @endif
+                                                    </p>
+                                                </td>
+                                            </tr>
                                         @endforeach
-
+                                        @else
+                                        @foreach ($check_expiring as $key => $ce)
+                                            <tr>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $ce->product->name }}
+                                                    </p>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $ce->total_quantity }}
+                                                        {{-- {{ $ce->raw_material->parent->short_name }} --}}
+                                                    </p>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $ce->expiry_date }}
+                                                        @if(\Carbon\Carbon::parse($ce->expiry_date)->lte(\Carbon\Carbon::now()))
+                                                        <span class="text-meta-1">expired</span>
+                                                        @elseif(\Carbon\Carbon::parse($ce->expiry_date)->diffInDays(\Carbon\Carbon::now())
+                                                        <= 30) <span class="text-meta-1" style="color: orange !important;">
+                                                            expiring soon</span>
+                                                            @endif
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        @endif
 
                                     </tbody>
                                 </table>

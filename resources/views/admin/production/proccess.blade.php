@@ -131,7 +131,7 @@
                                                                     Product Name
                                                                 </label>
                                                                 <input type="text" name="name"
-                                                                    value="{{ $production->product->name }}" disabled
+                                                                    value="{{ $production->product->name }}  ({{ $production->product->unit->short_name }})" disabled
                                                                     class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                                                                 @error('name')
                                                                 <p class="text-red-500 mt-2">{{ $message }}</p>
@@ -157,17 +157,6 @@
                                                                     max="{{ $production->batch_size }}"
                                                                     class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                                                                 @error('qty')
-                                                                <p class="text-red-500 mt-2">{{ $message }}</p>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="w-full xl:w-1/2 m-auto mt-5">
-                                                                <label class="mb-2.5 block text-black dark:text-white">
-                                                                    Units <span class="text-meta-1">*</span>
-                                                                </label>
-                                                                <input type="number" name="unit"
-                                                                    value="{{ $production->units ?? '' }}"
-                                                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                                                                @error('unit')
                                                                 <p class="text-red-500 mt-2">{{ $message }}</p>
                                                                 @enderror
                                                             </div>
@@ -218,26 +207,6 @@
 </main>
 <!-- ===== Main Content End ===== -->
 
-{{-- <script>
-    $(document).ready(function() {
-        $('.ds-switch').change(function() {
-            let checkbox = $(this);
-            let row = checkbox.closest('tr');
-
-            if (checkbox.prop('checked')) {
-                if (confirm("Do you really want to complete this production?")) {
-                    row.hide();
-                } else {
-                    // Uncheck the checkbox if the user cancels
-                    checkbox.prop('checked', false);
-                }
-            } else {
-                // If the checkbox was unchecked, do nothing
-            }
-        });
-    });
-</script> --}}
-
 <script>
     function checkBoxFalse() {
         $('.ds-switch').prop('checked', false);
@@ -269,48 +238,6 @@
         });
     });
 </script>
-
-
-{{-- <script>
-    let firstFunctionExecuted = false;
-
-    function checkBoxFalse() {
-        if (!firstFunctionExecuted) {
-            firstFunctionExecuted = true;
-            $('.ds-switch').prop('checked', false);
-
-            // Check and execute the Ajax request conditionally
-            checkAndExecuteAjax();
-        }
-    }
-
-    function checkAndExecuteAjax() {
-        if (!firstFunctionExecuted) {
-            $(document).ready(function() {
-                $('.ds-switch').change(function() {
-                    let status = $(this).prop('checked') === true ? 1 : 0;
-                    let productionId = $(this).data('id');
-                    $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: "{{ route('production.status') }}",
-                        data: {
-                            '_token': '{{ csrf_token() }}',
-                            'status': status,
-                            'production_id': productionId
-                        },
-                        success: function(data) {
-                            console.log(data.message);
-                        }
-                    });
-                });
-            });
-        }
-    }
-</script> --}}
-
-
-
 
 
 @endsection

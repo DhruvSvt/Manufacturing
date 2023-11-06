@@ -65,14 +65,22 @@
                                     </a>
                                 </button>
                             @endif
+
                         </div>
                         <select
                             class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border   -primary"
                             name="modal_id">
                             <option value="">Choose {{ $label }} name</option>
-                            @foreach ($masters as $m)
-                                <option value="{{ $m->id }}">{{ $m->name }}</option>
-                            @endforeach
+                            @if ($label == 'Product')
+                                @foreach ($masters as $m)
+                                    <option value="{{ $m->id }}">{{ $m->name }} ({{ $m->unit->short_name ?? '' }})</option>
+                                @endforeach
+                            @else
+                                @foreach ($masters as $m)
+                                    <option value="{{ $m->id }}">{{ $m->name }}</option>
+                                @endforeach
+                            @endif
+
                         </select>
                         @error('modal_id')
                             <p class="text-red-500 mt-2">{{ $message }}</p>

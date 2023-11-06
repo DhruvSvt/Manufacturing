@@ -22,7 +22,7 @@
                             name="product">
                             <option selected>-- None --</option>
                             @foreach ($products as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                            <option value="{{ $product->id }}">{{ $product->name }} ({{ $product->unit->short_name ?? '' }})</option>
                             @endforeach
                         </select>
                         <span class="absolute top-1/2 right-4 z-30 -translate-y-1/2">
