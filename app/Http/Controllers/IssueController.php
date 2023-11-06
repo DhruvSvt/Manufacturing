@@ -11,7 +11,7 @@ use App\Models\Product;
 use App\Models\Production;
 use App\Models\ProductStock;
 use App\Models\Suppliers;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;    
 
 class IssueController extends Controller
 {
@@ -124,6 +124,11 @@ class IssueController extends Controller
     {
         $productions = Production::whereStatus(true)->latest()->get();
         return view('admin.challans.complete-good', compact('productions'));
+    }
+
+    public function sample_index()
+    {
+        return view('admin.challans.sample');
     }
 
     public function finish_good_index()
