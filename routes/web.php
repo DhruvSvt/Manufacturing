@@ -150,8 +150,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::get('raw-material/issue', [IssueController::class, 'raw_material_index'])->name('raw-material-challan');
 
-    Route::get('finish-good/issue', [IssueController::class, 'finish_good_index'])->name('finish-good-challan');
-    Route::post('/finish-good/issue/store', [IssueController::class, 'finish_good_store'])->name('finish-good-store');
+    Route::get('complete-good/challan', [IssueController::class, 'complete_good'])->name('complete-good-challan');
+
+    // Route::get('finish-good/issue', [IssueController::class, 'finish_good_index'])->name('finish-good-challan');
+    // Route::post('/finish-good/issue/store', [IssueController::class, 'finish_good_store'])->name('finish-good-store');
     // Route::put('/gift/issue', [IssueController::class, 'issue_gift'])->name('gift.issue');
 
     // Stock Alert routes

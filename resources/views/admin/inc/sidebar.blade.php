@@ -475,7 +475,7 @@
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('finish-good-challan') }}"
+                                        href="{{ route('complete-good-challan') }}"
                                         :class="page === 'products' && '!text-white'">
                                         Finish Goods Challan
                                     </a>

@@ -120,6 +120,12 @@ class IssueController extends Controller
         return view('admin.challans.raw-material', compact('issues'));
     }
 
+    public function complete_good()
+    {
+        $productions = Production::whereStatus(true)->latest()->get();
+        return view('admin.challans.complete-good', compact('productions'));
+    }
+
     public function finish_good_index()
     {
         $products = Product::all();
