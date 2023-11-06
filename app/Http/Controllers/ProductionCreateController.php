@@ -26,7 +26,7 @@ class ProductionCreateController extends Controller
 
         $request->validate([
             'product' => 'required',
-            'qty' => 'required',
+            'qty' => 'required || numeric',
             'batch_no' =>  'required|unique:productions,batch_no'
         ]);
 
