@@ -40,7 +40,7 @@
                             name="unit">
                             <option value="{{ $product->unit_id }}" selected>-- None --</option>
                             @foreach ($units as $unit)
-                                <option value="{{ $unit->id }}">{{ $unit->full_name }} ({{ $unit->short_name }})
+                                <option value="{{ $unit->id }}" {{ $unit->id == $product->unit_id ? 'selected' : '' }}>{{ $unit->full_name }} ({{ $unit->short_name }})
                                 </option>
                             @endforeach
                         </select>

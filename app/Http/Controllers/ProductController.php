@@ -19,7 +19,6 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('raw_material')->get();
-        // return $products;
         return view('admin.product', compact('products'));
     }
 
