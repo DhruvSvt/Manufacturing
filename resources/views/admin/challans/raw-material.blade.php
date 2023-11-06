@@ -58,12 +58,12 @@
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $issue->product->name }}
+                                                {{ $issue->product->name }} ( {{ $issue->product->unit->short_name }} )
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $issue->qty }}
+                                                {{ $issue->quantity }}
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
