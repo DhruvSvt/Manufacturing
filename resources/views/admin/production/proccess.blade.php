@@ -70,12 +70,12 @@
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $production->product->name }}
+                                                {{ $production->product->name }} ({{ $production->product->unit->short_name }} )
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $production->batch_size }}
+                                                {{ $production->qty }}
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
@@ -130,7 +130,7 @@
                                                                 <label class="mb-2.5 block text-black dark:text-white">
                                                                     Product Name
                                                                 </label>
-                                                                <input type="text" name="name"
+                                                                <input type="text" name="product_id"
                                                                     value="{{ $production->product->name }}  ({{ $production->product->unit->short_name }})" disabled
                                                                     class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                                                                 @error('name')
@@ -141,19 +141,8 @@
                                                                 <label class="mb-2.5 block text-black dark:text-white">
                                                                     Batch Size
                                                                 </label>
-                                                                <input type="text" name="batch_size"
-                                                                    value="{{ $production->batch_size }}" disabled
-                                                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                                                                @error('batch_size')
-                                                                <p class="text-red-500 mt-2">{{ $message }}</p>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="w-full xl:w-1/2 m-auto mt-5">
-                                                                <label class="mb-2.5 block text-black dark:text-white">
-                                                                    Quantity <span class="text-meta-1">*</span>
-                                                                </label>
-                                                                <input type="number" name="qty"
-                                                                    value="{{ $production->quantity ?? '' }}"
+                                                                <input type="text" name="qty"
+                                                                    value="{{ $production->qty }}"
                                                                     class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                                                                 @error('qty')
                                                                 <p class="text-red-500 mt-2">{{ $message }}</p>

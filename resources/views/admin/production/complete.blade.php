@@ -66,12 +66,12 @@
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $production->product->name }}
+                                                {{ $production->product->name }}  ({{ $production->product->unit->short_name }} )
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $production->batch_size }}
+                                                {{ $production->qty }}
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
