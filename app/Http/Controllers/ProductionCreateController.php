@@ -138,6 +138,7 @@ class ProductionCreateController extends Controller
             ]);
 
             $product_stock->save();
+
             foreach ($raw_materials as $key => $item) {
                 $final = new FinalUsedRawMatrial;
                 $final->production_id = $production->id;
@@ -204,14 +205,20 @@ class ProductionCreateController extends Controller
         $finish_good = Production::findOrFail($id);
 
         $request->validate([
-            'qty' => 'required|max:' . $finish_good->batch_size,
-            'unit' => 'required',
+            'qty' => 'required',
         ]);
 
-        $finish_good->quantity = $request->qty;
-        $finish_good->units = $request->unit;
+        $finish_good->qty = $request->qty;
 
+        // return $finish_good->id;
         $finish_good->save();
+
+        $product_stock = ProductStock::where('purchase_id', $id)->first();
+        // dd($product_stock);
+
+        $product_stock->quantity = $request->qty;
+
+        $product_stock->save();
 
         return redirect()->route('production-proccess')->with('success');
     }
