@@ -11,7 +11,7 @@ use App\Models\Product;
 use App\Models\Production;
 use App\Models\ProductStock;
 use App\Models\Suppliers;
-use Illuminate\Http\Request;    
+use Illuminate\Http\Request;
 
 class IssueController extends Controller
 {
@@ -126,7 +126,7 @@ class IssueController extends Controller
         return view('admin.challans.complete-good', compact('productions'));
     }
 
-    public function sample_index()
+    public function sample()
     {
         return view('admin.challans.sample');
     }
