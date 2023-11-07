@@ -149,7 +149,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/gift/challan/store', [IssueController::class, 'gift_store'])->name('gift-store');
 
     Route::get('sample-challan',[IssueController::class, 'sample'])->name('sample-challan');
-    // Route::post('/gift/challan/store', [IssueController::class, 'gift_store'])->name('gift-store');
+    Route::post('/sample-challan/store', [IssueController::class, 'sample_store'])->name('sample-challan-store');
 
 
     Route::get('raw-material/challan', [IssueController::class, 'raw_material_index'])->name('raw-material-challan');

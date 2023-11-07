@@ -10,6 +10,8 @@ use App\Models\ItemStock;
 use App\Models\Product;
 use App\Models\Production;
 use App\Models\ProductStock;
+use App\Models\Sample;
+use App\Models\SampleIssue;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
 
@@ -128,7 +130,92 @@ class IssueController extends Controller
 
     public function sample()
     {
-        return view('admin.challans.sample');
+        $samples = SampleIssue::all();
+
+        $products = Product::whereStatus(true)->get();
+        $party = Suppliers::whereStatus(true)->get();
+        $hqs = Headquarters::whereStatus(true)->get();
+
+        return view('admin.challans.sample',compact('samples','products','party','hqs'));
+    }
+
+    public function sample_store(Request $request)
+    {
+        $request->validate([
+            'sample' => 'required',
+            'party' => 'required',
+            'headquarter' => 'required',
+            'qty' => 'required',
+        ]);
+
+        $qty = $request->qty ?? 0;
+
+        $sampleIssue = new SampleIssue([
+            'product_id' => $request->sample,
+            'supplier_id' => $request->party,
+            'headquarter_id' => $request->headquarter,
+            'qty' => $qty,
+        ]);
+
+        $sample = Sample::where('product_id', $request->sample)->get();
+
+        if ($sample->count() > 0) {
+            $canIssue = true;
+
+            foreach ($sample as $sample) {
+
+                $sampleStock = Sample::where('product_id', $request->sample)
+                    ->whereOr('qty', '>', 0)
+                    ->groupBy('product_id')
+                    ->selectRaw('sum(qty) as total_quantity, product_id')
+                    ->first();
+
+                if (!isset($sampleStock) || $sampleStock->total_quantity < $qty) {
+                    $canIssue = false;
+                    break; // Stop checking other materials if one is not available
+                }
+            }
+        } else {
+            $canIssue = false;
+        }
+
+        if ($canIssue) {
+
+            $sampleIssue->save();
+
+            // Update the raw material stock
+            try {
+                foreach ($sample as $sample) {
+                    // $actual_qty = $qty * $gift->qty;
+
+                    $sampleStock = Sample::where('product_id', $request->sample)->get();
+
+                    foreach ($sampleStock as $item) {
+                        if ($qty > 0)
+                            if ($item->qty >= $qty) {
+                                $item->qty -= $qty;
+                                $qty = 0;
+                                $item->save();
+                            } else {
+                                $qty -= $item->qty;
+                                $item->qty = 0;
+                                $item->save();
+                            }
+                    }
+                }
+
+                return redirect()->route('sample-challan')->with('success', 'Sample Issue successfully.');
+            } catch (\Exception $e) {
+                // Handle exceptions here
+                return redirect()->back()->with('error', 'Error updating sample stock: ' . $e->getMessage());
+            }
+        } else {
+            $needQuantity = $qty - ($sampleStock->total_quantity ?? 0);
+            return redirect()->back()->with([
+                'error' => 'Insufficient Sample stock to issue Challan.',
+                'needQuantity' => $needQuantity
+            ]);
+        }
     }
 
     public function finish_good_index()

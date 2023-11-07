@@ -26,22 +26,22 @@
                     <h3 class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
                         Sample Issue Challan
                     </h3>
-                    {{-- <form action="{{ route('gift-store') }}" method="POST">
+                    <form action="{{ route('sample-challan-store') }}" method="POST">
                         @csrf
                         <div class="w-full xl:w-1/2 m-auto mt-5">
                             <label class="mb-2.5 block text-black dark:text-white">
-                                Gift Name <span class="text-meta-1">*</span>
+                                Sample Name <span class="text-meta-1">*</span>
                             </label>
                             <select
                                 class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                name="gift">
+                                name="sample">
                                 <option value="0" selected>-- None --</option>
-                                @foreach ($gifts as $gift)
-                                <option value="{{ $gift->id }}">{{ $gift->name }}
+                                @foreach ($products as $product)
+                                <option value="{{ $product->id }}">{{ $product->name }}
                                 </option>
                                 @endforeach
                             </select>
-                            @error('gift')
+                            @error('sample')
                             <p class="text-red-500 mt-2">{{ $message }}</p>
                             @enderror
                         </div>
@@ -70,7 +70,7 @@
                                 class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                                 name="headquarter">
                                 <option value="0" selected>-- None --</option>
-                                @foreach ($hq_name as $hq)
+                                @foreach ($hqs as $hq)
                                 <option value="{{ $hq->id }}">{{ $hq->headquarter }}
                                 </option>
                                 @endforeach
@@ -89,16 +89,6 @@
                             <p class="text-red-500 mt-2">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="w-full xl:w-1/2 m-auto mt-5">
-                            <label class="mb-2.5 block text-black dark:text-white">
-                                Amount <span class="text-meta-1">*</span>
-                            </label>
-                            <input type="number" placeholder="Enter the Amount" name="amount"
-                                class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                            @error('amount')
-                            <p class="text-red-500 mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
                         <span @click="modalOpen = false"
                             class="flex w-100 float-right rounded font-medium text-gray m-3 mt-3 bg-gray p-3 text-center font-medium text-black transition  hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1">
                             Cancel
@@ -106,7 +96,7 @@
                         <button class="flex w-100 float-right rounded bg-primary p-3 font-medium mt-3 text-gray m-3">
                             Submit
                         </button>
-                    </form> --}}
+                    </form>
                 </div>
             </div>
             <!-- modal end -->
@@ -142,50 +132,44 @@
                                 <thead>
                                     <tr>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Date</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Gift Name</th>
+                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Sample Name</th>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Party Name </th>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">H.Q. Name </th>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Qty</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Amount</th>
                                     </tr>
                                 </thead>
-                                {{-- <tbody>
-                                    @foreach ($issues as $issue)
+                                <tbody>
+                                    @foreach ($samples as $sample)
                                     <tr>
 
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $issue->created_at->format('d-m-Y') }}
+                                                {{ $sample->created_at->format('d-m-Y') }}
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $issue->gift->name }}
+                                                {{ $sample->product->name }}
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $issue->supplier->name }}
+                                                {{ $sample->supplier->name }}
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $issue->headquarter->headquarter }}
+                                                {{ $sample->headquarter->headquarter }}
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $issue->qty }}
-                                            </p>
-                                        </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $issue->amount }}
+                                                {{ $sample->qty }}
                                             </p>
                                         </td>
                                     </tr>
                                     @endforeach
-                                </tbody> --}}
+                                </tbody>
                             </table>
                         </div>
                         <div class="datatable-bottom">
