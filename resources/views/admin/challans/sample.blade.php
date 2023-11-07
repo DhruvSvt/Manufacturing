@@ -13,7 +13,7 @@
         <!-- Add Brand Model Start -->
         <div x-data="{ modalOpen: false }">
 
-            <button @click="modalOpen = true" class="rounded-md bg-primary py-3 px-9 font-medium text-white">
+            <button @click="modalOpen = true" class="rounded-md bg-primary py-3 px-5 font-medium text-white">
                 Issue Challan
             </button>
 
