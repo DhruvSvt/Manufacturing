@@ -15,12 +15,12 @@
     <div
         class=" max-w-screen-2xl p-4 md:p-6 2xl:p-10 my-10 md:mx-10 bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <!-- Breadcrumb Start -->
-        <div class="mb-20 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
+        <div class="mb-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
             <h2 class="lg:text-4xl md:text-3xl text-3xl font-bold text-black dark:text-white text-center">
                 Create Return Good
             </h2>
         </div>
-        <form action="" method="POST">
+        <form action="{{ route('good-return-store') }}" method="POST">
             @csrf
             <div class="mb-4.5 flex flex-col gap-6 xl:flex-row">
                 <div class="w-full xl:w-1/2">
@@ -77,9 +77,9 @@
                     <label class="mb-2.5 block text-black dark:text-white">
                         Date of Reciept <span class="text-meta-1">*</span>
                     </label>
-                    <input type="date" name="reciept"
+                    <input type="date" name="date_receipt"
                         class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                    @error('reciept')
+                    @error('date_receipt')
                     <p class="text-red-500 mt-2">{{ $message }}</p>
                     @enderror
                 </div>
@@ -91,11 +91,12 @@
                         </label>
                     </div>
                     <select
-                        class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border   -primary"
+                        class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                         name="product_id">
                         <option value="">Choose Product name</option>
                         @foreach ($products as $product)
-                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                        <option value="{{ $product->id }}">{{ $product->name }} ({{ $product->unit->short_name ?? '' }})
+                        </option>
                         @endforeach
                     </select>
                     @error('product_id')
@@ -143,18 +144,6 @@
                 </button>
             </div>
         </form>
-
-
-
-        @if (Session::has('success'))
-        <script>
-            swal("Success", "{{ Session::get('success') }}", 'success', {
-                        buttons: {
-                            confirm: "OK",
-                        },
-                    });
-        </script>
-        @endif
     </div>
 </main>
 

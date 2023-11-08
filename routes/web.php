@@ -45,6 +45,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         return view('admin.index');
     })->name('admin-index');
 
+    // --------------------- User ---------------------
     Route::get('/page', [UsersController::class, 'index'])->name('admin-page');
     Route::get('/create', [UsersController::class, 'create'])->name('admin-create');
     Route::post('/store', [UsersController::class, 'store'])->name('admin-store');
@@ -53,6 +54,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::post('/status', [UsersController::class, 'status'])->name('status');
 
+    // --------------------- Supplier ---------------------
     Route::get('/supplier', [SuppliersController::class, 'index'])->name('supplier');
     Route::get('/supplier/create', [SuppliersController::class, 'create'])->name('supplier.create');
     Route::post('/supplier/store', [SuppliersController::class, 'store'])->name('supplier.store');
@@ -61,6 +63,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::post('/supplier/status', [SuppliersController::class, 'status'])->name('supplier.status');
 
+    // --------------------- Gift ---------------------
     Route::get('/item', [GiftController::class, 'index'])->name('gift');
     Route::get('/item/create', [GiftController::class, 'create'])->name('gift.create');
     Route::post('/item/store', [GiftController::class, 'store'])->name('gift.store');
@@ -69,6 +72,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::post('/gift.status', [GiftController::class, 'status'])->name('gift.status');
 
+    // --------------------- Unit ---------------------
     Route::get('/unit', [UnitController::class, 'index'])->name('unit');
     Route::get('/unit/create', [UnitController::class, 'create'])->name('unit.create');
     Route::post('/unit/store', [UnitController::class, 'store'])->name('unit.store');
@@ -77,6 +81,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::post('/unit/status', [UnitController::class, 'status'])->name('unit.status');
 
+    // --------------------- raw-material ---------------------
     Route::get('/raw-material', [RawMaterialController::class, 'index'])->name('raw-material');
     Route::get('/raw-material/create', [RawMaterialController::class, 'create'])->name('raw-material.create');
     Route::post('/raw-material/store', [RawMaterialController::class, 'store'])->name('raw-material.store');
@@ -85,11 +90,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::post('/raw-material/status', [RawMaterialController::class, 'status'])->name('raw-material.status');
 
+    // --------------------- brand --------------------
     Route::get('/brand', [BrandController::class, 'index'])->name('brand');
     Route::post('/brand/store', [BrandController::class, 'store'])->name('brand.store');
     Route::put('/brand/update/{id}', [BrandController::class, 'update'])->name('brand.update');
     Route::post('/brand/status', [BrandController::class, 'status'])->name('brand.status');
 
+    // --------------------- headquarter ---------------------
     Route::get('/headquarter', [HeadquartersController::class, 'index'])->name('headquarters');
     Route::post('/headquarter/store', [HeadquartersController::class, 'store'])->name('headquarter.store');
     Route::put('/headquarter/update/{id}', [HeadquartersController::class, 'update'])->name('headquarter.update');
@@ -100,7 +107,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/product/fetch-raw-materials', [ProductController::class, 'rawMaterials'])->name('product.raw-materials');
     Route::post('/product/status', [ProductController::class, 'status'])->name('product.status');
 
-    // Purchase routes
+    // --------------------- Purchase routes ---------------------
     Route::get('/purchase/material', [PurchaseController::class, 'material'])->name('purchase-material');
     Route::get('purchase/item', [PurchaseController::class, 'item'])->name('purchase-item');
     Route::get('purchase/product', [PurchaseController::class, 'product'])->name('purchase-product');
@@ -111,7 +118,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('purchase/product/store', [PurchaseController::class, 'productStore'])->name('purchase.productStore');
     Route::post('purchase/product/other', [PurchaseController::class, 'otherStore'])->name('purchase.otherStore');
 
-    // stocks routes
+    // --------------------- stocks routes ---------------------
     Route::get('stocks/material', [StocksController::class, 'material_index'])->name('material-stock');
     Route::get('stocks/item', [StocksController::class, 'item_index'])->name('item-stock');
 
@@ -127,11 +134,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::get('stocks/details', [StocksController::class, 'stock_details'])->name('stock-details');
 
-    // sample
+    // --------------------- sample ---------------------
     Route::resource('sample',SampleController::class);
     Route::get('sample/detail/{id}', [SampleController::class, 'sample_detail_id'])->name('sample-detail-id');
 
-    // production routes
+    // --------------------- production routes ---------------------
     Route::get('production/create', [ProductionCreateController::class, 'create'])->name('production-create');
     Route::post('production/final/store', [ProductionCreateController::class, 'store'])->name('production.store');
     Route::get('production/proccess', [ProductionCreateController::class, 'proccess'])->name('production-proccess');
@@ -145,7 +152,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('production/final', [ProductionCreateController::class, 'final_create'])->name('production-final-create');
     Route::post('production/final', [ProductionCreateController::class, 'final_store'])->name('production.final.store');
 
-    //Issue Challan routes
+    // --------------------- Issue Challan routes ---------------------
     // Gift
     Route::get('gift/challan', [IssueController::class, 'gift_index'])->name('gift-challan');
     Route::post('/gift/challan/store', [IssueController::class, 'gift_store'])->name('gift-store');
@@ -161,11 +168,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('complete-good/challan', [IssueController::class, 'complete_good'])->name('complete-good-challan');
 
 
-    // Return Routes
+    // --------------------- Return Routes ---------------------
     Route::get('good/return',[ReturnController::class,'good_return'])->name('good-return');
     Route::get('good/return/create',[ReturnController::class,'good_return_create'])->name('good-return-create');
+    Route::post('good/return/store',[ReturnController::class, 'good_return_store'])->name('good-return-store');
 
-    // Sell Goods Challan
+    // --------------------- Sell Goods Challan ---------------------
     // Route::get('finish-good/issue', [IssueController::class, 'finish_good_index'])->name('finish-good-challan');
     // Route::post('/finish-good/issue/store', [IssueController::class, 'finish_good_store'])->name('finish-good-store');
     // Route::put('/gift/issue', [IssueController::class, 'issue_gift'])->name('gift.issue');
