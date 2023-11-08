@@ -18,14 +18,6 @@ class SampleController extends Controller
      */
     public function index()
     {
-
-        //for Right side table
-        // $check_expiring = ProductStock::groupBy('product_id')
-        //     ->selectRaw('sum(quantity) as total_quantity, product_id')
-        //     ->where('expiry_date', '<=', \Carbon\Carbon::now())
-        //     ->get();
-
-        //for Left side table
         $master = Sample::groupBy('product_id')
             ->selectRaw('sum(qty) as total_quantity, product_id')
             ->get();

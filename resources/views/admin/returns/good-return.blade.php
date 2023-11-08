@@ -54,38 +54,57 @@
                                     </tr>
                                 </thead>
 
-                                {{-- <tbody>
-                                    @foreach ($samples as $sample)
+                                <tbody>
+                                    @foreach ($returns as $return)
                                     <tr>
-
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $sample->created_at->format('d-m-Y') }}
+                                                {{ $return->supplier->name }}
                                             </p>
                                         </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $sample->product->name }}
+                                                {{ $return->builty }}
                                             </p>
                                         </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $sample->supplier->name }}
+                                                {{ $return->transport }}
                                             </p>
                                         </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $sample->headquarter->headquarter }}
+                                                {{ $return->dispatch }}
                                             </p>
                                         </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $sample->qty }}
+                                                {{ $return->date_of_receipt }}
+                                            </p>
+                                        </td>
+                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ $return->product->name }} ({{ $return->product->unit->short_name }})
+                                            </p>
+                                        </td>
+                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ $return->quantity }}
+                                            </p>
+                                        </td>
+                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ $return->receipt }}
+                                            </p>
+                                        </td>
+                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ $return->batch }}
                                             </p>
                                         </td>
                                     </tr>
                                     @endforeach
-                                </tbody> --}}
+                                </tbody>
                             </table>
                         </div>
                         <div class="datatable-bottom">
@@ -117,20 +136,6 @@
 @if (Session::has('success'))
 <script>
     swal("Success", "{{ Session::get('success') }}", 'success', {
-                buttons: {
-                    confirm: "OK",
-                },
-            });
-</script>
-@endif
-
-<!--this alert for diplay the need quantity -->
-@if (Session::has('error'))
-<script>
-    var error = "{{ Session::get('error') }}";
-            var needQuantity = "{{ Session::get('needQuantity') }}";
-
-            swal("Error", error + ' You need ' + needQuantity + ' qunatity more to create it.', 'error', {
                 buttons: {
                     confirm: "OK",
                 },
