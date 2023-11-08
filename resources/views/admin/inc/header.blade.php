@@ -389,7 +389,7 @@
                                 Brand
                             </a>
                         </button>
-                        <button
+                        <button onclick="document.getElementById('logout-form').submit()"
                             class="flex items-center gap-3.5 py-2 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
 
                             <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -404,10 +404,10 @@
 
                             Log Out
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
                         </button>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
 
                     </a>
                 </div>
