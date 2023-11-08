@@ -31,9 +31,9 @@
                         class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                         name="supplier_id">
                         <option value="">Enter Party Name</option>
-                        {{-- @foreach ($suppilers as $suppiler)
+                        @foreach ($suppilers as $suppiler)
                         <option value="{{ $suppiler->id }}">{{ $suppiler->name }}</option>
-                        @endforeach --}}
+                        @endforeach
                     </select>
                     @error('supplier_id')
                     <p class="text-red-500 mt-2">{{ $message }}</p>
@@ -94,9 +94,9 @@
                         class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border   -primary"
                         name="product_id">
                         <option value="">Choose Product name</option>
-                        {{-- @foreach ($masters as $m)
-                        <option value="{{ $m->id }}">{{ $m->name }}</option>
-                        @endforeach --}}
+                        @foreach ($products as $product)
+                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                        @endforeach
                     </select>
                     @error('product_id')
                     <p class="text-red-500 mt-2">{{ $message }}</p>
