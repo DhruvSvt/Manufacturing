@@ -10,4 +10,9 @@ class ReturnController extends Controller
     {
         return view('admin.returns.good-return');
     }
+
+    public function good_return_create()
+    {
+        return view('admin.returns.good-return-create');
+    }
 }

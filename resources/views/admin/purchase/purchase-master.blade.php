@@ -241,7 +241,7 @@
             </div>
         </div> --}}
 
-            <script>
+            {{-- <script>   
                 document.addEventListener('DOMContentLoaded', function() {
                     const modalToggleButtons = document.querySelectorAll('[data-modal-toggle]');
                     const modal = document.getElementById('authentication-modal');
@@ -252,7 +252,7 @@
                         });
                     });
                 });
-            </script>
+            </script> --}}
             @if (Session::has('success'))
                 <script>
                     swal("Success", "{{ Session::get('success') }}", 'success', {

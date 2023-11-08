@@ -163,6 +163,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Return Routes
     Route::get('good/return',[ReturnController::class,'good_return'])->name('good-return');
+    Route::get('good/return/create',[ReturnController::class,'good_return_create'])->name('good-return-create');
 
     // Sell Goods Challan
     // Route::get('finish-good/issue', [IssueController::class, 'finish_good_index'])->name('finish-good-challan');
