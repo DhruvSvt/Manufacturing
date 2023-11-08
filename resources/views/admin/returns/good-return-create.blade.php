@@ -137,6 +137,25 @@
                     <p class="text-red-500 mt-2">{{ $message }}</p>
                     @enderror
                 </div>
+                <div class="w-full xl:w-1/2">
+                    <div class="flex justify-between items-center mb-2.5">
+                        <label class="block text-black dark:text-white">
+                            Reson of Return <span class="text-meta-1">*</span>
+                        </label>
+                    </div>
+                    <select
+                        class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        name="type">
+                        <option value="0">Choose Product name</option>
+                        <option value="expiry">Expiry</option>
+                        <option value="brakage">Brakage</option>
+                        <option value="non_saleable">Non Saleable</option>
+                        <option value="near_expiry">Near Expiry</option>
+                    </select>
+                    @error('type')
+                    <p class="text-red-500 mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
             <div class="flex justify-end ">
                 <button class="flex w-100  rounded bg-primary p-3 font-medium text-gray">
