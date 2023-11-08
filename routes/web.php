@@ -9,6 +9,7 @@ use App\Http\Controllers\HeadquartersController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionCreateController;
+use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\SampleController;
 use App\Http\Controllers\StockAlertController;
 use App\Http\Controllers\StocksController;
@@ -145,17 +146,25 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('production/final', [ProductionCreateController::class, 'final_store'])->name('production.final.store');
 
     //Issue Challan routes
+    // Gift
     Route::get('gift/challan', [IssueController::class, 'gift_index'])->name('gift-challan');
     Route::post('/gift/challan/store', [IssueController::class, 'gift_store'])->name('gift-store');
 
+    // Sample-challan
     Route::get('sample-challan',[IssueController::class, 'sample'])->name('sample-challan');
     Route::post('/sample-challan/store', [IssueController::class, 'sample_store'])->name('sample-challan-store');
 
-
+    // Raw-Material
     Route::get('raw-material/challan', [IssueController::class, 'raw_material_index'])->name('raw-material-challan');
 
+    // Good
     Route::get('complete-good/challan', [IssueController::class, 'complete_good'])->name('complete-good-challan');
 
+
+    // Return Routes
+    Route::get('good/return',[ReturnController::class,'good_return'])->name('good-return');
+
+    // Sell Goods Challan
     // Route::get('finish-good/issue', [IssueController::class, 'finish_good_index'])->name('finish-good-challan');
     // Route::post('/finish-good/issue/store', [IssueController::class, 'finish_good_store'])->name('finish-good-store');
     // Route::put('/gift/issue', [IssueController::class, 'issue_gift'])->name('gift.issue');
@@ -180,15 +189,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     })->name('material-chart');
 });
 
-
-
-// Route::get('/gift', function () {
-//     return view('admin.gift');
-// })->name('gift');
-
-
-
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('migrate', function () {
@@ -206,9 +206,3 @@ Route::get('/storage-link', function () {
     echo symlink($target, $link);
     // echo "symbolic link created successfully";
 });
-
-// Route::get('/test',function(){
-//     $purchase = Purchase::find(8);
-//     $purchase->modal;
-//     return $purchase;
-// });
