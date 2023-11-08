@@ -163,6 +163,15 @@
                 </button>
             </div>
         </form>
+        @if (Session::has('error'))
+        <script>
+            swal("Error", "{{ Session::get('error') }}", 'error', {
+                        buttons: {
+                            confirm: "OK",
+                        },
+                    });
+        </script>
+        @endif
     </div>
 </main>
 

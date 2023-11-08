@@ -521,20 +521,6 @@
                             :class="(selected === 'Return') ? 'block' : 'hidden'">
                             <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
-                                    <a class="group relative flex items--center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="#"
-                                        :class="page === 'expiry' && '!text-white'">
-                                        Expiry
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('complete-good-challan') }}"
-                                        :class="page === 'brakage' && '!text-white'">
-                                        Brakage
-                                    </a>
-                                </li>
-                                <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('good-return') }}" :class="page === 'good-return' && '!text-white'">
                                         Goods Return
