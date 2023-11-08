@@ -6,104 +6,15 @@
         <!-- Breadcrumb Start -->
         <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
             <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-              Good Return
+                Good Return
             </h2>
         </div>
-
-        <!-- Add Brand Model Start -->
-        <div x-data="{ modalOpen: false }">
-
-            <button @click="modalOpen = true" class="rounded-md bg-primary py-3 px-5 font-medium text-white">
+        <!-- Breadcrumb End -->
+        <a href="{{ route('good-return-create') }}">
+            <button class="rounded-md bg-primary py-3 px-5 font-medium text-white">
                 Create
             </button>
-
-            <!-- modal start -->
-            {{-- <div x-show="modalOpen" x-transition=""
-                class="fixed top-0 left-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5"
-                style="display: none;">
-                <div @click.outside="modalOpen = false"
-                    class="w-full max-w-142.5 rounded-lg bg-white py-12 px-8 text-center dark:bg-boxdark md:py-15 md:px-17.5">
-                    <h3 class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
-                        Sample Issue Challan
-                    </h3>
-                    <form action="{{ route('sample-challan-store') }}" method="POST">
-                        @csrf
-                        <div class="w-full xl:w-1/2 m-auto mt-5">
-                            <label class="mb-2.5 block text-black dark:text-white">
-                                Sample Name <span class="text-meta-1">*</span>
-                            </label>
-                            <select
-                                class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                name="sample">
-                                <option value="0" selected>-- None --</option>
-                                @foreach ($products as $product)
-                                <option value="{{ $product->id }}">{{ $product->name }}
-                                </option>
-                                @endforeach
-                            </select>
-                            @error('sample')
-                            <p class="text-red-500 mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div class="w-full xl:w-1/2 m-auto mt-5">
-                            <label class="mb-2.5 block text-black dark:text-white">
-                                Party Name <span class="text-meta-1">*</span>
-                            </label>
-                            <select
-                                class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                name="party">
-                                <option value="0" selected>-- None --</option>
-                                @foreach ($party as $party)
-                                <option value="{{ $party->id }}">{{ $party->name }}
-                                </option>
-                                @endforeach
-                            </select>
-                            @error('party')
-                            <p class="text-red-500 mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div class="w-full xl:w-1/2 m-auto mt-5">
-                            <label class="mb-2.5 block text-black dark:text-white">
-                                Headquarter Name <span class="text-meta-1">*</span>
-                            </label>
-                            <select
-                                class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                name="headquarter">
-                                <option value="0" selected>-- None --</option>
-                                @foreach ($hqs as $hq)
-                                <option value="{{ $hq->id }}">{{ $hq->headquarter }}
-                                </option>
-                                @endforeach
-                            </select>
-                            @error('headquarter')
-                            <p class="text-red-500 mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div class="w-full xl:w-1/2 m-auto mt-5">
-                            <label class="mb-2.5 block text-black dark:text-white">
-                                Qty <span class="text-meta-1">*</span>
-                            </label>
-                            <input type="number" placeholder="Enter the quantity" name="qty"
-                                class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                            @error('qty')
-                            <p class="text-red-500 mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <span @click="modalOpen = false"
-                            class="flex w-100 float-right rounded font-medium text-gray m-3 mt-3 bg-gray p-3 text-center font-medium text-black transition  hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1">
-                            Cancel
-                        </span>
-                        <button class="flex w-100 float-right rounded bg-primary p-3 font-medium mt-3 text-gray m-3">
-                            Submit
-                        </button>
-                    </form>
-                </div>
-            </div> --}}
-            <!-- modal end -->
-
-        </div>
-        <!-- Add Brand Model End -->
-        <!-- Breadcrumb End -->
+        </a>
         <div class="flex flex-col gap-5 md:gap-7 2xl:gap-10 mt-5">
 
             <!-- ====== Data Table Two Start -->
@@ -142,7 +53,7 @@
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Batch No</th>
                                     </tr>
                                 </thead>
-                               
+
                                 {{-- <tbody>
                                     @foreach ($samples as $sample)
                                     <tr>
