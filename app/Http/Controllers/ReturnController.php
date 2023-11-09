@@ -48,10 +48,7 @@ class ReturnController extends Controller
             $current_date = \Carbon\Carbon::now();
 
             if($expiry_date > $current_date){
-                // Update in Production
-                $stock->qty += $request->quantity;
-                $stock->save();
-
+                
                 // Update in ProductionStock
                 $product_stock = ProductStock::where('purchase_id',$stock->id)->first();
                 $product_stock->quantity += $request->quantity;
