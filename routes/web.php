@@ -141,12 +141,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // --------------------- production routes ---------------------
     Route::get('production/create', [ProductionCreateController::class, 'create'])->name('production-create');
     Route::post('production/final/store', [ProductionCreateController::class, 'store'])->name('production.store');
+
     Route::get('production/proccess', [ProductionCreateController::class, 'proccess'])->name('production-proccess');
     Route::put('production/update/{id}', [ProductionCreateController::class, 'update'])->name('finish-good.update');
     Route::post('/production/status', [ProductionCreateController::class, 'status'])->name('production.status');
 
     Route::get('production/complete', [ProductionCreateController::class, 'complete'])->name('production-complete');
     Route::get('production/pdf/{id}', [ProductionCreateController::class,'pdf_generate'])->name('print-production');
+    Route::get('product/pdf/{id}', [ProductionCreateController::class,'pdf_product'])->name('print-product');
 
     // Final production routes
     Route::get('production/final', [ProductionCreateController::class, 'final_create'])->name('production-final-create');

@@ -52,6 +52,7 @@
                                         <th class="sm:w-1/6 xs:w-1/6">Batch No</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Create at</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Complete</th>
+                                        <th class="sm:w-1/6 xs:w-1/6">print</th>
                                     </tr>
                                 </thead>
                                 <?php
@@ -70,7 +71,8 @@
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $production->product->name }} ({{ $production->product->unit->short_name }} )
+                                                {{ $production->product->name }} ({{
+                                                $production->product->unit->short_name }} )
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
@@ -96,7 +98,7 @@
                                                     --}}
                                                     <label class="relative inline-flex items-center cursor-pointer">
                                                         <input type="checkbox" name="status" class="ds-switch h-4 w-4"
-                                                             value="">
+                                                            value="">
                                                     </label>
                                                 </button>
 
@@ -131,7 +133,8 @@
                                                                     Product Name
                                                                 </label>
                                                                 <input type="text" name="product_id"
-                                                                    value="{{ $production->product->name }}  ({{ $production->product->unit->short_name }})" disabled
+                                                                    value="{{ $production->product->name }}  ({{ $production->product->unit->short_name }})"
+                                                                    disabled
                                                                     class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                                                                 @error('name')
                                                                 <p class="text-red-500 mt-2">{{ $message }}</p>
@@ -152,7 +155,9 @@
                                                                 class="flex w-100 float-right rounded font-medium text-gray m-3 mt-3 bg-gray p-3 text-center font-medium text-black transition  hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1">
                                                                 Cancel
                                                             </span>
-                                                            <button id="submitBtn" data-id="{{ $production->id }}" class="ds-switch flex w-100 float-right rounded bg-primary p-3 font-medium mt-3 text-gray m-3" {{ $production->status == 1 ? 'checked' : '' }}>
+                                                            <button id="submitBtn" data-id="{{ $production->id }}"
+                                                                class="ds-switch flex w-100 float-right rounded bg-primary p-3 font-medium mt-3 text-gray m-3"
+                                                                {{ $production->status == 1 ? 'checked' : '' }}>
                                                                 Submit
                                                             </button>
                                                         </form>
@@ -160,6 +165,15 @@
                                                 </div>
                                                 <!-- modal end -->
                                             </div>
+                                        </td>
+                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                            <a href="{{ route('print-production',$production->id) }}" target="_blank"
+                                                class="inline-flex items-center justify-center gap-2.5 rounded-full bg-meta-3 py-2 px-7 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-5">
+                                                <span>
+                                                    <i class="fa-solid fa-print"></i>
+                                                </span>
+                                                Print
+                                            </a>
                                         </td>
                                     </tr>
                                     @endif
