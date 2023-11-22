@@ -259,4 +259,10 @@ class ProductionCreateController extends Controller
         return view('admin.production.production-pdf', compact('production', 'issue', 'newarr'));
 
     }
+
+    public function pdf_product($id)
+    {
+        $production = Production::findOrFail($id);
+        return view('admin.production.product-pdf',compact('production'));
+    }
 }
