@@ -95,9 +95,15 @@
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
             }
-            .btn{
+
+            .btn {
                 display: none;
             }
+        }
+
+        @page {
+            size: auto;
+            margin: 30px;
         }
     </style>
 </head>
