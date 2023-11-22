@@ -389,6 +389,12 @@
                                 Brand
                             </a>
                         </button>
+                        <button
+                            class="flex items-center py-2 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                            <a href="{{ route('employee.index') }}">
+                                Employee
+                            </a>
+                        </button>
                         <button onclick="document.getElementById('logout-form').submit()"
                             class="flex items-center gap-3.5 py-2 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
 

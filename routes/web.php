@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HeadquartersController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProductController;
@@ -103,9 +104,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/headquarter/status', [HeadquartersController::class, 'status'])->name('headquarter.status');
     // Route::put('/brand/update/{id}', [BrandController::class, 'update'])->name('brand.update');
 
+    // --------------------- Product routes ---------------------
     Route::resource('product', ProductController::class);
     Route::post('/product/fetch-raw-materials', [ProductController::class, 'rawMaterials'])->name('product.raw-materials');
     Route::post('/product/status', [ProductController::class, 'status'])->name('product.status');
+
+     // --------------------- Employee routes ---------------------
+    Route::resource('employee', EmployeeController::class);
 
     // --------------------- Purchase routes ---------------------
     Route::get('/purchase/material', [PurchaseController::class, 'material'])->name('purchase-material');
@@ -135,7 +140,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('stocks/details', [StocksController::class, 'stock_details'])->name('stock-details');
 
     // --------------------- sample ---------------------
-    Route::resource('sample',SampleController::class);
+    Route::resource('sample', SampleController::class);
     Route::get('sample/detail/{id}', [SampleController::class, 'sample_detail_id'])->name('sample-detail-id');
 
     // --------------------- production routes ---------------------
@@ -147,8 +152,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/production/status', [ProductionCreateController::class, 'status'])->name('production.status');
 
     Route::get('production/complete', [ProductionCreateController::class, 'complete'])->name('production-complete');
-    Route::get('production/pdf/{id}', [ProductionCreateController::class,'pdf_generate'])->name('print-production');
-    Route::get('product/pdf/{id}', [ProductionCreateController::class,'pdf_product'])->name('print-product');
+    Route::get('production/pdf/{id}', [ProductionCreateController::class, 'pdf_generate'])->name('print-production');
+    Route::get('product/pdf/{id}', [ProductionCreateController::class, 'pdf_product'])->name('print-product');
 
     // Final production routes
     Route::get('production/final', [ProductionCreateController::class, 'final_create'])->name('production-final-create');
@@ -160,7 +165,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/gift/challan/store', [IssueController::class, 'gift_store'])->name('gift-store');
 
     // Sample-challan
-    Route::get('sample-challan',[IssueController::class, 'sample'])->name('sample-challan');
+    Route::get('sample-challan', [IssueController::class, 'sample'])->name('sample-challan');
     Route::post('/sample-challan/store', [IssueController::class, 'sample_store'])->name('sample-challan-store');
 
     // Raw-Material
@@ -171,9 +176,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 
     // --------------------- Return Routes ---------------------
-    Route::get('good/return',[ReturnController::class,'good_return'])->name('good-return');
-    Route::get('good/return/create',[ReturnController::class,'good_return_create'])->name('good-return-create');
-    Route::post('good/return/store',[ReturnController::class, 'good_return_store'])->name('good-return-store');
+    Route::get('good/return', [ReturnController::class, 'good_return'])->name('good-return');
+    Route::get('good/return/create', [ReturnController::class, 'good_return_create'])->name('good-return-create');
+    Route::post('good/return/store', [ReturnController::class, 'good_return_store'])->name('good-return-store');
 
     // --------------------- Sell Goods Challan ---------------------
     // Route::get('finish-good/issue', [IssueController::class, 'finish_good_index'])->name('finish-good-challan');
@@ -181,7 +186,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // Route::put('/gift/issue', [IssueController::class, 'issue_gift'])->name('gift.issue');
 
     // Stock Alert routes
-    Route::get('stock-alert',[StockAlertController::class, 'index'])->name('stock-alert');
+    Route::get('stock-alert', [StockAlertController::class, 'index'])->name('stock-alert');
 
     Route::get('/signin', function () {
         return view('admin.signin');
