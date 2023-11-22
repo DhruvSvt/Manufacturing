@@ -9,6 +9,7 @@
         * {
             margin: 0;
             padding: 0;
+            -webkit-box-sizing: border-box;
             box-sizing: border-box;
         }
 
@@ -27,19 +28,28 @@
             display: inline-block;
             padding-inline: 10px;
             border-radius: 100px;
+            -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
             margin-top: 5px;
         }
 
         .challan-date {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
             justify-content: space-between;
             margin-top: 1.5rem;
             font-size: 20px;
         }
 
         .footer {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
             justify-content: space-between;
             margin-top: 1.8rem;
             font-size: 15px;
@@ -67,6 +77,8 @@
             border: none;
             color: #fff;
             background-color: #4f545c;
+            -webkit-transition: background-color .17s ease, color .17s ease;
+            -o-transition: background-color .17s ease, color .17s ease;
             transition: background-color .17s ease, color .17s ease;
         }
 
