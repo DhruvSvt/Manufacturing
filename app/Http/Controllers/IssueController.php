@@ -51,7 +51,6 @@ class IssueController extends Controller
             'qty' => 'required',
             'amount' => 'required',
         ]);
-
         $qty = $request->qty ?? 0;
 
         $giftIssue = new GiftIssue([

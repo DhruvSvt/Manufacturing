@@ -12,6 +12,7 @@ class GiftIssue extends Model
         'gift_id',
         'supplier_id',
         'headquarter_id',
+        'employee_id',
         'qty',
         'amount',
     ]);
@@ -23,7 +24,7 @@ class GiftIssue extends Model
 
     public function supplier()
     {
-        return $this->belongsTo(Suppliers::class,'supplier_id');
+        return $this->belongsTo(Suppliers::class, 'supplier_id');
     }
 
     public function headquarter()
@@ -31,4 +32,8 @@ class GiftIssue extends Model
         return $this->belongsTo(Headquarters::class, 'headquarter_id');
     }
 
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id');
+    }
 }
