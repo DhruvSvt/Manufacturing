@@ -35,7 +35,12 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+        Employee::create($request->post());
+
+        return redirect()->route('employee.index')->with('success', 'Employee has been created successfully.');
     }
 
     /**

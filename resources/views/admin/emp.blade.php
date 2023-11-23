@@ -17,6 +17,9 @@
             <button @click="modalOpen = true" class="rounded-md bg-primary py-3 px-5 font-medium text-white">
                 Add Employee
             </button>
+            @error('name')
+            <p class="text-red-500 mt-2">{{ $message }}</p>
+            @enderror
 
             <!-- modal start -->
             <div x-show="modalOpen" x-transition=""
@@ -25,13 +28,13 @@
                 <div @click.outside="modalOpen = false"
                     class="w-full max-w-142.5 rounded-lg bg-white py-12 px-8 text-center dark:bg-boxdark md:py-15 md:px-17.5">
                     <h3 class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
-                        Add Brand Name
+                        Add Employee Name
                     </h3>
-                    <form action="{{ route('brand.store') }}" method="POST">
+                    <form action="{{ route('employee.store') }}" method="POST">
                         @csrf
                         <div class="w-full xl:w-1/2 m-auto mt-5">
                             <label class="mb-2.5 block text-black dark:text-white">
-                                Brand Name <span class="text-meta-1">*</span>
+                                Employee Name <span class="text-meta-1">*</span>
                             </label>
                             <input type="text" placeholder="Enter Brand Name" name="name"
                                 class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
@@ -191,6 +194,15 @@
         </div>
     </div>
 </main>
+@if (Session::has('success'))
+<script>
+    swal("Success", "{{ Session::get('success') }}", 'success', {
+        buttons: {
+            confirm: "OK",
+        },
+    });
+</script>
+@endif
 <!-- ===== Main Content End ===== -->
 {{-- <script>
     let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
