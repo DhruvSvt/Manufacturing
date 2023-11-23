@@ -131,8 +131,7 @@
                                                                 class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
                                                                 Edit Brand Name
                                                             </h3>
-                                                            <form
-                                                                action="{{ route('employee.update',$employee->id)  }}"
+                                                            <form action="{{ route('employee.update',$employee->id)  }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('PUT')
@@ -231,7 +230,7 @@
                         console.log(data.message);
                     }
                 });
-            });     
+            });
         });
 </script>
 
