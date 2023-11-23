@@ -109,7 +109,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/product/fetch-raw-materials', [ProductController::class, 'rawMaterials'])->name('product.raw-materials');
     Route::post('/product/status', [ProductController::class, 'status'])->name('product.status');
 
-     // --------------------- Employee routes ---------------------
+    // --------------------- Employee routes ---------------------
     Route::resource('employee', EmployeeController::class);
     Route::post('employee/status', [EmployeeController::class, 'status'])->name('employee.status');
 
@@ -163,6 +163,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // --------------------- Issue Challan routes ---------------------
     // Gift
     Route::get('gift/challan', [IssueController::class, 'gift_index'])->name('gift-challan');
+    Route::get('gift/create', [IssueController::class, 'gift_create'])->name('gift-create');
     Route::post('/gift/challan/store', [IssueController::class, 'gift_store'])->name('gift-store');
 
     // Sample-challan

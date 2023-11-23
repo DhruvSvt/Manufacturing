@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\FinishGood;
 use App\Models\Gift;
 use App\Models\GiftIssue;
@@ -23,18 +24,30 @@ class IssueController extends Controller
         $gifts = Gift::whereStatus(true)->get();
         $party = Suppliers::whereStatus(true)->get();
         $hq_name = Headquarters::whereStatus(true)->get();
+        $employees = Employee::whereStatus(true)->get();
 
         $issues = GiftIssue::latest()->get();
-        return view('admin.challans.gift', compact('party', 'hq_name', 'gifts', 'issues'));
+        return view('admin.challans.gift', compact('party', 'hq_name', 'gifts', 'issues','employees'));
+    }
+
+    public function gift_create()
+    {
+
+        $gifts = Gift::whereStatus(true)->get();
+        $party = Suppliers::whereStatus(true)->get();
+        $hq_name = Headquarters::whereStatus(true)->get();
+        $employees = Employee::whereStatus(true)->get();
+
+        return view('admin.challans.gift-create', compact('party', 'hq_name', 'gifts','employees'));
     }
 
     public function gift_store(Request $request)
     {
-
         $request->validate([
             'gift' => 'required',
             'party' => 'required',
             'headquarter' => 'required',
+            'employee_id' => 'required',
             'qty' => 'required',
             'amount' => 'required',
         ]);
@@ -45,6 +58,7 @@ class IssueController extends Controller
             'gift_id' => $request->gift,
             'supplier_id' => $request->party,
             'headquarter_id' => $request->headquarter,
+            'employee_id' => $request->employee_id,
             'qty' => $qty,
             'amount' => $request->amount
         ]);
@@ -74,7 +88,6 @@ class IssueController extends Controller
         }
 
         if ($canIssue) {
-
             $giftIssue->save();
 
             // Update the raw material stock
@@ -108,7 +121,7 @@ class IssueController extends Controller
             }
         } else {
             $needQuantity = $qty - ($giftStock->total_quantity ?? 0);
-            return redirect()->back()->with([
+            return redirect()->route('gift-challan')->with([
                 'error' => 'Insufficient Gift stock to issue Challan.',
                 'needQuantity' => $needQuantity
             ]);
