@@ -191,6 +191,10 @@
             <td>Type</td>
             <td>{{ $return->type }}</td>
         </tr>
+        <tr style="font-size: 18px;font-weight: 600">
+            <td>Total Amt.</td>
+            <td>₹{{ ($return->rate*$return->quantity) }}/-</td>
+        </tr>
     </table>
 
     <div style="margin-top: 10px;">
