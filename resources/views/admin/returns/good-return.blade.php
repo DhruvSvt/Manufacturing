@@ -45,8 +45,9 @@
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Party Name</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Builty No.</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Name of Product</th>
-                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Qty</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Batch No</th>
+                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Qty</th>
+                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Rate</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Type</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Print</th>
                                     </tr>
@@ -72,14 +73,20 @@
                                         </td>
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ $return->batch }}
+                                            </p>
+                                        </td>
+                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
+                                            <p class="text-sm font-medium text-black dark:text-white">
                                                 {{ $return->quantity }}
                                             </p>
                                         </td>
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $return->batch }}
+                                                ₹{{ $return->rate }}/-
                                             </p>
                                         </td>
+
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
                                                 {{ $return->type }}

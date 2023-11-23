@@ -176,6 +176,10 @@
             <td>{{ $return->quantity }}</td>
         </tr>
         <tr>
+            <td>Rate</td>
+            <td>₹{{ $return->rate }}/-</td>
+        </tr>
+        <tr>
             <td>Receipt Challan</td>
             <td>{{ $return->receipt }}</td>
         </tr>
