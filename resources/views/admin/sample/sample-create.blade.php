@@ -31,7 +31,7 @@
                         </label>
 
                         <button type="button" class="rounded-md bg-[#3c50e0] py-2 px-3 font-medium text-white text-sm">
-                            <a href="{{ route('product.create') }}" target="_blank" >
+                            <a href="{{ route('product.create') }}" target="_blank">
                                 Add
                             </a>
                         </button>
@@ -69,6 +69,24 @@
                 </div>
             </div>
             <div class="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                <div class="w-full xl:w-1/2">
+                    <div class="flex justify-between items-center mb-2.5">
+                        <label class="mb-2.5  text-black dark:text-white">
+                            Employee Name
+                        </label>
+                    </div>
+                    <select
+                        class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        name="employee_id">
+                        <option value="">Choose Employee name</option>
+                        @foreach ($employees as $employee)
+                        <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('employee_id')
+                    <p class="text-red-500 mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
                 <div class="w-full xl:w-1/2">
                     <label class="mb-2.5 block text-black dark:text-white">
                         Quantity(in unit) <span class="text-meta-1">*</span>

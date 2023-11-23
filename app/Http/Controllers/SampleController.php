@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Headquarters;
 use App\Models\Product;
 use App\Models\ProductStock;
@@ -35,7 +36,8 @@ class SampleController extends Controller
     {
         $products = Product::whereStatus(true)->get();
         $headquarters = Headquarters::whereStatus(true)->get();
-        return view('admin.sample.sample-create', compact('products', 'headquarters'));
+        $employees = Employee::whereStatus(true)->get();
+        return view('admin.sample.sample-create', compact('products', 'headquarters','employees'));
     }
 
     /**
@@ -49,6 +51,7 @@ class SampleController extends Controller
         $request->validate([
             'product_id' => 'required',
             'headquarter_id' => 'required',
+            'employee_id' => 'required',
             'qty' => 'required'
         ]);
 
@@ -77,8 +80,13 @@ class SampleController extends Controller
         }
 
         if ($canCreate) {
+            $sample = new Sample;
+            $sample->product_id = $request->product_id;
+            $sample->headquarter_id = $request->headquarter_id;
+            $sample->employee_id = $request->employee_id;
+            $sample->qty = $request->qty;
 
-            Sample::create($request->post());
+            $sample->save();
 
             try {
 
