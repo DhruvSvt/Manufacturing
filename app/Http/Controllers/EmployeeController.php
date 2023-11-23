@@ -14,7 +14,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('admin.emp');
+        $employees = Employee::all();
+        return view('admin.emp',compact('employees'));
     }
 
     /**
@@ -60,7 +61,7 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function edit(Employee $employee)
+    public function edit($id)
     {
         //
     }

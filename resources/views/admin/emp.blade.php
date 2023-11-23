@@ -88,20 +88,20 @@
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Action</th>
                                     </tr>
                                 </thead>
-                                {{-- <tbody>
-                                    @foreach ($brands as $brand )
+                                <tbody>
+                                    @foreach ($employees as $employee )
                                     <tr>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                                                 <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $brand->name }}
+                                                    {{ $employee->name }}
                                                 </p>
                                             </div>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" data-id="{{ $brand->id }}" name="status"
-                                                    class="js-switch" {{ $brand->status == 1 ? 'checked' : '' }}
+                                                <input type="checkbox" data-id="{{ $employee->id }}" name="status"
+                                                    class="js-switch" {{ $employee->status == 1 ? 'checked' : '' }}
                                                 value=""
                                                 class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4
                                                 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer
@@ -132,7 +132,7 @@
                                                                 Edit Brand Name
                                                             </h3>
                                                             <form
-                                                                action="{{ route('brand.update',['id' => $brand->id ]) }}"
+                                                                action="{{ route('employee.update',$employee->id)  }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('PUT')
@@ -142,7 +142,7 @@
                                                                         Brand Name <span class="text-meta-1">*</span>
                                                                     </label>
                                                                     <input type="text" placeholder="Enter Brand Name"
-                                                                        name="name" value="{{ $brand->name }}"
+                                                                        name="name" value="{{ $employee->name }}"
                                                                         class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                                                                     @error('name')
                                                                     <p class="text-red-500 mt-2">{{ $message }}</p>
@@ -166,7 +166,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                </tbody> --}}
+                                </tbody>
                             </table>
                         </div>
                         <div class="datatable-bottom">
@@ -217,15 +217,15 @@
         $(document).ready(function() {
             $('.js-switch').change(function() {
                 let status = $(this).prop('checked') === true ? 1 : 0;
-                let brandId = $(this).data('id');
+                let employeeId = $(this).data('id');
                 $.ajax({
                     type: "POST", // Change this to POST
                     dataType: "json",
-                    url: '{{ route('brand.status') }}',
+                    url: '{{ route('employee.status') }}',
                     data: {
                         '_token': '{{ csrf_token() }}', // Add the CSRF token
                         'status': status,
-                        'brand_id': brandId
+                        'employee_id': employeeId
                     },
                     success: function(data) {
                         console.log(data.message);
