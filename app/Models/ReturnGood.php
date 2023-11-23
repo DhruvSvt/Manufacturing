@@ -20,6 +20,7 @@ class ReturnGood extends Model
         'dispatch',
         'date_of_receipt',
         'quantity',
+        'rate',
         'receipt',
     ];
 

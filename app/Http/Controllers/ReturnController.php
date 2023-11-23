@@ -37,6 +37,7 @@ class ReturnController extends Controller
             'dispatch' => 'required',
             'date_of_receipt' => 'required',
             'quantity' => 'required',
+            'rate' => 'required',
             'receipt' => 'required',
         ]);
 
