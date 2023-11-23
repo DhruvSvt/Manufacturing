@@ -44,12 +44,8 @@
                                     <tr>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Party Name</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Builty No.</th>
-                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Transport Name </th>
-                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Date of Dispatch</th>
-                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Date of Reciept</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Name of Product</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Qty</th>
-                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Receipt Challan</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Batch No</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Type</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Print</th>
@@ -71,32 +67,12 @@
                                         </td>
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $return->transport }}
-                                            </p>
-                                        </td>
-                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $return->dispatch }}
-                                            </p>
-                                        </td>
-                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $return->date_of_receipt }}
-                                            </p>
-                                        </td>
-                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
-                                            <p class="text-sm font-medium text-black dark:text-white">
                                                 {{ $return->product->name }} ({{ $return->product->unit->short_name }})
                                             </p>
                                         </td>
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
                                                 {{ $return->quantity }}
-                                            </p>
-                                        </td>
-                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $return->receipt }}
                                             </p>
                                         </td>
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
