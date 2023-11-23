@@ -40,17 +40,16 @@ class ReturnController extends Controller
             'receipt' => 'required',
         ]);
 
-        $stock = Production::where('batch_no',$request->batch)->first();
+        $stock = Production::where('batch_no', $request->batch)->first();
 
-        if($request->product_id == $stock->product_id )
-        {
+        if ($request->product_id == $stock->product_id) {
             $expiry_date = $stock->expiry_date;
             $current_date = \Carbon\Carbon::now();
 
-            if($expiry_date > $current_date){
-                
+            if ($expiry_date > $current_date) {
+
                 // Update in ProductionStock
-                $product_stock = ProductStock::where('purchase_id',$stock->id)->first();
+                $product_stock = ProductStock::where('purchase_id', $stock->id)->first();
                 $product_stock->quantity += $request->quantity;
                 $product_stock->save();
             }
@@ -58,10 +57,14 @@ class ReturnController extends Controller
             ReturnGood::create($request->post());
 
             return redirect()->route('good-return')->with('success', 'Return Good Create Successfully.');
-        }
-        else{
+        } else {
             return redirect()->back()->with('error', 'Your Product and Batch No. not matches with our records !!');
         }
+    }
 
+    public function print($id)
+    {
+        $return = ReturnGood::findOrFail($id);
+        return view('admin.returns.pdf',compact('return'));
     }
 }

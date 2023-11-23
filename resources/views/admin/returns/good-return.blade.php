@@ -52,6 +52,7 @@
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Receipt Challan</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Batch No</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Type</th>
+                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Print</th>
                                     </tr>
                                 </thead>
 
@@ -107,6 +108,15 @@
                                             <p class="text-sm font-medium text-black dark:text-white">
                                                 {{ $return->type }}
                                             </p>
+                                        </td>
+                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                            <a href="{{ route('print-return',$return->id) }}" target="_blank"
+                                                class="inline-flex items-center justify-center gap-2.5 rounded-full bg-meta-3 py-2 px-7 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-5">
+                                                <span>
+                                                    <i class="fa-solid fa-print"></i>
+                                                </span>
+                                                Print
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach

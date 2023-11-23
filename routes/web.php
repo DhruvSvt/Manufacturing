@@ -181,6 +181,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('good/return', [ReturnController::class, 'good_return'])->name('good-return');
     Route::get('good/return/create', [ReturnController::class, 'good_return_create'])->name('good-return-create');
     Route::post('good/return/store', [ReturnController::class, 'good_return_store'])->name('good-return-store');
+    Route::get('good/return/pdf/{id}', [ReturnController::class, 'print'])->name('print-return');
 
     // --------------------- Sell Goods Challan ---------------------
     // Route::get('finish-good/issue', [IssueController::class, 'finish_good_index'])->name('finish-good-challan');

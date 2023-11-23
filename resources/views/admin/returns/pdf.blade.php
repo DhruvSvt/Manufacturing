@@ -88,9 +88,15 @@
         }
 
         td {
-            height: 320px;
             vertical-align: top;
-            padding: 15px;
+            width: 50%;
+            padding: 6px;
+            padding-left: 15px;
+        }
+
+        th {
+            padding: 8px;
+            font-size: 1.3rem;
         }
 
         table,
@@ -129,35 +135,57 @@
         <h1>Panacia Health Care PVT. LTd.</h1>
         <p>Shiv Ganga Industrial Estate, Plot No. 19, Bhagwanpur, Roorkee (Uttrakhand)</p>
         <p>www.panaciahealthcare.com</p>
-        <h3 class="finish-good">FINISHED GOODS CHALLAN</h3>
+        <h3 class="finish-good">GOOD RETURN DETAILS</h3>
     </div>
 
     <div class="challan-date">
-        <span>Challan No.</span>
-        <span>Date..........</span>
+        <span>Date :- </span>
     </div>
 
-    <div>
-        <div class="store-incharge">
-            To,<br>
-            The Store Incharge <br>
-            kindly receive the undermentioned finished goods in order.
-        </div>
-    </div>
 
     <table>
         <tr>
-            <th style="width: 10%;">No.</th>
-            <th style="width: 60%;">Particulars</th>
-            <th style="width: 15%;">Batch No.</th>
-            <th style="width: 15%;">Quantity</th>
+            <th colspan="2">Details of Return Good</th>
         </tr>
         <tr>
-            <td style="width: 10%;">1</td>
-            <td style="width: 60%;">{{ $production->product->name }} ({{
-                $production->product->unit->short_name }} )</td>
-            <td style="width: 15%;">{{ $production->batch_no }}</td>
-            <td style="width: 15%;">{{ $production->qty }}</td>
+            <td>Party Name</td>
+            <td>{{ $return->supplier->name }}</td>
+        </tr>
+        <tr>
+            <td>Builty No.</td>
+            <td>{{ $return->builty }}</td>
+        </tr>
+        <tr>
+            <td>Transport Name</td>
+            <td>{{ $return->transport }}</td>
+        </tr>
+        <tr>
+            <td>Date of Dispatch</td>
+            <td>{{ $return->dispatch }}</td>
+        </tr>
+        <tr>
+            <td>Date of Reciept</td>
+            <td>{{ $return->date_of_receipt }}</td>
+        </tr>
+        <tr>
+            <td>Name of Product</td>
+            <td>{{ $return->product->name }} ({{ $return->product->unit->short_name }})</td>
+        </tr>
+        <tr>
+            <td>Qty</td>
+            <td>{{ $return->quantity }}</td>
+        </tr>
+        <tr>
+            <td>Receipt Challan</td>
+            <td>{{ $return->receipt }}</td>
+        </tr>
+        <tr>
+            <td>Batch No</td>
+            <td>{{ $return->batch }}</td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td>{{ $return->type }}</td>
         </tr>
     </table>
 
@@ -165,11 +193,11 @@
         <b>Thanking You,</b>
     </div>
     <div>
-        <b style="margin-top:5px;">Sign. Production Deptt.</b>
+        <b style="margin-top:5px;">Sign.</b>
     </div>
 
     <div class="footer">
-        <span>Received the above mentioned good.</span>
+        <span>Received the details of return.</span>
         <span>Store Incharge</span>
     </div>
 </body>
