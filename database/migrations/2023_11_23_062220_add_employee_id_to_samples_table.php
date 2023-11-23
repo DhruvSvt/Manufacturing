@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('samples', function (Blueprint $table) {
-            $table->integer('employee_id')->nullable()->default(0)->after('headquarter_id');
+            $table->integer('employee_id')->nullable()->after('headquarter_id');
         });
     }
 
