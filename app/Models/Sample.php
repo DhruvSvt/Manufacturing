@@ -12,6 +12,7 @@ class Sample extends Model
     protected $fillable = [
         'product_id',
         'headquarter_id',
+        'employee_id',
         'qty'
     ];
 

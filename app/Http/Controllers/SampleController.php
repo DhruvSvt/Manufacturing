@@ -37,7 +37,7 @@ class SampleController extends Controller
         $products = Product::whereStatus(true)->get();
         $headquarters = Headquarters::whereStatus(true)->get();
         $employees = Employee::whereStatus(true)->get();
-        return view('admin.sample.sample-create', compact('products', 'headquarters','employees'));
+        return view('admin.sample.sample-create', compact('products', 'headquarters', 'employees'));
     }
 
     /**
@@ -80,13 +80,7 @@ class SampleController extends Controller
         }
 
         if ($canCreate) {
-            $sample = new Sample;
-            $sample->product_id = $request->product_id;
-            $sample->headquarter_id = $request->headquarter_id;
-            $sample->employee_id = $request->employee_id;
-            $sample->qty = $request->qty;
-
-            $sample->save();
+            Sample::create($request->post());
 
             try {
 
