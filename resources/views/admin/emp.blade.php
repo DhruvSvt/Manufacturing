@@ -204,7 +204,7 @@
 </script>
 @endif
 <!-- ===== Main Content End ===== -->
-{{-- <script>
+<script>
     let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
         elems.forEach(function(html) {
@@ -231,8 +231,8 @@
                         console.log(data.message);
                     }
                 });
-            });
+            });     
         });
-</script> --}}
+</script>
 
 @endsection

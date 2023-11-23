@@ -111,6 +111,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
      // --------------------- Employee routes ---------------------
     Route::resource('employee', EmployeeController::class);
+    Route::post('employee/status', [EmployeeController::class, 'status'])->name('employee.status');
 
     // --------------------- Purchase routes ---------------------
     Route::get('/purchase/material', [PurchaseController::class, 'material'])->name('purchase-material');

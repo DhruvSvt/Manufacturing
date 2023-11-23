@@ -15,7 +15,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::all();
-        return view('admin.emp',compact('employees'));
+        return view('admin.emp', compact('employees'));
     }
 
     /**
@@ -87,5 +87,14 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         //
+    }
+
+    public function status(Request $request)
+    {
+        $employee = Employee::findOrFail($request->employee_id);
+        $employee->status = $request->status;
+        $employee->save();
+
+        return redirect()->back();
     }
 }
