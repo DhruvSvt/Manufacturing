@@ -9,7 +9,6 @@
         * {
             margin: 0;
             padding: 0;
-            -webkit-box-sizing: border-box;
             box-sizing: border-box;
         }
 
@@ -28,28 +27,19 @@
             display: inline-block;
             padding-inline: 10px;
             border-radius: 100px;
-            -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
             margin-top: 5px;
         }
 
         .challan-date {
-            display: -webkit-box;
-            display: -ms-flexbox;
             display: flex;
-            -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
             justify-content: space-between;
             margin-top: 1.5rem;
             font-size: 20px;
         }
 
         .footer {
-            display: -webkit-box;
-            display: -ms-flexbox;
             display: flex;
-            -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
             justify-content: space-between;
             margin-top: 1.8rem;
             font-size: 15px;
@@ -60,6 +50,23 @@
             text-align: start;
             margin-left: 15%;
             margin-top: 1.3rem;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        td {
+            border-left: 1px solid black;
+            border-bottom: 1px solid black;
+            padding: 5px;
+        }
+
+        table,
+        th {
+            border: 1px solid black;
+            border-collapse: collapse;
         }
 
         .btn {
@@ -80,30 +87,6 @@
             -webkit-transition: background-color .17s ease, color .17s ease;
             -o-transition: background-color .17s ease, color .17s ease;
             transition: background-color .17s ease, color .17s ease;
-        }
-
-        table {
-            width: 100%;
-            margin-top: 0.5rem;
-        }
-
-        td {
-            vertical-align: top;
-            width: 50%;
-            padding: 6px;
-            padding-left: 15px;
-        }
-
-        th {
-            padding: 8px;
-            font-size: 1.3rem;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid black;
-            border-collapse: collapse;
         }
 
         @media print {
@@ -127,7 +110,6 @@
 </head>
 
 <body>
-
     <div class="head-container">
         <div style="float: right;margin-right: 1rem;">
             <button class="btn" onclick="window.print()">Print</button>
@@ -139,61 +121,45 @@
     </div>
 
     <div class="challan-date">
-        <span>Date :- </span>
+        <span>Party Name - {{ $return->supplier->name }}</span>
+        <span>Builty No. - {{ $return->builty }}</span>
     </div>
 
+    <div class="challan-date">
+        <span>Transport Name - {{ $return->transport }}</span>
+        <span>Date of Dispatch - {{ $return->dispatch }}</span>
+    </div>
+
+    <div class="challan-date">
+        <span>Date of Reciept - {{ $return->date_of_receipt }}</span>
+        <span>Receipt Challan - {{ $return->receipt }}</span>
+    </div>
 
     <table>
         <tr>
-            <th colspan="2">Details of Return Good</th>
+            <th style="width: 5%;">No.</th>
+            <th style="width: 35%;">Particulars</th>
+            <th style="width: 10%;">Batch No.</th>
+            <th style="width: 15%;">Reason of Return</th>
+            <th style="width: 10%;">Quantity</th>
+            <th style="width: 10%;">Rate</th>
+            <th style="width: 15%;">Total</th>
         </tr>
+        @foreach ($returnProducts as $key => $returnProduct )
         <tr>
-            <td>Party Name</td>
-            <td>{{ $return->supplier->name }}</td>
+            <td style="width: 5%;">{{ $key+1 }}</td>
+            <td style="width: 35%;">{{ $returnProduct->product->name }} ({{
+                $returnProduct->product->unit->short_name ?? '-' }})</td>
+            <td style="width: 10%;">{{ $returnProduct->batch_no }}</td>
+            <td style="width: 15%;">{{ $returnProduct->reason_of_return }}</td>
+            <td style="width: 10%;">{{ $returnProduct->qty }}</td>
+            <td style="width: 10%;">{{ $returnProduct->rate }}</td>
+            <td style="width: 15%;">₹{{ $returnProduct->qty*$returnProduct->rate }}</td>
         </tr>
-        <tr>
-            <td>Builty No.</td>
-            <td>{{ $return->builty }}</td>
-        </tr>
-        <tr>
-            <td>Transport Name</td>
-            <td>{{ $return->transport }}</td>
-        </tr>
-        <tr>
-            <td>Date of Dispatch</td>
-            <td>{{ $return->dispatch }}</td>
-        </tr>
-        <tr>
-            <td>Date of Reciept</td>
-            <td>{{ $return->date_of_receipt }}</td>
-        </tr>
-        <tr>
-            <td>Name of Product</td>
-            <td>{{ $return->product->name }} ({{ $return->product->unit->short_name }})</td>
-        </tr>
-        <tr>
-            <td>Qty</td>
-            <td>{{ $return->quantity }}</td>
-        </tr>
-        <tr>
-            <td>Rate</td>
-            <td>₹{{ $return->rate }}/-</td>
-        </tr>
-        <tr>
-            <td>Receipt Challan</td>
-            <td>{{ $return->receipt }}</td>
-        </tr>
-        <tr>
-            <td>Batch No</td>
-            <td>{{ $return->batch }}</td>
-        </tr>
-        <tr>
-            <td>Type</td>
-            <td>{{ $return->type }}</td>
-        </tr>
-        <tr style="font-size: 18px;font-weight: 600">
-            <td>Total Amt.</td>
-            <td>₹{{ ($return->rate*$return->quantity) }}/-</td>
+        @endforeach
+        <tr style="text-align: center">
+            <td colspan="6"><b>Grand Total</b></td>
+            <td colspan="1"><b>₹{{ $grandTotal }}/-</b></td>
         </tr>
     </table>
 

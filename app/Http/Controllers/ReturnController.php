@@ -107,6 +107,15 @@ class ReturnController extends Controller
     public function print($id)
     {
         $return = ReturnGood::findOrFail($id);
-        return view('admin.returns.pdf', compact('return'));
+        $returnProducts = ReturnGoodsProduct::where('return_good_id',$id)->get();
+
+        // Calculating grand total
+        $total = 0;
+        $grandTotal = 0;
+        foreach($returnProducts as $item ){
+            $total = $item->rate * $item->qty;
+            $grandTotal += $total;
+        }
+        return view('admin.returns.pdf', compact('return','returnProducts','grandTotal'));
     }
 }
