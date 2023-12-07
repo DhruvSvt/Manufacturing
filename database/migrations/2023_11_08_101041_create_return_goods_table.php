@@ -15,15 +15,11 @@ return new class extends Migration
     {
         Schema::create('return_goods', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id')->default(0)->nullable();
             $table->integer('supplier_id')->default(0)->nullable();
-            $table->string('batch')->nullable();
-            $table->string('type')->nullable();
             $table->string('builty')->nullable();
             $table->string('transport')->nullable();
             $table->date('dispatch')->nullable();
             $table->date('date_of_receipt')->nullable();
-            $table->string('quantity')->nullable();
             $table->string('receipt')->nullable();
             $table->timestamps();
             $table->softDeletes();
