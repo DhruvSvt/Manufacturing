@@ -68,28 +68,59 @@
                                         </td>
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $return->product->name }} ({{ $return->product->unit->short_name }})
+                                                <?php
+                                                $returnProducts = App\Models\ReturnGoodsProduct::where('return_good_id',$return->id)->get()
+                                                ?>
+                                                @foreach ($returnProducts as $key => $returnProduct)
+                                                {{ $key+1 }}) {{ $returnProduct->product->name }} ({{
+                                                $returnProduct->product->unit->short_name ?? '-' }})
+                                                <br>
+                                                @endforeach
                                             </p>
                                         </td>
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $return->batch }}
+                                                <?php
+                                                $returnProducts = App\Models\ReturnGoodsProduct::where('return_good_id',$return->id)->get()
+                                                ?>
+                                                @foreach ($returnProducts as $key => $returnProduct)
+                                                {{ $key+1 }}) {{ $returnProduct->batch_no }}
+                                                <br>
+                                                @endforeach
                                             </p>
                                         </td>
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $return->quantity }}
+                                                <?php
+                                                $returnProducts = App\Models\ReturnGoodsProduct::where('return_good_id',$return->id)->get()
+                                                ?>
+                                                @foreach ($returnProducts as $key => $returnProduct)
+                                                {{ $key+1 }}) {{ $returnProduct->qty }}
+                                                <br>
+                                                @endforeach
                                             </p>
                                         </td>
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                ₹{{ $return->rate }}/-
+                                                <?php
+                                                $returnProducts = App\Models\ReturnGoodsProduct::where('return_good_id',$return->id)->get()
+                                                ?>
+                                                @foreach ($returnProducts as $key => $returnProduct)
+                                                {{ $key+1 }}) ₹{{ $returnProduct->rate }}/-
+                                                <br>
+                                                @endforeach
                                             </p>
                                         </td>
 
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $return->type }}
+                                                <?php
+                                                $returnProducts = App\Models\ReturnGoodsProduct::where('return_good_id',$return->id)->get()
+                                                ?>
+                                                @foreach ($returnProducts as $key => $returnProduct)
+                                                {{ $key+1 }}) {{ $returnProduct->reason_of_return }}
+                                                <br>
+                                                @endforeach
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
