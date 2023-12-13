@@ -11,6 +11,7 @@ use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionCreateController;
 use App\Http\Controllers\ReturnController;
+use App\Http\Controllers\SaleInvoiceController;
 use App\Http\Controllers\SampleController;
 use App\Http\Controllers\StockAlertController;
 use App\Http\Controllers\StocksController;
@@ -182,6 +183,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('good/return/create', [ReturnController::class, 'good_return_create'])->name('good-return-create');
     Route::post('good/return/store', [ReturnController::class, 'good_return_store'])->name('good-return-store');
     Route::get('good/return/pdf/{id}', [ReturnController::class, 'print'])->name('print-return');
+
+    // --------------------- Return Routes ---------------------
+    Route::resource('sale',SaleInvoiceController::class);
+
 
     // --------------------- Sell Goods Challan ---------------------
     // Route::get('finish-good/issue', [IssueController::class, 'finish_good_index'])->name('finish-good-challan');
