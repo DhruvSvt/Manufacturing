@@ -8,6 +8,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HeadquartersController;
 use App\Http\Controllers\IssueController;
+use App\Http\Controllers\PartyPaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionCreateController;
 use App\Http\Controllers\ReturnController;
@@ -186,6 +187,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // --------------------- Return Routes ---------------------
     Route::resource('sale',SaleInvoiceController::class);
+
+    // --------------------- Return Routes ---------------------
+    Route::resource('payment',PartyPaymentController::class);
 
 
     // --------------------- Sell Goods Challan ---------------------
