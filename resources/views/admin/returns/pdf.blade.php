@@ -117,9 +117,12 @@
         <h1>Panacia Health Care PVT. LTd.</h1>
         <p>Shiv Ganga Industrial Estate, Plot No. 19, Bhagwanpur, Roorkee (Uttrakhand)</p>
         <p>www.panaciahealthcare.com</p>
-        <h3 class="finish-good">GOOD RETURN DETAILS</h3>
+        <h3 class="finish-good">GOOD RETURN DETAILS <br> CREDIT NOTE</h3>
     </div>
 
+    <div class="challan-date">
+        <span>Credit No. - {{ $return->id }}</span>
+    </div>
     <div class="challan-date">
         <span>Party Name - {{ $return->supplier->name }}</span>
         <span>Builty No. - {{ $return->builty }}</span>
