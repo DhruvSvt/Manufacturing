@@ -46,6 +46,8 @@
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Party Name</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Place</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Product Name</th>
+                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Due Date</th>
+                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Type</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Quantity</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Rate</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Total Amount</th>
@@ -79,17 +81,27 @@
                                         </td>
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ Carbon\Carbon::parse($sale->due_date)->format('d-M-Y') ?? '' }}
+                                            </p>
+                                        </td>
+                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ $sale->type }}
+                                            </p>
+                                        </td>
+                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
+                                            <p class="text-sm font-medium text-black dark:text-white">
                                                 {{ $sale->qty }}
                                             </p>
                                         </td>
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $sale->rate }}
+                                                ₹{{ $sale->rate }}/-
                                             </p>
                                         </td>
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                <b>{{ $sale->total_amt }}</b>
+                                                <b>₹{{ $sale->total_amt }}/-</b>
                                             </p>
                                         </td>
                                     </tr>

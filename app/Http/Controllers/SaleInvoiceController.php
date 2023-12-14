@@ -47,6 +47,8 @@ class SaleInvoiceController extends Controller
             'product_id' => 'required',
             'qty' => 'required | min:1',
             'rate' => 'required | min:1',
+            'due_date' => 'required',
+            'type' => 'required',
         ]);
 
         $qty = $request->qty;
@@ -54,7 +56,7 @@ class SaleInvoiceController extends Controller
         $checkStock = ProductStock::where('product_id', $request->product_id)
         ->where('expiry_date','>',\Carbon\Carbon::now())
         ->get();
-        
+
         $total_stock = 0;
 
         foreach ($checkStock as $item) {
@@ -67,6 +69,8 @@ class SaleInvoiceController extends Controller
             $sale->supplier_id = $request->supplier_id;
             $sale->place = $request->place;
             $sale->product_id = $request->product_id;
+            $sale->due_date = $request->due_date;
+            $sale->type = $request->type;
             $sale->qty = $qty;
             $sale->rate = $request->rate;
             // -----cal. total amount-----

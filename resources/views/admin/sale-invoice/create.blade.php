@@ -51,7 +51,6 @@
                         <option value="{{ $party->id }}">{{ $party->name }}
                         </option>
                         @endforeach
-
                     </select>
                     @error('supplier_id')
                     <p class="text-red-500 mt-2">{{ $message }}</p>
@@ -109,7 +108,38 @@
                     <p class="text-red-500 mt-2">{{ $message }}</p>
                     @enderror
                 </div>
+                <div class="w-full xl:w-1/2">
+                    <label class="mb-2.5 block text-black dark:text-white">
+                        Due Date <span class="text-meta-1">*</span>
+                    </label>
+                    <input type="date" name="due_date" min="1"
+                        class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                    @error('due_date')
+                    <p class="text-red-500 mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
+            <div class="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                <div class="w-full xl:w-1/2">
+                    <div class="flex justify-between items-center mb-2.5">
+                        <label class="block text-black dark:text-white">
+                            Type<span class="text-meta-1">*</span>
+                        </label>
+                    </div>
+                    <select
+                        class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border   -primary"
+                        name="type">
+                        <option value="">Choose Type</option>
+                        <option value="Distributor">Distributor / C & F</option>
+                        <option value="Stockiest">Stockiest</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    @error('type')
+                    <p class="text-red-500 mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
+
             <div class="flex justify-end ">
                 <button class="flex w-100  rounded bg-primary p-3 font-medium text-gray">
                     Submit
