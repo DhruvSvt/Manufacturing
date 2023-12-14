@@ -15,7 +15,13 @@ return new class extends Migration
     {
         Schema::create('party_payments', function (Blueprint $table) {
             $table->id();
+            $table->string('type')->nullable();
+            $table->bigInteger('supplier_id')->nullable()->default(0);
+            $table->string('amt')->nullable();
+            $table->string('mode')->nullable();
+            $table->string('remark')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\PartyPayment;
+use App\Models\Suppliers;
 use Illuminate\Http\Request;
+
+use function PHPSTORM_META\type;
 
 class PartyPaymentController extends Controller
 {
@@ -14,7 +17,9 @@ class PartyPaymentController extends Controller
      */
     public function index()
     {
-        return view('admin.party-payment.payment');
+        $payments = PartyPayment::all();
+        $party = Suppliers::whereStatus(true)->get();
+        return view('admin.party-payment.payment',compact('party','payments'));
     }
 
     /**
@@ -35,7 +40,16 @@ class PartyPaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'type' => 'required',
+            'supplier_id' => 'required',
+            'amt' => 'required',
+            'mode' => 'required',
+        ]);
+
+        PartyPayment::create($request->post());
+
+        return redirect()->route('payment.index')->with('success','Data Added Successfully');
     }
 
     /**
