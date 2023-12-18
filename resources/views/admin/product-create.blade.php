@@ -74,7 +74,7 @@
                                 <span class="text-meta-1">*</span></label>
                             <select
                                 class="select_material relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                name="materials" required>
+                                name="materials">
                                 <option value="" selected>Choose Material</option>
                                 @foreach ($raw_materials as $raw_material)
                                     <option value="{{ $raw_material->id }}">{{ $raw_material->name }}</option>
@@ -207,9 +207,9 @@
                 }
             });
 
-            if (materials && materials.length <= 0) {
-                return false;
-            }
+            // if (materials && materials.length <= 0) {
+            //     return false;
+            // }
             $('#raw_materials_hidden').val(JSON.stringify(materials));
 
             return true;
