@@ -53,6 +53,7 @@ class ProductController extends Controller
         $product = new Product;
         $product->name = request()->name;
         $product->price = request()->price;
+        $product->unit_id = request()->unit;
         $product->save();
 
         $rawProducts = json_decode(request()->raw_materials);
