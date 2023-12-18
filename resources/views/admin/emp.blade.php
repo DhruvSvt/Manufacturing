@@ -42,6 +42,26 @@
                             <p class="text-red-500 mt-2">{{ $message }}</p>
                             @enderror
                         </div>
+                        <div class="w-full xl:w-1/2 m-auto mt-5">
+                            <label class="mb-2.5 block text-black dark:text-white">
+                                Phone No. <span class="text-meta-1">*</span>
+                            </label>
+                            <input type="number" placeholder="Enter Phone No." name="phn_no"
+                                class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                            @error('phn_no')
+                            <p class="text-red-500 mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="w-full xl:w-1/2 m-auto mt-5">
+                            <label class="mb-2.5 block text-black dark:text-white">
+                               Designation <span class="text-meta-1">*</span>
+                            </label>
+                            <input type="text" placeholder="Enter the Designation" name="designation"
+                                class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                            @error('designation')
+                            <p class="text-red-500 mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
                         <span @click="modalOpen = false"
                             class="flex w-100 float-right rounded font-medium text-gray m-3 mt-3 bg-gray p-3 text-center font-medium text-black transition  hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1">
                             Cancel
@@ -84,6 +104,8 @@
                                 <thead>
                                     <tr>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Name</th>
+                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Phone No</th>
+                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Designation</th>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Status</th>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Action</th>
                                     </tr>
@@ -95,6 +117,20 @@
                                             <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                                                 <p class="text-sm font-medium text-black dark:text-white">
                                                     {{ $employee->name }}
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $employee->phn_no }}
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $employee->designation }}
                                                 </p>
                                             </div>
                                         </td>
@@ -129,7 +165,7 @@
                                                             class="w-full max-w-142.5 rounded-lg bg-white py-12 px-8 text-center dark:bg-boxdark md:py-15 md:px-17.5">
                                                             <h3
                                                                 class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
-                                                                Edit Brand Name
+                                                                Edit Employee
                                                             </h3>
                                                             <form action="{{ route('employee.update',$employee->id)  }}"
                                                                 method="POST">
@@ -138,12 +174,36 @@
                                                                 <div class="w-full xl:w-1/2 m-auto mt-5">
                                                                     <label
                                                                         class="mb-2.5 block text-black dark:text-white">
-                                                                        Brand Name <span class="text-meta-1">*</span>
+                                                                        Employee Name <span class="text-meta-1">*</span>
                                                                     </label>
-                                                                    <input type="text" placeholder="Enter Brand Name"
+                                                                    <input type="text" placeholder="Enter Employee Name"
                                                                         name="name" value="{{ $employee->name }}"
                                                                         class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                                                                     @error('name')
+                                                                    <p class="text-red-500 mt-2">{{ $message }}</p>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="w-full xl:w-1/2 m-auto mt-5">
+                                                                    <label
+                                                                        class="mb-2.5 block text-black dark:text-white">
+                                                                        Phone No.<span class="text-meta-1">*</span>
+                                                                    </label>
+                                                                    <input type="number" placeholder="Enter Phone No"
+                                                                        name="phn_no" value="{{ $employee->phn_no }}"
+                                                                        class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                                                                    @error('phn_no')
+                                                                    <p class="text-red-500 mt-2">{{ $message }}</p>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="w-full xl:w-1/2 m-auto mt-5">
+                                                                    <label
+                                                                        class="mb-2.5 block text-black dark:text-white">
+                                                                        Designation <span class="text-meta-1">*</span>
+                                                                    </label>
+                                                                    <input type="text" placeholder="Enter Designation Name"
+                                                                        name="designation" value="{{ $employee->designation }}"
+                                                                        class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                                                                    @error('designation')
                                                                     <p class="text-red-500 mt-2">{{ $message }}</p>
                                                                     @enderror
                                                                 </div>

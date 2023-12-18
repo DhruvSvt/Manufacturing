@@ -37,7 +37,8 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'phn_no' => 'required |min:10'
         ]);
         Employee::create($request->post());
 
@@ -76,7 +77,8 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'phn_no' => 'required |min:10'
         ]);
 
         $emp = Employee::findOrFail($id);
