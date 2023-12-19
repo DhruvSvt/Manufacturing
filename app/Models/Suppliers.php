@@ -11,7 +11,8 @@ class Suppliers extends Model
         'name',
         'phone',
         'company_name',
-        'address',  
+        'address',
+        'type'
     ];
     use HasFactory;
 }

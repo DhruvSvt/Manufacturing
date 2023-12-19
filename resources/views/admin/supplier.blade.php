@@ -50,6 +50,7 @@
                                         <th class="sm:w-1/6 xs:w-1/6">Phone</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Company Name</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Address</th>
+                                        <th class="sm:w-1/6 xs:w-1/6">Type</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Status</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Action</th>
                                     </tr>
@@ -74,6 +75,9 @@
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">{{ $sup->address
                                                 }}</p>
+                                        </td>
+                                        <td class="sm:w-1/6 xs:w-1/6">
+                                            <p class="text-sm font-medium text-black dark:text-white">{{ $sup->type }}</p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <label class="relative inline-flex items-center cursor-pointer">
