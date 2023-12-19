@@ -50,10 +50,12 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // return request()->all();
+        
         $product = new Product;
         $product->name = request()->name;
         $product->price = request()->price;
         $product->unit_id = request()->unit;
+        $product->type = request()->type;
         $product->save();
 
         $rawProducts = json_decode(request()->raw_materials);
@@ -108,6 +110,7 @@ class ProductController extends Controller
 
         $product->name = request()->name;
         $product->price = request()->price;
+        $product->type = request()->type;
         $product->unit_id = request()->unit;
         $product->save();
 
