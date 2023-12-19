@@ -209,15 +209,12 @@ class ProductionCreateController extends Controller
         ]);
 
         $finish_good->qty = $request->qty;
-
-        // return $finish_good->id;
         $finish_good->save();
 
         $product_stock = ProductStock::where('purchase_id', $id)->first();
-        // dd($product_stock);
 
         $product_stock->quantity = $request->qty;
-
+        $product_stock->batch_no = $request->batch_no;
         $product_stock->save();
 
         return redirect()->route('production-proccess')->with('success');
