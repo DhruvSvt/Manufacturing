@@ -19,10 +19,10 @@
 
             <!-- modal start -->
             <div x-show="modalOpen" x-transition=""
-                class="fixed top-0 left-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5"
+                class="fixed top-0 left-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5 overflow-y-auto"
                 style="display: none;">
                 <div @click.outside="modalOpen = false"
-                    class="w-full max-w-142.5 rounded-lg bg-white py-12 px-8 text-center dark:bg-boxdark md:py-15 md:px-17.5">
+                    class="w-full max-w-142.5 rounded-lg bg-white py-12 px-8 text-center dark:bg-boxdark md:py-15 md:px-17.5 mt-auto mb-auto">
                     <h3 class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
                         Party Payment
                     </h3>
