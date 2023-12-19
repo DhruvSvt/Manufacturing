@@ -12,6 +12,7 @@ class PartyPayment extends Model
         'supplier_id',
         'amt',
         'mode',
+        'date',
         'remark'
     ];
     use HasFactory;

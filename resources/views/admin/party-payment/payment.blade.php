@@ -82,6 +82,16 @@
                         </div>
                         <div class="w-full m-auto mt-5">
                             <label class="mb-2.5 block text-black dark:text-white">
+                                Date<span class="text-meta-1">*</span>
+                            </label>
+                            <input type="date" name="date"
+                                class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                            @error('date')
+                            <p class="text-red-500 mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="w-full m-auto mt-5">
+                            <label class="mb-2.5 block text-black dark:text-white">
                                 Remark
                             </label>
                             <input type="text" placeholder="Enter the remark" name="remark"
@@ -156,7 +166,7 @@
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $payment->created_at->format('d-m-Y') }}
+                                                {{ $payment->date }}
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">

@@ -44,7 +44,8 @@ class PartyPaymentController extends Controller
             'type' => 'required',
             'supplier_id' => 'required',
             'amt' => 'required',
-            'mode' => 'required',
+            'date' => 'required',
+            'mode' => 'required'
         ]);
 
         PartyPayment::create($request->post());
