@@ -15,6 +15,7 @@ class Purchase extends Model
         'quantity',
         'price',
         'remark',
+        'batch_no',
         'expiry_date',
     ];
     use HasFactory;

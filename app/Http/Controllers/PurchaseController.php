@@ -108,6 +108,7 @@ class PurchaseController extends Controller
             'supplier_id' => 'required',
             'quantity' => 'required',
             'price' => 'required',
+            'batch_no' => 'unique:purchases,batch_no',
             'expiry_date' => 'required'
         ]);
 
@@ -121,6 +122,7 @@ class PurchaseController extends Controller
             'quantity' => $request->quantity,
             'price' => $request->price,
             'remark' => $request->remark,
+            'batch_no' => $request->batch_no,
             'expiry_date' => $request->expiry_date
         ]);
         $purchase->save();
@@ -147,6 +149,7 @@ class PurchaseController extends Controller
             'supplier_id' => 'required',
             'quantity' => 'required',
             'price' => 'required',
+            'batch_no' => 'unique:purchases,batch_no',
             'expiry_date' => 'required'
         ]);
 
@@ -159,6 +162,7 @@ class PurchaseController extends Controller
             'brand' => $request->brand,
             'quantity' => $request->quantity,
             'price' => $request->price,
+            'batch_no' => $request->batch_no,
             'expiry_date' => $request->expiry_date
         ]);
 
@@ -187,9 +191,9 @@ class PurchaseController extends Controller
             'supplier_id' => 'required',
             'quantity' => 'required',
             'price' => 'required',
+            'batch_no' => 'unique:purchases,batch_no',
             'expiry_date' => 'required'
         ]);
-
 
         // Create for Purchase
         $product = new Purchase([
@@ -199,9 +203,9 @@ class PurchaseController extends Controller
             'brand' => $request->brand,
             'quantity' => $request->quantity,
             'price' => $request->price,
+            'batch_no' => $request->batch_no,
             'expiry_date' => $request->expiry_date
         ]);
-
 
         $product->save();
 
@@ -212,6 +216,7 @@ class PurchaseController extends Controller
             'purchase_id' => $product->id,
             'product_type' => 'App\Models\Purchase',
             'product_id' =>  $request->modal_id,
+            'batch_no' => $request->batch_no,
             'expiry_date' => $request->expiry_date,
             'quantity' => $request->quantity,
         ]);
@@ -246,5 +251,4 @@ class PurchaseController extends Controller
 
         return redirect()->back()->with('success', 'Successfully Purchased !!');
     }
-
 }
