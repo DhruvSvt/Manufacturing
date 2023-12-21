@@ -267,15 +267,11 @@ class EmployeeApiController extends Controller
                 }
             }
 
-
-
-
             return response()->json(["status" => 200, "message" => "success", "data" => []], 200);
         } catch (Exception $e) {
             return response()->json(["status" => 500, "message" => $e->getMessage(), "data" => []], 500);
         }
     }
-
 
     public function get_employee_tracking(Request $request)
     {
@@ -337,7 +333,6 @@ class EmployeeApiController extends Controller
         }
     }
 
-
     private function getTotalDistance($startLat, $startLong, $endLat, $endLong)
     {
         $theta = $startLong - $endLong;
@@ -347,4 +342,60 @@ class EmployeeApiController extends Controller
         $miles = $dist * 60 * 1.1515;
         return  round($miles * 1.609344, 2);
     }
+
+    public function post_add_order_product(Request $request)
+    {
+        try {
+
+            if(!$request->query('visitId')){
+                return response()->json(["status" => 500, "message" => "visit id required!", "data" => []], 500);
+            }
+
+            if ($request->orderProduct) {
+
+                $order_product = json_decode($request->orderProduct);
+
+                foreach ($order_product as $item) {
+
+                    $employeeOrder = new EmployeeOrderProduct();
+                    $employeeOrder->visit_id = $request->query("visitId");
+                    $employeeOrder->employee_id = $request->query('employeeId');
+                    $employeeOrder->product_id = $item->id;
+                    $employeeOrder->quantity = $item->quantity;
+                    $employeeOrder->save();
+                }
+            }
+
+            if ($request->gifts) {
+                $order_gift = json_decode($request->gifts);
+                foreach ($order_gift as $item) {
+                    $product_stock = ItemStock::where("item_id", $item->id)->get();
+
+                    $actual_quantity = $item->quantity;
+
+                    foreach ($product_stock as $stockItem) {
+                        if ($actual_quantity > 0 && $stockItem->quantity > 0) {
+                            if ($stockItem->quantity >= $actual_quantity) {
+                                $updateProductStock = $stockItem->quantity - $actual_quantity;
+                                $actual_quantity = 0;
+                                ItemStock::whereId($stockItem->id)->update(["quantity" => $updateProductStock]);
+                            } else {
+                                $actual_quantity = $actual_quantity - $stockItem->quantity;
+                                ItemStock::whereId($stockItem->id)->update(["quantity" => 0]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return response()->json(["status" => 200, "message" => "success", "data" =>  []], 200);
+        } catch (Exception $e) {
+            return response()->json(["status" => 500, "message" => $e->getMessage(), "data" => []], 500);
+        }
+    }
+
+
+
+
+
 }
