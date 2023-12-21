@@ -113,7 +113,7 @@ class GiftController extends Controller
         $gift->name = $request->name;
         $gift->price = $request->price;
         $gift->unit = $request->unit;
-        
+
         $gift->save();
 
         return redirect()->route('gift');

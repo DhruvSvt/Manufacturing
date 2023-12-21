@@ -25,3 +25,12 @@ Route::post('verify-otp', [EmployeeApiController::class, 'verifyOtp']);
 Route::patch('fcm-token', [EmployeeApiController::class, 'updateFcmToken']);
 Route::get('tour-programe', [EmployeeApiController::class, 'tourProgrameByEmployee']);
 
+Route::post('start-programe', [EmployeeApiController::class, 'startTourPrograme']);
+Route::post('end-programe', [EmployeeApiController::class, 'endTourPrograme']);
+
+Route::get('gifts', [EmployeeApiController::class, 'get_gifts']);
+Route::get('products', [EmployeeApiController::class, 'get_products']);
+
+Route::post('post-visit', [EmployeeApiController::class, 'post_visit']);
+Route::get('employee-tracking', [EmployeeApiController::class, 'get_employee_tracking']);
+
