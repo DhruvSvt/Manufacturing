@@ -33,4 +33,5 @@ Route::get('products', [EmployeeApiController::class, 'get_products']);
 
 Route::post('post-visit', [EmployeeApiController::class, 'post_visit']);
 Route::get('employee-tracking', [EmployeeApiController::class, 'get_employee_tracking']);
+Route::post('post-order-gift', [EmployeeApiController::class, 'post_add_order_product']);
 

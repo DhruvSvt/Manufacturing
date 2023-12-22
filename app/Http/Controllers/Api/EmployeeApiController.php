@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\EmployeeOrderGift;
 use App\Models\EmployeeOrderProduct;
 use App\Models\EmployeeTravelFare;
 use App\Models\EmployeeVisit;
@@ -385,6 +386,13 @@ class EmployeeApiController extends Controller
                             }
                         }
                     }
+
+                    $employeeGift = new EmployeeOrderGift();
+                    $employeeGift->visit_id = $request->query('visitId');
+                    $employeeGift->employee_id  = $request->query('employeeId');
+                    $employeeGift->gift_id  = $item->id;
+                    $employeeGift->quantity  = $item->quantity;
+                    $employeeGift->save();
                 }
             }
 
