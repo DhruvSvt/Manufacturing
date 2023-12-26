@@ -133,6 +133,8 @@ class PurchaseController extends Controller
         $stock = new MaterialStock([
             'purchase_id' => $purchase->id,
             'raw_material_id' => $request->modal_id,
+            'supplier_id' => $request->supplier_id,
+            'price' => $request->price,
             'expiry_date' => $request->expiry_date,
             'quantity' => $request->quantity,
         ]);
@@ -175,6 +177,8 @@ class PurchaseController extends Controller
         $stock = new ItemStock([
             'purchase_id' => $item->id,
             'item_id' =>  $request->modal_id,
+            'supplier_id' => $request->supplier_id,
+            'price' => $request->price,
             'expiry_date' => $request->expiry_date,
             'quantity' => $request->quantity,
         ]);
@@ -216,6 +220,8 @@ class PurchaseController extends Controller
             'purchase_id' => $product->id,
             'product_type' => 'App\Models\Purchase',
             'product_id' =>  $request->modal_id,
+            'supplier_id' => $request->supplier_id,
+            'price' => $request->price,
             'batch_no' => $request->batch_no,
             'expiry_date' => $request->expiry_date,
             'quantity' => $request->quantity,

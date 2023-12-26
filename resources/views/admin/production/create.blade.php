@@ -58,7 +58,7 @@
         <div class="p-6.5">
             <div class="w-full flex flex-col gap-4.5 xl:flex-row">
                 <div class="w-full xl:w-1/2">
-                    <div class="relative z-20 bg-transparent dark:bg-form-input">
+                    <div class="relative z-20 bg-transparent">
                         <label class="mb-2.5 block text-black dark:text-white">
                             Expiry Date <span class="text-meta-1">*</span>
                         </label>
