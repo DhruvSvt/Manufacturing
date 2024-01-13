@@ -50,6 +50,8 @@
                                         <th class="sm:w-1/6 xs:w-1/6">Phone</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Company Name</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Address</th>
+                                        <th class="sm:w-1/6 xs:w-1/6">GST No.</th>
+                                        <th class="sm:w-1/6 xs:w-1/6">DL No.</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Type</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Status</th>
                                         <th class="sm:w-1/6 xs:w-1/6">Action</th>
@@ -74,6 +76,14 @@
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">{{ $sup->address
+                                                }}</p>
+                                        </td>
+                                        <td class="sm:w-1/6 xs:w-1/6">
+                                            <p class="text-sm font-medium text-black dark:text-white">{{ $sup->gst
+                                                }}</p>
+                                        </td>
+                                        <td class="sm:w-1/6 xs:w-1/6">
+                                            <p class="text-sm font-medium text-black dark:text-white">{{ $sup->dl
                                                 }}</p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
