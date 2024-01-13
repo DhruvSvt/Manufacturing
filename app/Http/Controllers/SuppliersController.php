@@ -20,7 +20,7 @@ class SuppliersController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *  
+     *
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -41,8 +41,10 @@ class SuppliersController extends Controller
             'phone' => 'required',
             'company_name' => 'required',
             'address' => 'required',
+            'gst' => 'required',
+            'dl' => 'required',
         ]);
-        
+
         Suppliers::create($request->post());
 
         return redirect()->route('supplier');
@@ -109,7 +111,7 @@ class SuppliersController extends Controller
         $supplier = Suppliers::findOrFail($request->supplier_id);
         $supplier->status = $request->status;
         $supplier->save();
-    
+
         return redirect()->back();
     }
 }
