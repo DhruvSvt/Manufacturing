@@ -1,20 +1,19 @@
-@extends('admin.layouts.app',['title'=>'Admin-Page'])
+@extends('admin.layouts.app', ['title' => 'Packing-Page'])
 @section('content')
-
 <!-- ===== Main Content Start ===== -->
 <main>
     <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
         <!-- Breadcrumb Start -->
         <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
             <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                Top Admin
+                Packing
             </h2>
         </div>
 
         <div class=" flex flex-col sm:flex-row sm:items-center sm:justify-start">
-            <a href="{{ route('admin-create') }}">
+            <a href="{{ route('packing.create') }}">
                 <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray m-3">
-                    Add Admin
+                    Add Details
                 </button>
             </a>
         </div>
@@ -38,8 +37,8 @@
                                 </label>
                             </div>
                             <div class="datatable-search">
-                                <input class="datatable-input" placeholder="Search..." type="text"
-                                    title="Search within table" aria-controls="dataTableTwo" id="search">
+                                <input class="datatable-input" placeholder="Search..." type="search"
+                                    title="Search within table" aria-controls="dataTableTwo">
                             </div>
                         </div>
                         <div class="datatable-container dark:bg-meta-4">
@@ -47,42 +46,42 @@
                                 <thead>
                                     <tr>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Name</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Username</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Email</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Role</th>
+                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Standard Name</th>
+                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Parent ID</th>
+                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Conversion Rate</th>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Status</th>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($users as $user)
+                                {{-- <tbody>
+                                    @foreach ($units as $unit)
                                     <tr>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                                                 <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $user->name }}
+                                                    {{ $unit->short_name }}
                                                 </p>
                                             </div>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $user->username }}
+                                                {{ $unit->full_name }}
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $user->email }}
+                                                {{ $unit->parent ? $unit->parent->short_name : '-' }}
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $user->roles ? $user->roles->name : '-' }}
+                                                {{ $unit->unit }}
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" data-id="{{ $user->id }}" name="status"
-                                                    class="js-switch" {{ $user->status == 1 ? 'checked' : '' }}
+                                                <input type="checkbox" data-id="{{ $unit->id }}" name="status"
+                                                    class="js-switch" {{ $unit->status == 1 ? 'checked' : '' }}
                                                 value=""
                                                 class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4
                                                 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer
@@ -95,7 +94,7 @@
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <div class="flex items-center space-x-3.5">
-                                                <a href="{{ route('admin-edit', $user->id) }}">
+                                                <a href="{{ route('unit.edit',$unit->id) }}">
                                                     <i data-v-3d6d2adb="" title="Edit"
                                                         class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
                                                 </a>
@@ -103,7 +102,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                </tbody>
+                                </tbody> --}}
                             </table>
                         </div>
                         <div class="datatable-bottom">
@@ -146,15 +145,15 @@
         $(document).ready(function() {
             $('.js-switch').change(function() {
                 let status = $(this).prop('checked') === true ? 1 : 0;
-                let userId = $(this).data('id');
+                let unitId = $(this).data('id');
                 $.ajax({
                     type: "POST", // Change this to POST
                     dataType: "json",
-                    url: '{{ route('status') }}',
+                    url: '{{ route('unit.status') }}',
                     data: {
                         '_token': '{{ csrf_token() }}', // Add the CSRF token
                         'status': status,
-                        'user_id': userId
+                        'unit_id': unitId
                     },
                     success: function(data) {
                         console.log(data.message);
@@ -162,75 +161,5 @@
                 });
             });
         });
-
-    // Search
-    $('#search').on('keyup', function(){
-        search();
-    });
-    search();
-    function search(){
-        var keyword = $('#search').val();
-        $.post('{{ route("user.search") }}',
-        {
-            _token: $('meta[name="csrf-token"]').attr('content'),
-            keyword:keyword
-        },
-        function(data){
-            table_post_row(data);
-            console.log(data);
-        });
-    }
-    // table row with ajax
-    function table_post_row(res){
-    let htmlView = '';
-    if(res.users.length <= 0){
-        htmlView+= `
-        <tr>
-            <td colspan="4">No data.</td>
-        </tr>`;
-    }
-    for(let i = 0; i < res.users.length; i++){
-        htmlView += `
-            <tr>
-                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-                        <p class="text-sm font-medium text-black dark:text-white">
-                            `+res.users[i].name+`
-                        </p>
-                    </div>
-                </td>
-                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-                        <p class="text-sm font-medium text-black dark:text-white">
-                            `+res.users[i].username+`
-                        </p>
-                    </div>
-                </td>
-                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-                        <p class="text-sm font-medium text-black dark:text-white">
-                            `+res.users[i].email+`
-                        </p>
-                    </div>
-                </td>
-                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-                        <p class="text-sm font-medium text-black dark:text-white">
-                            `+res.users[i].name+`
-                        </p>
-                    </div>
-                </td>
-                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-                        <p class="text-sm font-medium text-black dark:text-white">
-                            `+res.users[i].name+`
-                        </p>
-                    </div>
-                </td>
-            </tr>`;
-    }
-        $('tbody').html(htmlView);
-    }
 </script>
-
 @endsection
