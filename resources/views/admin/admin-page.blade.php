@@ -27,16 +27,6 @@
                 <div class="data-table-common data-table-two max-w-full overflow-x-auto">
                     <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                         <div class="datatable-top ">
-                            <div class="datatable-dropdown">
-                                <label>
-                                    <select class="datatable-selector">
-                                        <option value="5">5</option>
-                                        <option value="10" selected="">10</option>
-                                        <option value="15">15</option>
-                                        <option value="-1">All</option>
-                                    </select> entries per page
-                                </label>
-                            </div>
                             <div class="datatable-search">
                                 <input class="datatable-input" placeholder="Search..." type="text"
                                     title="Search within table" aria-controls="dataTableTwo" id="search">
@@ -106,23 +96,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="datatable-bottom">
-                            <div class="datatable-info">Showing 1 to 10 of 26 entries</div>
-                            <nav class="datatable-pagination">
-                                <ul class="datatable-pagination-list">
-                                    <li class="datatable-pagination-list-item datatable-hidden datatable-disabled">
-                                        <a data-page="1" class="datatable-pagination-list-item-link">‹</a>
-                                    </li>
-                                    <li class="datatable-pagination-list-item datatable-active"><a data-page="1"
-                                            class="datatable-pagination-list-item-link">1</a></li>
-                                    <li class="datatable-pagination-list-item"><a data-page="2"
-                                            class="datatable-pagination-list-item-link">2</a></li>
-                                    <li class="datatable-pagination-list-item"><a data-page="3"
-                                            class="datatable-pagination-list-item-link">3</a></li>
-                                    <li class="datatable-pagination-list-item"><a data-page="2"
-                                            class="datatable-pagination-list-item-link">›</a></li>
-                                </ul>
-                            </nav>
+                        <div class="p-4">
+                            {{ $users->links() }}
                         </div>
                     </div>
                 </div>
@@ -240,7 +215,7 @@
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                         <p class="text-sm font-medium text-black dark:text-white">
                             <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" data-id="${ res.users[i].id }" name="status" 
+                                <input type="checkbox" data-id="${ res.users[i].id }" name="status" class="js-switch peer"
                                     ${ res.users.status == 1 ? 'checked' : '' }
                                     value=""
                                     class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4
