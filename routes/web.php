@@ -8,6 +8,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HeadquartersController;
 use App\Http\Controllers\IssueController;
+use App\Http\Controllers\PackingController;
 use App\Http\Controllers\PartyPaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionCreateController;
@@ -56,6 +57,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/update/{id}', [UsersController::class, 'update'])->name('admin-update');
 
     Route::post('/status', [UsersController::class, 'status'])->name('status');
+
+    Route::post('/user/search', [UsersController::class, 'searchUser'])->name('user.search');
 
     // --------------------- Supplier ---------------------
     Route::get('/supplier', [SuppliersController::class, 'index'])->name('supplier');
@@ -186,10 +189,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('good/return/pdf/{id}', [ReturnController::class, 'print'])->name('print-return');
 
     // --------------------- Return Routes ---------------------
-    Route::resource('sale',SaleInvoiceController::class);
+    Route::resource('sale', SaleInvoiceController::class);
 
     // --------------------- Return Routes ---------------------
-    Route::resource('payment',PartyPaymentController::class);
+    Route::resource('payment', PartyPaymentController::class);
+
+    // --------------------- Packing Routes ---------------------
+    Route::resource('packing', PackingController::class);
 
 
     // --------------------- Sell Goods Challan ---------------------

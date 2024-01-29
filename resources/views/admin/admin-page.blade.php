@@ -164,22 +164,38 @@
         });
 
     // Search
-    $('#search').on('keyup', function(){
-        search();
+    // Declare a variable to track the AJAX call status
+    var isAjaxInProgress = false;
+
+    // Search
+    $('#search').on('keydown', function () {
+        // Check if an AJAX call is already in progress
+        if (!isAjaxInProgress) {
+            search();
+        }
     });
-    search();
-    function search(){
+
+    function search() {
+        // Set the flag to indicate that an AJAX call is in progress
+        isAjaxInProgress = true;
+
         var keyword = $('#search').val();
-        $.post('{{ route("user.search") }}',
-        {
+
+        $.post('{{ route("user.search") }}', {
             _token: $('meta[name="csrf-token"]').attr('content'),
-            keyword:keyword
-        },
-        function(data){
+            keyword: keyword
+        }, function (data) {
             table_post_row(data);
             console.log(data);
+
+            // Reset the flag when the AJAX call is completed
+            isAjaxInProgress = false;
+        }).fail(function () {
+            // Handle AJAX failure, and reset the flag in case of an error
+            isAjaxInProgress = false;
         });
     }
+
     // table row with ajax
     function table_post_row(res){
     let htmlView = '';
@@ -195,35 +211,58 @@
                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                         <p class="text-sm font-medium text-black dark:text-white">
-                            `+res.users[i].name+`
+                            ${res.users[i].name}
                         </p>
                     </div>
                 </td>
                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                         <p class="text-sm font-medium text-black dark:text-white">
-                            `+res.users[i].username+`
+                            ${res.users[i].username}
                         </p>
                     </div>
                 </td>
                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                         <p class="text-sm font-medium text-black dark:text-white">
-                            `+res.users[i].email+`
+                            ${res.users[i].email}
                         </p>
                     </div>
                 </td>
                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                         <p class="text-sm font-medium text-black dark:text-white">
-                            `+res.users[i].name+`
+                            ${res.users[i].roles ? res.users[i].roles.name : '-'}
                         </p>
                     </div>
                 </td>
                 <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                         <p class="text-sm font-medium text-black dark:text-white">
-                            `+res.users[i].name+`
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" data-id="${ res.users[i].id }" name="status" 
+                                    ${ res.users.status == 1 ? 'checked' : '' }
+                                    value=""
+                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4
+                                    peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer
+                                    dark:bg-gray-700 peer-checked:after:translate-x-full
+                                    peer-checked:after:border-white after:content-[''] after:absolute
+                                    after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300
+                                    after:border after:rounded-full after:h-5 after:w-5 after:transition-all
+                                    dark:border-gray-600 peer-checked:bg-blue-600">
+                            </label>
+                        </p>
+                    </div>
+                </td>
+
+                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                        <p class="text-sm font-medium text-black dark:text-white">
+                            <div class="flex items-center space-x-3.5">
+                            <a href="/admin/edit/${res.users[i].id}">
+                                <i title="Edit" class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
+                            </a>
+                        </div>
                         </p>
                     </div>
                 </td>

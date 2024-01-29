@@ -28,7 +28,7 @@ class UsersController extends Controller
     public function create()
     {
         $roles = Roles::all();
-        return view('admin.admin-create',compact('roles'));
+        return view('admin.admin-create', compact('roles'));
     }
 
     /**
@@ -89,7 +89,7 @@ class UsersController extends Controller
     {
         $roles = Roles::all();
         $user = User::find($id);
-        return view('admin.admin-edit', compact('user','roles'));
+        return view('admin.admin-edit', compact('user', 'roles'));
     }
 
     /**
@@ -142,7 +142,16 @@ class UsersController extends Controller
         $user = User::findOrFail($request->user_id);
         $user->status = $request->status;
         $user->save();
-    
+
         return redirect()->back();
+    }
+
+    public function searchUser(Request $request)
+    {
+        $users = User::with('roles')->where('name', 'LIKE', '%' . $request->keyword . '%')->get();
+
+        return response()->json([
+            'users' => $users
+        ]);
     }
 }
