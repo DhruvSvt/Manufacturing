@@ -17,7 +17,7 @@ class SaleInvoiceController extends Controller
      */
     public function index()
     {
-        $sales = SaleInvoice::all();
+        $sales = SaleInvoice::latest()->get();
         return view('admin.sale-invoice.sale-invoice', compact('sales'));
     }
 

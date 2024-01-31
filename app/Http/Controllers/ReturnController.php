@@ -15,7 +15,7 @@ class ReturnController extends Controller
 {
     public function good_return()
     {
-        $returns = ReturnGood::all();
+        $returns = ReturnGood::latest()->get();
         // $returnProducts = ReturnGoodsProduct::all();
         return view('admin.returns.good-return', compact('returns'));
     }
