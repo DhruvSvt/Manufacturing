@@ -60,7 +60,7 @@
                                                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                                                         <p class="text-sm font-medium text-black dark:text-white">
                                                             @if($gift->image)
-                                                            <img src="{{ asset('storage/images/' . $gift->image) }}" style="width: 100px; height: 85px;">
+                                                           <img src="{{ asset('storage/images/' . $gift->image) }}" style="width: 100px; height: 85px;">
                                                             @else
                                                             <span>No image found!</span>
                                                             @endif
