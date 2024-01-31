@@ -7,6 +7,7 @@ use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HeadquartersController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\PackingController;
 use App\Http\Controllers\PartyPaymentController;
@@ -37,17 +38,16 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
+//     return redirect(route('admin-index'));
+// })->middleware('auth');
 
-    return redirect(route('admin-index'));
-})->middleware('auth');
+
 
 Auth::routes();
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    Route::get('/', function () {
-        return view('admin.index');
-    })->name('admin-index');
+    Route::get('/', [IndexController::class, 'detailsOnIndex'])->name('admin-index');
 
     // --------------------- User ---------------------
     Route::get('/page', [UsersController::class, 'index'])->name('admin-page');
