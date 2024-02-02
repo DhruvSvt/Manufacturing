@@ -66,9 +66,11 @@ class PackingController extends Controller
      * @param  \App\Models\Packing  $packing
      * @return \Illuminate\Http\Response
      */
-    public function edit(Packing $packing)
+    public function edit($id)
     {
-        //
+        $products = Product::whereStatus(true)->get();
+        $packing = Packing::findOrFail($id);
+        return view('admin.packing.packing-edit', compact('products', 'packing'));
     }
 
     /**
@@ -80,7 +82,8 @@ class PackingController extends Controller
      */
     public function update(Request $request, Packing $packing)
     {
-        //
+        $res = $packing->update($request->all());
+        return redirect()->route('packing.index')->with('success', 'Packing has been successfully updated.');
     }
 
     /**
