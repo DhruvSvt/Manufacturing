@@ -45,43 +45,37 @@
                             <table class="table w-full table-auto datatable-table" id="dataTableTwo">
                                 <thead>
                                     <tr>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Name</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Standard Name</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Parent ID</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Conversion Rate</th>
+                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Product Name</th>
+                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Size</th>
+                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Rate</th>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Status</th>
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Action</th>
                                     </tr>
                                 </thead>
-                                {{-- <tbody>
-                                    @foreach ($units as $unit)
+                                <tbody>
+                                    @foreach ($packings as $packing)
                                     <tr>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                                                 <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $unit->short_name }}
+                                                    {{ $packing->product->name }}
                                                 </p>
                                             </div>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $unit->full_name }}
+                                                {{ $packing->size }}
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $unit->parent ? $unit->parent->short_name : '-' }}
-                                            </p>
-                                        </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $unit->unit }}
+                                                {{ $packing->rate }}
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" data-id="{{ $unit->id }}" name="status"
-                                                    class="js-switch" {{ $unit->status == 1 ? 'checked' : '' }}
+                                                <input type="checkbox" data-id="{{ $packing->id }}" name="status"
+                                                    class="js-switch" {{ $packing->status == 1 ? 'checked' : '' }}
                                                 value=""
                                                 class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4
                                                 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer
@@ -94,7 +88,7 @@
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <div class="flex items-center space-x-3.5">
-                                                <a href="{{ route('unit.edit',$unit->id) }}">
+                                                <a href="{{ route('packing.edit',$packing->id) }}">
                                                     <i data-v-3d6d2adb="" title="Edit"
                                                         class="fa fa-edit text-blue-500 hover:text-blue-700 cursor-pointer"></i>
                                                 </a>
@@ -102,7 +96,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                </tbody> --}}
+                                </tbody>
                             </table>
                         </div>
                         <div class="datatable-bottom">
@@ -145,15 +139,15 @@
         $(document).ready(function() {
             $('.js-switch').change(function() {
                 let status = $(this).prop('checked') === true ? 1 : 0;
-                let unitId = $(this).data('id');
+                let packingId = $(this).data('id');
                 $.ajax({
                     type: "POST", // Change this to POST
                     dataType: "json",
-                    url: '{{ route('unit.status') }}',
+                    url: '{{ route('packing.status') }}',
                     data: {
                         '_token': '{{ csrf_token() }}', // Add the CSRF token
                         'status': status,
-                        'unit_id': unitId
+                        'packing_id': packingId
                     },
                     success: function(data) {
                         console.log(data.message);

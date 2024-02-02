@@ -196,6 +196,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // --------------------- Packing Routes ---------------------
     Route::resource('packing', PackingController::class);
+    Route::post('/packing', [PackingController::class, 'status'])->name('packing.status');
+
 
 
     // --------------------- Sell Goods Challan ---------------------

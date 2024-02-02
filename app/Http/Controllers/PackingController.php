@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Packing;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class PackingController extends Controller
@@ -14,7 +15,8 @@ class PackingController extends Controller
      */
     public function index()
     {
-        return view('admin.packing.packing');
+        $packings = Packing::all();
+        return view('admin.packing.packing', compact('packings'));
     }
 
     /**
@@ -24,7 +26,8 @@ class PackingController extends Controller
      */
     public function create()
     {
-        return view('admin.packing.packing-create');
+        $products = Product::whereStatus(true)->get();
+        return view('admin.packing.packing-create', compact('products'));
     }
 
     /**
@@ -35,7 +38,15 @@ class PackingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'product_id' => 'required',
+            'size' => 'required',
+            'rate' => 'required'
+        ]);
+
+        Packing::create($request->post());
+
+        return redirect()->route('packing.index')->with('success', 'Packing has been successfully created.');
     }
 
     /**
@@ -81,5 +92,14 @@ class PackingController extends Controller
     public function destroy(Packing $packing)
     {
         //
+    }
+
+    public function status(Request $request)
+    {
+        $packing = Packing::findOrFail($request->packing_id);
+        $packing->status = $request->status;
+        $packing->save();
+
+        return redirect()->back();
     }
 }
