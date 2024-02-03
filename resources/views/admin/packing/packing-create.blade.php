@@ -1,7 +1,7 @@
 @extends('admin.layouts.app', ['title' => 'Packing-Create'])
 @section('content')
 <!-- ===== Form Area Start ===== -->
-<div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+<div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark m-6">
     <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center m-6">
         <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
             Add Packing Details

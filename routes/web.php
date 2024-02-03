@@ -10,6 +10,7 @@ use App\Http\Controllers\HeadquartersController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\PackingController;
+use App\Http\Controllers\PackingStockController;
 use App\Http\Controllers\PartyPaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionCreateController;
@@ -196,8 +197,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // --------------------- Packing Routes ---------------------
     Route::resource('packing', PackingController::class);
+    Route::post('packing/store', [PackingController::class, 'store'])->name('packing.store');
     Route::post('/packing', [PackingController::class, 'status'])->name('packing.status');
 
+    // --------------------- Packing Stock Routes ---------------------
+    Route::resource('packing-stock', PackingStockController::class);
+    Route::get('packing-stock/detail/{id}', [PackingStockController::class, 'packingStockDetail'])->name('packing-detail');
 
 
     // --------------------- Sell Goods Challan ---------------------

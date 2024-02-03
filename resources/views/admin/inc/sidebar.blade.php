@@ -368,6 +368,13 @@
                                         Sample
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('packing-stock.index') }}"
+                                        :class="page === 'settings' && '!text-white'">
+                                        Packing
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <!-- Dropdown Menu End -->
@@ -516,10 +523,11 @@
                     <!-- Party Payment -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'PartyPayment' ? '':'PartyPayment')" :class="{
+                            href="#" @click.prevent="selected = (selected === 'PartyPayment' ? '':'PartyPayment')"
+                            :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'PartyPayment') || (page === 'payment' )
                             }">
-                          <i class="fas fa-money-check-alt"></i>
+                            <i class="fas fa-money-check-alt"></i>
                             Party Payment
                             <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
                                 :class="{ 'rotate-180': (selected === 'PartyPayment') }" width="20" height="20"
