@@ -39,16 +39,16 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/', function () {
-//     return redirect(route('admin-index'));
-// })->middleware('auth');
+Route::get('/', function () {
+    return redirect(route('admin-index'));
+})->middleware('auth');
 
 
 
 Auth::routes();
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    Route::get('/', [IndexController::class, 'detailsOnIndex'])->name('admin-index');
+    Route::get('/index', [IndexController::class, 'detailsOnIndex'])->name('admin-index');
 
     // --------------------- User ---------------------
     Route::get('/page', [UsersController::class, 'index'])->name('admin-page');
