@@ -116,21 +116,7 @@
                                 {{ $products->lastItem() }} of
                                 {{ $products->total() }} entries
                             </div>
-                            <nav class="datatable-pagination">
-                                <ul class="datatable-pagination-list">
-                                    <li class="datatable-pagination-list-item datatable-hidden datatable-disabled">
-                                        <a data-page="1" class="datatable-pagination-list-item-link">‹</a>
-                                    </li>
-                                    <li class="datatable-pagination-list-item datatable-active"><a data-page="1"
-                                            class="datatable-pagination-list-item-link">1</a></li>
-                                    <li class="datatable-pagination-list-item"><a data-page="2"
-                                            class="datatable-pagination-list-item-link">2</a></li>
-                                    <li class="datatable-pagination-list-item"><a data-page="3"
-                                            class="datatable-pagination-list-item-link">3</a></li>
-                                    <li class="datatable-pagination-list-item"><a data-page="2"
-                                            class="datatable-pagination-list-item-link">›</a></li>
-                                </ul>
-                            </nav>
+                            {{ $products->appends($_GET)->links('vendor.pagination.custom') }}
                         </div>
                     </div>
                 </div>

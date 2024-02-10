@@ -1,19 +1,22 @@
+@php
+$row = $_GET['rows'] ?? '25';
+@endphp
 <form action="?" method="GET">
     <div class="datatable-top">
         <div class="datatable-dropdown">
             <label>
                 <select class="datatable-selector" name="rows" onchange="this.form.submit()">
-                    <option value="25" {{ $_GET['rows']=='25' ? 'selected' : false }}>25
+                    <option value="25" {{ $row=='25' ? 'selected' : false }}>25
                     </option>
-                    <option value="50" {{ $_GET['rows']=='50' ? 'selected' : false }}>50
+                    <option value="50" {{ $row=='50' ? 'selected' : false }}>50
                     </option>
-                    <option value="100" {{ $_GET['rows']=='100' ? 'selected' : false }}>100
+                    <option value="100" {{ $row=='100' ? 'selected' : false }}>100
                     </option>
-                    <option value="250" {{ $_GET['rows']=='250' ? 'selected' : false }}>250
+                    <option value="250" {{ $row=='250' ? 'selected' : false }}>250
                     </option>
-                    <option value="500" {{ $_GET['rows']=='500' ? 'selected' : false }}>500
+                    <option value="500" {{ $row=='500' ? 'selected' : false }}>500
                     </option>
-                    <option value="all" {{ $_GET['rows']=='all' ? 'selected' : false }}>All
+                    <option value="all" {{ $row=='all' ? 'selected' : false }}>All
                     </option>
                 </select> entries per page
             </label>
