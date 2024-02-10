@@ -7,6 +7,7 @@ use App\Models\ProductRawMaterial;
 use App\Models\RawMaterial;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use PDO;
 
 class ProductController extends Controller
@@ -18,7 +19,30 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('raw_material')->get();
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Product::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Product())->getTable());
+
+        $products = Product::with('raw_material')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
+
         return view('admin.product', compact('products'));
     }
 
@@ -38,7 +62,7 @@ class ProductController extends Controller
     {
         $raw_materials = RawMaterial::whereStatus(true)->get();
         $units = Unit::whereStatus(true)->get();
-        return view('admin.product-create', compact('raw_materials','units'));
+        return view('admin.product-create', compact('raw_materials', 'units'));
     }
 
     /**
@@ -50,7 +74,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // return request()->all();
-        
+
         $product = new Product;
         $product->name = request()->name;
         $product->price = request()->price;
@@ -94,7 +118,7 @@ class ProductController extends Controller
         $units = Unit::whereStatus(true)->get();
         $product = Product::with('raw_material')->find($product);
 
-        return view('admin.product-edit', compact('product', 'raw_materials','units'));
+        return view('admin.product-edit', compact('product', 'raw_materials', 'units'));
     }
 
     /**

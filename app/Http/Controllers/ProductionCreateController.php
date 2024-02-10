@@ -197,7 +197,7 @@ class ProductionCreateController extends Controller
 
     public function proccess()
     {
-        $productions = Production::latest()->get();
+        $productions = Production::where('qty', '>', 0)->latest()->get();
         $products = Product::whereStatus(true)->get();
         return view('admin.production.proccess', compact('productions', 'products'));
     }
