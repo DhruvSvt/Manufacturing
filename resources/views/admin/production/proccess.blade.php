@@ -122,7 +122,7 @@
                                                                     batch No.
                                                                 </label>
                                                                 <input type="text" name="batch_no"
-                                                                    value="{{ $production->batch_no }}" readonly 
+                                                                    value="{{ $production->batch_no }}" readonly
                                                                     class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                                                                 @error('batch_no')
                                                                 <p class="text-red-500 mt-2">{{ $message }}</p>
@@ -132,22 +132,41 @@
                                                                 <label class="mb-2.5 block text-black dark:text-white">
                                                                     Product Name
                                                                 </label>
-                                                                <input type="text" name="product_id"
-                                                                    value="{{ $production->product->name }}  ({{ $production->product->unit->short_name }})"
-                                                                    disabled
-                                                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                                                                @error('name')
+                                                                <select name="product_id" id=""
+                                                                    class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+                                                                    <option selected>-- None --</option>
+                                                                    @foreach ($products as $product )
+                                                                    <option value="{{ $product->id }}">
+                                                                        {{ $product->name }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
+                                                                @error('product_id')
                                                                 <p class="text-red-500 mt-2">{{ $message }}</p>
                                                                 @enderror
                                                             </div>
                                                             <div class="w-full xl:w-1/2 m-auto mt-5">
                                                                 <label class="mb-2.5 block text-black dark:text-white">
-                                                                    Batch Size
+                                                                    Product Qunatity
                                                                 </label>
-                                                                <input type="text" name="qty"
-                                                                    value="{{ $production->qty }}"
+                                                                <input type="text" name="product_qty"
+                                                                    placeholder="Ex: 75" value=""
                                                                     class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-                                                                @error('qty')
+
+                                                                @error('product_qty')
+                                                                <p class="text-red-500 mt-2">{{ $message }}</p>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="w-full xl:w-1/2 m-auto mt-5">
+                                                                <label class="mb-2.5 block text-black dark:text-white">
+                                                                    Remaining Qty
+                                                                </label>
+                                                                <input type="text" name="remaining_qty"
+                                                                    placeholder="Ex: 25" value=""
+                                                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                                                                <p class="mt-2">Total Avaliable Batch Qty:- {{ $production->qty}}</p>
+                                                                <input type="hidden" name="total_qty" value="{{ $production->qty }}">
+                                                                @error('remaining_qty')
                                                                 <p class="text-red-500 mt-2">{{ $message }}</p>
                                                                 @enderror
                                                             </div>
@@ -209,7 +228,7 @@
 </main>
 <!-- ===== Main Content End ===== -->
 
-<script>
+{{-- <script>
     function checkBoxFalse() {
         $('.ds-switch').prop('checked', false);
     }
@@ -238,7 +257,7 @@
                 }
             });
         });
-    });
+    }); --}}
 </script>
 
 

@@ -13,7 +13,9 @@ class Production extends Model
         'product_id',
         'qty',
         'batch_no',
+        'sub_batch_no',
         'expiry_date',
+        'status'
     ];
 
     public function product()
@@ -23,16 +25,16 @@ class Production extends Model
 
     public function product_material()
     {
-        return $this->belongsTo(ProductRawMaterial::class,'product_id', 'product_id');
+        return $this->belongsTo(ProductRawMaterial::class, 'product_id', 'product_id');
     }
 
     public function finish_raw_material()
     {
-        return $this->hasMany(FinalUsedRawMatrial::class,'production_id');
+        return $this->hasMany(FinalUsedRawMatrial::class, 'production_id');
     }
 
     public function product_raw_material()
     {
-        return $this->hasMany(ProductRawMaterial::class,'product_id', 'product_id');
+        return $this->hasMany(ProductRawMaterial::class, 'product_id', 'product_id');
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Production;
 use App\Models\ProductRawMaterial;
 use App\Models\ProductStock;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -197,24 +198,58 @@ class ProductionCreateController extends Controller
     public function proccess()
     {
         $productions = Production::latest()->get();
-        return view('admin.production.proccess', compact('productions'));
+        $products = Product::whereStatus(true)->get();
+        return view('admin.production.proccess', compact('productions', 'products'));
     }
 
-    public function update(Request $request , $id)
+    public function update(Request $request, $id)
     {
-        $finish_good = Production::findOrFail($id);
+        // return $request->post();
+        $oldProduction = Production::findOrFail($id);
 
-        $request->validate([
-            'qty' => 'required',
+        $validator = Validator::make($request->all(), [
+            'product_id' => "required|exists:products,id",
+            'product_qty' => 'required',
+            'remaining_qty' => 'required|lte:total_qty',
         ]);
 
-        $finish_good->qty = $request->qty;
-        $finish_good->save();
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-        $product_stock = ProductStock::where('purchase_id', $id)->first();
 
-        $product_stock->quantity = $request->qty;
-        $product_stock->batch_no = $request->batch_no;
+        $batch_no = $oldProduction->batch_no;
+        $product_id = $oldProduction->product_id;
+        $expiry_date = $oldProduction->expiry_date;
+
+        $total = $oldProduction->qty; //Ex:- 50
+        $product_qty = $request->product_qty; //Ex: 40
+        $remaining_qty = $request->remaining_qty; //Ex:- 10
+
+        //No. of pieces in production stock which already exist
+        $alreadyCreatedProductionsCount = Production::where(['product_id' => $product_id, 'batch_no' => $batch_no])->count() + 1;
+
+        $newProduction = Production::create([
+            'product_id' => request()->product_id,
+            'qty' => $product_qty, // New qty value Ex:- 40
+            'batch_no' => $batch_no,
+            'sub_batch_no' => $batch_no . '.' . $alreadyCreatedProductionsCount, //1098.1, 1098.2, 1098.3... etc
+            'expiry_date' => $expiry_date,
+            'status' => 1 //production is live with stock
+        ]);
+
+        //update quantity in existing quantity Ex:- 10
+        $oldProduction->update(['qty' => $remaining_qty]);
+
+        $product_stock = new ProductStock;
+        $product_stock->product_type = "App\Models\Production";
+        $product_stock->product_id = request()->product_id;
+        $product_stock->batch_no = $batch_no;
+        $product_stock->sub_batch_no = $newProduction->sub_batch_no;
+        $product_stock->quantity = $product_qty; //(new entry stock)
+        $product_stock->expiry_date = $expiry_date;
         $product_stock->save();
 
         return redirect()->route('production-proccess')->with('success');
@@ -254,12 +289,11 @@ class ProductionCreateController extends Controller
         // return $pdf->download($production->product->name.'.pdf');
 
         return view('admin.production.production-pdf', compact('production', 'issue', 'newarr'));
-
     }
 
     public function pdf_product($id)
     {
         $production = Production::findOrFail($id);
-        return view('admin.production.product-pdf',compact('production'));
+        return view('admin.production.product-pdf', compact('production'));
     }
 }
