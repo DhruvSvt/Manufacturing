@@ -26,7 +26,22 @@
 
                 <div class="data-table-common data-table-two max-w-full overflow-x-auto">
                     <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
-                        @include('admin.inc.search')
+                        <div class="datatable-top ">
+                            <div class="datatable-dropdown">
+                                <label>
+                                    <select class="datatable-selector">
+                                        <option value="5">5</option>
+                                        <option value="10" selected="">10</option>
+                                        <option value="15">15</option>
+                                        <option value="-1">All</option>
+                                    </select> entries per page
+                                </label>
+                            </div>
+                            <div class="datatable-search">
+                                <input class="datatable-input" placeholder="Search..." type="search"
+                                    title="Search within table" aria-controls="dataTableTwo">
+                            </div>
+                        </div>
                         <div class="datatable-container dark:bg-meta-4">
                             <table class="table w-full table-auto datatable-table" id="dataTableTwo">
                                 <thead>
@@ -94,14 +109,24 @@
                                 </tbody>
                             </table>
                         </div>
-                       <div class="datatable-bottom">
-                        <div class="datatable-info">
-                            Showing {{ $suppliers->firstItem()}} to
-                            {{ $suppliers->lastItem() }} of
-                            {{ $suppliers->total() }} entries
+                        <div class="datatable-bottom">
+                            <div class="datatable-info">Showing 1 to 10 of 26 entries</div>
+                            <nav class="datatable-pagination">
+                                <ul class="datatable-pagination-list">
+                                    <li class="datatable-pagination-list-item datatable-hidden datatable-disabled">
+                                        <a data-page="1" class="datatable-pagination-list-item-link">‹</a>
+                                    </li>
+                                    <li class="datatable-pagination-list-item datatable-active"><a data-page="1"
+                                            class="datatable-pagination-list-item-link">1</a></li>
+                                    <li class="datatable-pagination-list-item"><a data-page="2"
+                                            class="datatable-pagination-list-item-link">2</a></li>
+                                    <li class="datatable-pagination-list-item"><a data-page="3"
+                                            class="datatable-pagination-list-item-link">3</a></li>
+                                    <li class="datatable-pagination-list-item"><a data-page="2"
+                                            class="datatable-pagination-list-item-link">›</a></li>
+                                </ul>
+                            </nav>
                         </div>
-                        {{ $suppliers->appends($_GET)->links('vendor.pagination.custom') }}
-                    </div>
                     </div>
                 </div>
             </div>
