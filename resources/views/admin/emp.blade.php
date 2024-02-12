@@ -54,7 +54,7 @@
                         </div>
                         <div class="w-full xl:w-1/2 m-auto mt-5">
                             <label class="mb-2.5 block text-black dark:text-white">
-                               Designation <span class="text-meta-1">*</span>
+                                Designation <span class="text-meta-1">*</span>
                             </label>
                             <input type="text" placeholder="Enter the Designation" name="designation"
                                 class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
@@ -83,22 +83,7 @@
                 class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4">
                 <div class="data-table-common data-table-two max-w-full overflow-x-auto">
                     <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
-                        <div class="datatable-top ">
-                            <div class="datatable-dropdown">
-                                <label>
-                                    <select class="datatable-selector">
-                                        <option value="5">5</option>
-                                        <option value="10" selected="">10</option>
-                                        <option value="15">15</option>
-                                        <option value="-1">All</option>
-                                    </select> entries per page
-                                </label>
-                            </div>
-                            <div class="datatable-search">
-                                <input class="datatable-input" placeholder="Search..." type="search"
-                                    title="Search within table" aria-controls="dataTableTwo">
-                            </div>
-                        </div>
+                        @include('admin.inc.search')
                         <div class="datatable-container dark:bg-meta-4">
                             <table class="table w-full table-auto datatable-table" id="dataTableTwo">
                                 <thead>
@@ -200,8 +185,10 @@
                                                                         class="mb-2.5 block text-black dark:text-white">
                                                                         Designation <span class="text-meta-1">*</span>
                                                                     </label>
-                                                                    <input type="text" placeholder="Enter Designation Name"
-                                                                        name="designation" value="{{ $employee->designation }}"
+                                                                    <input type="text"
+                                                                        placeholder="Enter Designation Name"
+                                                                        name="designation"
+                                                                        value="{{ $employee->designation }}"
                                                                         class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                                                                     @error('designation')
                                                                     <p class="text-red-500 mt-2">{{ $message }}</p>
@@ -229,22 +216,12 @@
                             </table>
                         </div>
                         <div class="datatable-bottom">
-                            <div class="datatable-info">Showing 1 to 10 of 26 entries</div>
-                            <nav class="datatable-pagination">
-                                <ul class="datatable-pagination-list">
-                                    <li class="datatable-pagination-list-item datatable-hidden datatable-disabled">
-                                        <a data-page="1" class="datatable-pagination-list-item-link">‹</a>
-                                    </li>
-                                    <li class="datatable-pagination-list-item datatable-active"><a data-page="1"
-                                            class="datatable-pagination-list-item-link">1</a></li>
-                                    <li class="datatable-pagination-list-item"><a data-page="2"
-                                            class="datatable-pagination-list-item-link">2</a></li>
-                                    <li class="datatable-pagination-list-item"><a data-page="3"
-                                            class="datatable-pagination-list-item-link">3</a></li>
-                                    <li class="datatable-pagination-list-item"><a data-page="2"
-                                            class="datatable-pagination-list-item-link">›</a></li>
-                                </ul>
-                            </nav>
+                            <div class="datatable-info">
+                                Showing {{ $employees->firstItem()}} to
+                                {{ $employees->lastItem() }} of
+                                {{ $employees->total() }} entries
+                            </div>
+                            {{ $employees->appends($_GET)->links('vendor.pagination.custom') }}
                         </div>
                     </div>
                 </div>

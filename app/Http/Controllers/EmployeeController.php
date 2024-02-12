@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class EmployeeController extends Controller
 {
@@ -14,7 +15,28 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::all();
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Employee::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Employee())->getTable());
+
+        $employees = Employee::when(isset($keyword), function ($query) use ($keyword, $allColumns) {
+            $query->where(function ($query) use ($keyword, $allColumns) {
+                // Dynamically construct the search query
+                foreach ($allColumns as $column) {
+                    $query->orWhere($column, 'LIKE', "%$keyword%");
+                }
+            });
+        })
+            ->latest()
+            ->paginate($rows);
+
         return view('admin.emp', compact('employees'));
     }
 
