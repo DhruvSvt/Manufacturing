@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Gift;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 class GiftController extends Controller
@@ -16,7 +17,30 @@ class GiftController extends Controller
      */
     public function index()
     {
-        $gifts = Gift::orderBy('created_at', 'desc')->get();
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Gift::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Gift())->getTable());
+
+        $gifts = Gift::with('parent')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
+        // $gifts = Gift::orderBy('created_at', 'desc')->get();
         return view('admin.gift', compact('gifts'));
     }
 
@@ -80,7 +104,7 @@ class GiftController extends Controller
     {
         $units = Unit::whereStatus(true)->get();
         $gift = Gift::find($id);
-        return view('admin.gift-edit', compact('gift','units'));
+        return view('admin.gift-edit', compact('gift', 'units'));
     }
 
     /**
@@ -113,7 +137,7 @@ class GiftController extends Controller
         $gift->name = $request->name;
         $gift->price = $request->price;
         $gift->unit = $request->unit;
-        
+
         $gift->save();
 
         return redirect()->route('gift');
