@@ -27,8 +27,6 @@ class RawMaterialController extends Controller
         // Get the table columns
         $allColumns = Schema::getColumnListing((new RawMaterial())->getTable());
 
-        // $raw_material = RawMaterial::latest()->get();
-
         $raw_material = RawMaterial::with('parent')
             ->when(isset($keyword), function ($query) use ($keyword, $allColumns) {
                 $query->where(function ($query) use ($keyword, $allColumns) {

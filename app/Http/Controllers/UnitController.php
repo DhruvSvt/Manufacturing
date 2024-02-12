@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class UnitController extends Controller
 {
@@ -14,7 +15,29 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = Unit::latest()->get();
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Unit::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Unit())->getTable());
+
+        $units = Unit::with('parent')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
         return view('admin.unit', compact('units'));
     }
 
@@ -78,7 +101,7 @@ class UnitController extends Controller
      * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request , $id)
+    public function update(Request $request, $id)
     {
         $unit = Unit::find($id);
         $request->validate([
