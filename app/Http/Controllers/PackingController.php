@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Packing;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class PackingController extends Controller
 {
@@ -15,7 +16,40 @@ class PackingController extends Controller
      */
     public function index()
     {
-        $packings = Packing::all();
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Packing::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Packing())->getTable());
+        $allProductColumns = Schema::getColumnListing((new Product())->getTable());
+
+        $packings = Packing::orWhereHas('product')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allProductColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allProductColumns) {
+
+                    $query->orWhere(function ($query) use ($keyword, $allColumns) {
+                        // Dynamically construct the search query
+                        foreach ($allColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                    $query->orWhereHas('product', function ($query) use ($keyword, $allProductColumns) {
+                        $query->where(function ($query) use ($keyword, $allProductColumns) {
+                            foreach ($allProductColumns as $column) {
+                                $query->orWhere($column, 'LIKE', "%$keyword%");
+                            }
+                        });
+                    });
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
         return view('admin.packing.packing', compact('packings'));
     }
 
