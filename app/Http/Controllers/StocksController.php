@@ -10,6 +10,7 @@ use App\Models\RawMaterial;
 use App\Models\Stock;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class StocksController extends Controller
 {
@@ -59,17 +60,91 @@ class StocksController extends Controller
     public function material_detail()
     {
         $label = 'Raw Material';
-        //for Right side table
-        $check_expiring = MaterialStock::groupBy('raw_material_id')
-            ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
-            ->where('expiry_date', '<=', \Carbon\Carbon::now())
-            ->get();
 
-        //for Left side table
-        $master = MaterialStock::groupBy('raw_material_id')
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = MaterialStock::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new MaterialStock())->getTable());
+        $allRawMaterialColumns = Schema::getColumnListing((new RawMaterial())->getTable());
+        $allPurchaseColumns = Schema::getColumnListing((new Purchase())->getTable());
+
+        // //for Left side table
+        $master = MaterialStock::with('raw_material', 'purchase')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allRawMaterialColumns, $allPurchaseColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allRawMaterialColumns, $allPurchaseColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    // Dynamically construct the search query for Product
+                    foreach ($allRawMaterialColumns as $column) {
+                        $query->orWhereHas('raw_material', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+
+                    // Dynamically construct the search query for Product
+                    foreach ($allPurchaseColumns as $column) {
+                        $query->orWhereHas('purchase', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+                });
+            })
+            ->groupBy('raw_material_id')
             ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
             ->where('expiry_date', '>', \Carbon\Carbon::now())
-            ->get();
+            ->latest()
+            ->paginate($rows);
+
+        //for Right side table
+        $check_expiring = MaterialStock::with('raw_material', 'purchase')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allRawMaterialColumns, $allPurchaseColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allRawMaterialColumns, $allPurchaseColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    // Dynamically construct the search query for Product
+                    foreach ($allRawMaterialColumns as $column) {
+                        $query->orWhereHas('raw_material', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+
+                    // Dynamically construct the search query for Product
+                    foreach ($allPurchaseColumns as $column) {
+                        $query->orWhereHas('purchase', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+                });
+            })
+            ->groupBy('raw_material_id')
+            ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
+            ->where('expiry_date', '<=', \Carbon\Carbon::now())
+            ->latest()
+            ->paginate($rows);
+
+
+        // $check_expiring = MaterialStock::groupBy('raw_material_id')
+        //     ->selectRaw('sum(quantity) as total_quantity, raw_material_id')
+        //     ->where('expiry_date', '<=', \Carbon\Carbon::now())
+        //     ->get();
+
+
+        // $master = MaterialStock::groupBy('raw_material_id')
+        //     ->selecRaw('sum(quantity) as total_quantity, raw_material_id')
+        //     ->where('expiry_date', '>', \Carbon\Carbon::now())
+        //     ->get();
 
         return view('admin.stock.stock-material',)->with([
             'label' => $label,
