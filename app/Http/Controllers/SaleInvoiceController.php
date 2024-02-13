@@ -7,6 +7,7 @@ use App\Models\ProductStock;
 use App\Models\SaleInvoice;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class SaleInvoiceController extends Controller
 {
@@ -17,7 +18,45 @@ class SaleInvoiceController extends Controller
      */
     public function index()
     {
-        $sales = SaleInvoice::latest()->get();
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = SaleInvoice::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new SaleInvoice())->getTable());
+        $allSuppliersColumns = Schema::getColumnListing((new Suppliers())->getTable());
+        $allProductColumns = Schema::getColumnListing((new Product())->getTable());
+
+        $sales = SaleInvoice::with('party', 'product')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allProductColumns, $allSuppliersColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allProductColumns, $allSuppliersColumns) {
+                    // Dynamically construct the search query for SaleInvoice
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    // Dynamically construct the search query for Product
+                    foreach ($allProductColumns as $column) {
+                        $query->orWhereHas('product', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+
+                    // Dynamically construct the search query for Suppliers
+                    foreach ($allSuppliersColumns as $column) {
+                        $query->orWhereHas('party', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
         return view('admin.sale-invoice.sale-invoice', compact('sales'));
     }
 
@@ -54,8 +93,8 @@ class SaleInvoiceController extends Controller
         $qty = $request->qty;
 
         $checkStock = ProductStock::where('product_id', $request->product_id)
-        ->where('expiry_date','>',\Carbon\Carbon::now())
-        ->get();
+            ->where('expiry_date', '>', \Carbon\Carbon::now())
+            ->get();
 
         $total_stock = 0;
 
