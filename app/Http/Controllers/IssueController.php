@@ -50,6 +50,7 @@ class IssueController extends Controller
                     }
                 });
 
+                // searching from gifts
                 $query->orWhereHas('gift', function ($query) use ($keyword, $allGiftColumns) {
                     $query->where(function ($query) use ($keyword, $allGiftColumns) {
                         foreach ($allGiftColumns as $column) {
@@ -58,6 +59,7 @@ class IssueController extends Controller
                     });
                 });
 
+                // searching from suppliers
                 $query->orWhereHas('supplier', function ($query) use ($keyword, $allSuppliersColumns) {
                     $query->where(function ($query) use ($keyword, $allSuppliersColumns) {
                         foreach ($allSuppliersColumns as $column) {
@@ -66,6 +68,7 @@ class IssueController extends Controller
                     });
                 });
 
+                // searching from headquarter
                 $query->orWhereHas('headquarter', function ($query) use ($keyword, $allHeadquartersColumns) {
                     $query->where(function ($query) use ($keyword, $allHeadquartersColumns) {
                         foreach ($allHeadquartersColumns as $column) {
@@ -74,6 +77,7 @@ class IssueController extends Controller
                     });
                 });
 
+                // searching from employee
                 $query->orWhereHas('employee', function ($query) use ($keyword, $allEmployeeColumns) {
                     $query->where(function ($query) use ($keyword, $allEmployeeColumns) {
                         foreach ($allEmployeeColumns as $column) {
@@ -82,7 +86,7 @@ class IssueController extends Controller
                     });
                 });
             })
-            ->latest() // This should be placed before get() to order the results
+            ->latest()
             ->paginate($rows);
 
 
@@ -220,6 +224,7 @@ class IssueController extends Controller
                     }
                 });
 
+                // searching from products
                 $query->orWhereHas('product', function ($query) use ($keyword, $allProductColumns) {
                     $query->where(function ($query) use ($keyword, $allProductColumns) {
                         foreach ($allProductColumns as $column) {
@@ -228,7 +233,7 @@ class IssueController extends Controller
                     });
                 });
             })
-            ->latest() // This should be placed before get() to order the results
+            ->latest()
             ->paginate($rows);
 
         // $issues = Production::with(['finish_raw_material', 'product_raw_material'])->latest()->get();
@@ -273,7 +278,7 @@ class IssueController extends Controller
                     });
                 });
             })
-            ->latest() // This should be placed before get() to order the results
+            ->latest()
             ->paginate($rows);
 
         // $productions = Production::whereStatus(true)->latest()->get();
@@ -282,7 +287,68 @@ class IssueController extends Controller
 
     public function sample()
     {
-        $samples = SampleIssue::all();
+
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = SampleIssue::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new SampleIssue())->getTable());
+        $allProductColumns = Schema::getColumnListing((new product())->getTable());
+        $allSuppliersColumns = Schema::getColumnListing((new Suppliers())->getTable());
+        $allHeadquartersColumns = Schema::getColumnListing((new Headquarters())->getTable());
+
+        $samples = SampleIssue::with('product', 'supplier', 'headquarter')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allProductColumns, $allSuppliersColumns, $allHeadquartersColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere(
+                            $column,
+                            'LIKE',
+                            "%$keyword%"
+                        );
+                    }
+                });
+
+                // searching from products
+                $query->orWhereHas('product', function ($query) use ($keyword, $allProductColumns) {
+                    $query->where(function ($query) use ($keyword, $allProductColumns) {
+                        foreach ($allProductColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+
+                // searching from suppliers
+                $query->orWhereHas('supplier', function ($query) use ($keyword, $allSuppliersColumns) {
+                    $query->where(function ($query) use ($keyword, $allSuppliersColumns) {
+                        foreach ($allSuppliersColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+
+                // searching from headquarter
+                $query->orWhereHas('headquarter', function ($query) use ($keyword, $allHeadquartersColumns) {
+                    $query->where(function ($query) use ($keyword, $allHeadquartersColumns) {
+                        foreach ($allHeadquartersColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+
+            })
+            ->latest()
+            ->paginate($rows);
+
+
+
+        // $samples = SampleIssue::all();
 
         $products = Product::whereStatus(true)->get();
         $party = Suppliers::whereStatus(true)->get();
