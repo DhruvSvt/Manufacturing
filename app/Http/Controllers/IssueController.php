@@ -15,6 +15,7 @@ use App\Models\Sample;
 use App\Models\SampleIssue;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class IssueController extends Controller
 {
@@ -27,7 +28,7 @@ class IssueController extends Controller
         $employees = Employee::whereStatus(true)->get();
 
         $issues = GiftIssue::latest()->get();
-        return view('admin.challans.gift', compact('party', 'hq_name', 'gifts', 'issues','employees'));
+        return view('admin.challans.gift', compact('party', 'hq_name', 'gifts', 'issues', 'employees'));
     }
 
     public function gift_create()
@@ -38,7 +39,7 @@ class IssueController extends Controller
         $hq_name = Headquarters::whereStatus(true)->get();
         $employees = Employee::whereStatus(true)->get();
 
-        return view('admin.challans.gift-create', compact('party', 'hq_name', 'gifts','employees'));
+        return view('admin.challans.gift-create', compact('party', 'hq_name', 'gifts', 'employees'));
     }
 
     public function gift_store(Request $request)
@@ -129,7 +130,44 @@ class IssueController extends Controller
 
     public function raw_material_index()
     {
-        $issues = Production::with(['finish_raw_material', 'product_raw_material'])->latest()->get();
+
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Production::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Production())->getTable());
+        $allProductColumns = Schema::getColumnListing((new Product())->getTable());
+
+        $issues = Production::with('finish_raw_material', 'product_raw_material')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allProductColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allProductColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere(
+                            $column,
+                            'LIKE',
+                            "%$keyword%"
+                        );
+                    }
+                });
+
+                $query->orWhereHas('product', function ($query) use ($keyword, $allProductColumns) {
+                    $query->where(function ($query) use ($keyword, $allProductColumns) {
+                        foreach ($allProductColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+            })
+            ->latest() // This should be placed before get() to order the results
+            ->paginate($rows);
+
+        // $issues = Production::with(['finish_raw_material', 'product_raw_material'])->latest()->get();
 
         return view('admin.challans.raw-material', compact('issues'));
     }
@@ -148,7 +186,7 @@ class IssueController extends Controller
         $party = Suppliers::whereStatus(true)->get();
         $hqs = Headquarters::whereStatus(true)->get();
 
-        return view('admin.challans.sample',compact('samples','products','party','hqs'));
+        return view('admin.challans.sample', compact('samples', 'products', 'party', 'hqs'));
     }
 
     public function sample_store(Request $request)
@@ -237,7 +275,7 @@ class IssueController extends Controller
         $hq_name = Headquarters::whereStatus(true)->get();
 
         $issues = FinishGood::latest()->get();
-        return view('admin.challans.finish', compact('products', 'party', 'hq_name','issues'));
+        return view('admin.challans.finish', compact('products', 'party', 'hq_name', 'issues'));
     }
 
     public function finish_good_store(Request $request)
@@ -279,8 +317,7 @@ class IssueController extends Controller
                     break; // Stop checking other materials if one is not available
                 }
             }
-        }
-        else {
+        } else {
             $canIssue = false;
         }
 
@@ -299,7 +336,7 @@ class IssueController extends Controller
                         ->get();
 
                     foreach ($productStock as $item) {
-                        if ($qty > 0){
+                        if ($qty > 0) {
                             if ($item->quantity >= $qty) {
                                 $item->quantity -= $qty;
                                 $qty = 0;

@@ -18,22 +18,7 @@
                 class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4">
                 <div class="data-table-common data-table-two max-w-full overflow-x-auto">
                     <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
-                        <div class="datatable-top">
-                            <div class="datatable-dropdown">
-                                <label>
-                                    <select class="datatable-selector">
-                                        <option value="5">5</option>
-                                        <option value="10" selected="">10</option>
-                                        <option value="15">15</option>
-                                        <option value="-1">All</option>
-                                    </select> entries per page
-                                </label>
-                            </div>
-                            <div class="datatable-search">
-                                <input class="datatable-input" placeholder="Search..." type="search"
-                                    title="Search within table" aria-controls="dataTableTwo">
-                            </div>
-                        </div>
+                        @include('admin.inc.search')
                         <div class="datatable-container">
                             <table class="table w-full table-auto datatable-table" id="dataTableTwo">
                                 <thead>
@@ -58,7 +43,8 @@
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $issue->product->name ?? '-' }} ( {{ $issue->product->unit->short_name ?? '-' }} )
+                                                {{ $issue->product->name ?? '-' }} ( {{
+                                                $issue->product->unit->short_name ?? '-' }} )
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
@@ -68,31 +54,33 @@
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                @if($issue->product_raw_material && count($issue->product_raw_material) > 0)
-                                                <p class="text-sm font-medium text-black dark:text-white">
-                                                    @foreach ($issue->product_raw_material as $key => $item)
-                                                    {{ $key+1 }}.)
-                                                    {{ $item->raw_material->name ?? '-' }} Qty:- {{ $item->qty ?? '' }}
-                                                    {{-- Access the parent relationship for each raw material item --}}
-                                                    {{ $item->raw_material->parent->short_name ?? '-' }}
-                                                    <br>
-                                                    @endforeach
-                                                </p>
+                                                @if($issue->product_raw_material && count($issue->product_raw_material)
+                                                > 0)
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                @foreach ($issue->product_raw_material as $key => $item)
+                                                {{ $key+1 }}.)
+                                                {{ $item->raw_material->name ?? '-' }} Qty:- {{ $item->qty ?? '' }}
+                                                {{-- Access the parent relationship for each raw material item --}}
+                                                {{ $item->raw_material->parent->short_name ?? '-' }}
+                                                <br>
+                                                @endforeach
+                                            </p>
                                             @endif
                                             </p>
                                         </td>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                            @if($issue->finish_raw_material && count($issue->finish_raw_material) > 0)
-                                                <p class="text-sm font-medium text-black dark:text-white">
-                                                    @foreach ($issue->finish_raw_material as $key => $item)
-                                                    {{ $key+1 }}.)
-                                                    {{ $item->raw_material->name ?? '-' }} Qty:- {{ $item->qty ?? '' }}
-                                                    {{-- Access the parent relationship for each raw material item --}}
-                                                    {{ $item->raw_material->parent->short_name ?? '-' }}
-                                                    <br>
-                                                    @endforeach
-                                                </p>
+                                                @if($issue->finish_raw_material && count($issue->finish_raw_material) >
+                                                0)
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                @foreach ($issue->finish_raw_material as $key => $item)
+                                                {{ $key+1 }}.)
+                                                {{ $item->raw_material->name ?? '-' }} Qty:- {{ $item->qty ?? '' }}
+                                                {{-- Access the parent relationship for each raw material item --}}
+                                                {{ $item->raw_material->parent->short_name ?? '-' }}
+                                                <br>
+                                                @endforeach
+                                            </p>
                                             @endif
                                             </p>
                                         </td>
@@ -112,22 +100,12 @@
                             </table>
                         </div>
                         <div class="datatable-bottom">
-                            <div class="datatable-info">Showing 1 to 10 of 26 entries</div>
-                            <nav class="datatable-pagination">
-                                <ul class="datatable-pagination-list">
-                                    <li class="datatable-pagination-list-item datatable-hidden datatable-disabled">
-                                        <a data-page="1" class="datatable-pagination-list-item-link">‹</a>
-                                    </li>
-                                    <li class="datatable-pagination-list-item datatable-active"><a data-page="1"
-                                            class="datatable-pagination-list-item-link">1</a></li>
-                                    <li class="datatable-pagination-list-item"><a data-page="2"
-                                            class="datatable-pagination-list-item-link">2</a></li>
-                                    <li class="datatable-pagination-list-item"><a data-page="3"
-                                            class="datatable-pagination-list-item-link">3</a></li>
-                                    <li class="datatable-pagination-list-item"><a data-page="2"
-                                            class="datatable-pagination-list-item-link">›</a></li>
-                                </ul>
-                            </nav>
+                            <div class="datatable-info">
+                                Showing {{ $issues->firstItem()}} to
+                                {{ $issues->lastItem() }} of
+                                {{ $issues->total() }} entries
+                            </div>
+                            {{ $issues->appends($_GET)->links('vendor.pagination.custom') }}
                         </div>
                     </div>
                 </div>
