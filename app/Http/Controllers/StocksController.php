@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Gift;
 use App\Models\ItemStock;
 use App\Models\MaterialStock;
+use App\Models\Product;
 use App\Models\ProductStock;
 use App\Models\Purchase;
 use App\Models\RawMaterial;
@@ -172,7 +173,7 @@ class StocksController extends Controller
         $rows = request()->rows ?? 25;
 
         if ($rows == 'all') {
-            $rows = MaterialStock::count();
+            $rows = ItemStock::count();
         }
 
         // Get the table columns
@@ -271,17 +272,74 @@ class StocksController extends Controller
     public function product_detail()
     {
         $label = 'Product';
-        //for Right side table
-        $check_expiring = ProductStock::groupBy('product_id')
-            ->selectRaw('sum(quantity) as total_quantity, product_id')
-            ->where('expiry_date', '<=', \Carbon\Carbon::now())
-            ->get();
 
-        //for Left side table
-        $master = ProductStock::groupBy('product_id')
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = ProductStock::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new ProductStock())->getTable());
+        $allProductColumns = Schema::getColumnListing((new Product())->getTable());
+
+        // //for Left side table
+        $master = ProductStock::with('product')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allProductColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allProductColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    foreach ($allProductColumns as $column) {
+                        $query->orWhereHas('product', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+                });
+            })
+            ->groupBy('product_id')
             ->selectRaw('sum(quantity) as total_quantity, product_id')
             ->where('expiry_date', '>', \Carbon\Carbon::now())
-            ->get();
+            ->latest()
+            ->paginate($rows);
+
+        // //for Right side table
+        $check_expiring = ProductStock::with('product')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allProductColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allProductColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    foreach ($allProductColumns as $column) {
+                        $query->orWhereHas('product', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+                });
+            })
+            ->groupBy('product_id')
+            ->selectRaw('sum(quantity) as total_quantity, product_id')
+            ->where('expiry_date', '<=', \Carbon\Carbon::now())
+            ->latest()
+            ->paginate($rows);
+
+        //for Right side table
+        // $check_expiring = ProductStock::groupBy('product_id')
+        //     ->selectRaw('sum(quantity) as total_quantity, product_id')
+        //     ->where('expiry_date', '<=', \Carbon\Carbon::now())
+        //     ->get();
+
+        //for Left side table
+        // $master = ProductStock::groupBy('product_id')
+        //     ->selectRaw('sum(quantity) as total_quantity, product_id')
+        //     ->where('expiry_date', '>', \Carbon\Carbon::now())
+        //     ->get();
 
         return view('admin.stock.stock-product',)->with([
             'label' => $label,

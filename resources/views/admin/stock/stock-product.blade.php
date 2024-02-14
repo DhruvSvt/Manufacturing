@@ -19,22 +19,7 @@
                     class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4 mb-6">
                     <div class="data-table-common data-table-two max-w-full overflow-x-auto">
                         <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
-                            <div class="datatable-top">
-                                <div class="datatable-dropdown">
-                                    <label>
-                                        <select class="datatable-selector">
-                                            <option value="5">5</option>
-                                            <option value="10" selected="">10</option>
-                                            <option value="15">15</option>
-                                            <option value="-1">All</option>
-                                        </select> entries per page
-                                    </label>
-                                </div>
-                                <div class="datatable-search">
-                                    <input class="datatable-input" placeholder="Search..." type="search"
-                                        title="Search within table" aria-controls="dataTableTwo">
-                                </div>
-                            </div>
+                            @include('admin.inc.search')
                             <div class="datatable-container">
                                 <table class="table w-full table-auto datatable-table" id="dataTableTwo">
                                     <thead>
@@ -54,7 +39,8 @@
                                         <tr>
                                             <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                                 <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $m->product->name ?? '' }}  ({{ $m->product->unit->short_name ?? '' }})
+                                                    {{ $m->product->name ?? '' }} ({{ $m->product->unit->short_name ??
+                                                    '' }})
                                                 </p>
                                             </td>
                                             <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
@@ -101,22 +87,12 @@
                                 </table>
                             </div>
                             <div class="datatable-bottom">
-                                <div class="datatable-info">Showing 1 to 10 of 26 entries</div>
-                                <nav class="datatable-pagination">
-                                    <ul class="datatable-pagination-list">
-                                        <li class="datatable-pagination-list-item datatable-hidden datatable-disabled">
-                                            <a data-page="1" class="datatable-pagination-list-item-link">‹</a>
-                                        </li>
-                                        <li class="datatable-pagination-list-item datatable-active"><a data-page="1"
-                                                class="datatable-pagination-list-item-link">1</a></li>
-                                        <li class="datatable-pagination-list-item"><a data-page="2"
-                                                class="datatable-pagination-list-item-link">2</a></li>
-                                        <li class="datatable-pagination-list-item"><a data-page="3"
-                                                class="datatable-pagination-list-item-link">3</a></li>
-                                        <li class="datatable-pagination-list-item"><a data-page="2"
-                                                class="datatable-pagination-list-item-link">›</a></li>
-                                    </ul>
-                                </nav>
+                                <div class="datatable-info">
+                                    Showing {{ $master->firstItem()}} to
+                                    {{ $master->lastItem() }} of
+                                    {{ $master->total() }} entries
+                                </div>
+                                {{ $master->appends($_GET)->links('vendor.pagination.custom') }}
                             </div>
                         </div>
                     </div>
@@ -128,22 +104,7 @@
                     class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4">
                     <div class="data-table-common data-table-two max-w-full overflow-x-auto">
                         <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
-                            <div class="datatable-top">
-                                <div class="datatable-dropdown">
-                                    <label>
-                                        <select class="datatable-selector">
-                                            <option value="5">5</option>
-                                            <option value="10" selected="">10</option>
-                                            <option value="15">15</option>
-                                            <option value="-1">All</option>
-                                        </select> entries per page
-                                    </label>
-                                </div>
-                                <div class="datatable-search">
-                                    <input class="datatable-input" placeholder="Search..." type="search"
-                                        title="Search within table" aria-controls="dataTableTwo">
-                                </div>
-                            </div>
+                            @include('admin.inc.search')
                             <div class="datatable-container">
                                 <table class="table w-full table-auto datatable-table" id="dataTableTwo">
                                     <thead>
@@ -158,57 +119,58 @@
                                     <tbody>
                                         @if($label == 'Product')
                                         @foreach ($check_expiring as $key => $ce)
-                                            <tr>
-                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                                    <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $ce->product->name }} ({{ $ce->product->unit->short_name ?? '' }})
-                                                    </p>
-                                                </td>
-                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                                    <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $ce->total_quantity }}
-                                                        {{-- {{ $ce->raw_material->parent->short_name }} --}}
-                                                    </p>
-                                                </td>
-                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                                    <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $ce->expiry_date }}
-                                                        @if(\Carbon\Carbon::parse($ce->expiry_date)->lte(\Carbon\Carbon::now()))
-                                                        <span class="text-meta-1">expired</span>
-                                                        @elseif(\Carbon\Carbon::parse($ce->expiry_date)->diffInDays(\Carbon\Carbon::now())
-                                                        <= 30) <span class="text-meta-1" style="color: orange !important;">
-                                                            expiring soon</span>
-                                                            @endif
-                                                    </p>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $ce->product->name }} ({{ $ce->product->unit->short_name ?? ''
+                                                    }})
+                                                </p>
+                                            </td>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $ce->total_quantity }}
+                                                    {{-- {{ $ce->raw_material->parent->short_name }} --}}
+                                                </p>
+                                            </td>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $ce->expiry_date }}
+                                                    @if(\Carbon\Carbon::parse($ce->expiry_date)->lte(\Carbon\Carbon::now()))
+                                                    <span class="text-meta-1">expired</span>
+                                                    @elseif(\Carbon\Carbon::parse($ce->expiry_date)->diffInDays(\Carbon\Carbon::now())
+                                                    <= 30) <span class="text-meta-1" style="color: orange !important;">
+                                                        expiring soon</span>
+                                                        @endif
+                                                </p>
+                                            </td>
+                                        </tr>
                                         @endforeach
                                         @else
                                         @foreach ($check_expiring as $key => $ce)
-                                            <tr>
-                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                                    <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $ce->product->name }}
-                                                    </p>
-                                                </td>
-                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                                    <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $ce->total_quantity }}
-                                                        {{-- {{ $ce->raw_material->parent->short_name }} --}}
-                                                    </p>
-                                                </td>
-                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                                    <p class="text-sm font-medium text-black dark:text-white">
-                                                        {{ $ce->expiry_date }}
-                                                        @if(\Carbon\Carbon::parse($ce->expiry_date)->lte(\Carbon\Carbon::now()))
-                                                        <span class="text-meta-1">expired</span>
-                                                        @elseif(\Carbon\Carbon::parse($ce->expiry_date)->diffInDays(\Carbon\Carbon::now())
-                                                        <= 30) <span class="text-meta-1" style="color: orange !important;">
-                                                            expiring soon</span>
-                                                            @endif
-                                                    </p>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $ce->product->name }}
+                                                </p>
+                                            </td>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $ce->total_quantity }}
+                                                    {{-- {{ $ce->raw_material->parent->short_name }} --}}
+                                                </p>
+                                            </td>
+                                            <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                <p class="text-sm font-medium text-black dark:text-white">
+                                                    {{ $ce->expiry_date }}
+                                                    @if(\Carbon\Carbon::parse($ce->expiry_date)->lte(\Carbon\Carbon::now()))
+                                                    <span class="text-meta-1">expired</span>
+                                                    @elseif(\Carbon\Carbon::parse($ce->expiry_date)->diffInDays(\Carbon\Carbon::now())
+                                                    <= 30) <span class="text-meta-1" style="color: orange !important;">
+                                                        expiring soon</span>
+                                                        @endif
+                                                </p>
+                                            </td>
+                                        </tr>
                                         @endforeach
                                         @endif
 
@@ -216,22 +178,12 @@
                                 </table>
                             </div>
                             <div class="datatable-bottom">
-                                <div class="datatable-info">Showing 1 to 10 of 26 entries</div>
-                                <nav class="datatable-pagination">
-                                    <ul class="datatable-pagination-list">
-                                        <li class="datatable-pagination-list-item datatable-hidden datatable-disabled">
-                                            <a data-page="1" class="datatable-pagination-list-item-link">‹</a>
-                                        </li>
-                                        <li class="datatable-pagination-list-item datatable-active"><a data-page="1"
-                                                class="datatable-pagination-list-item-link">1</a></li>
-                                        <li class="datatable-pagination-list-item"><a data-page="2"
-                                                class="datatable-pagination-list-item-link">2</a></li>
-                                        <li class="datatable-pagination-list-item"><a data-page="3"
-                                                class="datatable-pagination-list-item-link">3</a></li>
-                                        <li class="datatable-pagination-list-item"><a data-page="2"
-                                                class="datatable-pagination-list-item-link">›</a></li>
-                                    </ul>
-                                </nav>
+                                <div class="datatable-info">
+                                    Showing {{ $check_expiring->firstItem()}} to
+                                    {{ $check_expiring->lastItem() }} of
+                                    {{ $check_expiring->total() }} entries
+                                </div>
+                                {{ $check_expiring->appends($_GET)->links('vendor.pagination.custom') }}
                             </div>
                         </div>
                     </div>
