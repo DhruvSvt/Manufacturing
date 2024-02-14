@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gift;
 use App\Models\ItemStock;
 use App\Models\MaterialStock;
 use App\Models\ProductStock;
@@ -165,17 +166,89 @@ class StocksController extends Controller
     public function item_detail()
     {
         $label = 'Gifts';
-        //for Right side table
-        $check_expiring = ItemStock::groupBy('item_id')
-            ->selectRaw('sum(quantity) as total_quantity, item_id')
-            ->where('expiry_date', '<=', \Carbon\Carbon::now())
-            ->get();
 
-        //for Left side table
-        $master = ItemStock::groupBy('item_id')
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = MaterialStock::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new ItemStock())->getTable());
+        $allGiftColumns = Schema::getColumnListing((new Gift())->getTable());
+        $allPurchaseColumns = Schema::getColumnListing((new Purchase())->getTable());
+
+        // //for Left side table
+        $master = ItemStock::with('item', 'purchase')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allGiftColumns, $allPurchaseColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allGiftColumns, $allPurchaseColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    foreach ($allGiftColumns as $column) {
+                        $query->orWhereHas('item', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+
+                    foreach ($allPurchaseColumns as $column) {
+                        $query->orWhereHas('purchase', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+                });
+            })
+            ->groupBy('item_id')
             ->selectRaw('sum(quantity) as total_quantity, item_id')
             ->where('expiry_date', '>', \Carbon\Carbon::now())
-            ->get();
+            ->latest()
+            ->paginate($rows);
+
+        // //for Right side table
+        $check_expiring = ItemStock::with('item', 'purchase')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allGiftColumns, $allPurchaseColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allGiftColumns, $allPurchaseColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    foreach ($allGiftColumns as $column) {
+                        $query->orWhereHas('item', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+
+                    foreach ($allPurchaseColumns as $column) {
+                        $query->orWhereHas('purchase', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+                });
+            })
+            ->groupBy('item_id')
+            ->selectRaw('sum(quantity) as total_quantity, item_id')
+            ->where('expiry_date', '<=', \Carbon\Carbon::now())
+            ->latest()
+            ->paginate($rows);
+
+
+
+        //for Right side table
+        // $check_expiring = ItemStock::groupBy('item_id')
+        //     ->selectRaw('sum(quantity) as total_quantity, item_id')
+        //     ->where('expiry_date', '<=', \Carbon\Carbon::now())
+        //     ->get();
+
+        //for Left side table
+        // $master = ItemStock::groupBy('item_id')
+        //     ->selectRaw('sum(quantity) as total_quantity, item_id')
+        //     ->where('expiry_date', '>', \Carbon\Carbon::now())
+        //     ->get();
 
         return view('admin.stock.stock-item',)->with([
             'label' => $label,
