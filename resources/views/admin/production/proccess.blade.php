@@ -188,14 +188,14 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{-- <div class="datatable-bottom">
+                        <div class="datatable-bottom">
                             <div class="datatable-info">
-                                Showing {{ $production->firstItem()}} to
-                                {{ $production->lastItem() }} of
-                                {{ $production->total() }} entries
+                                Showing {{ $productions->firstItem()}} to
+                                {{ $productions->lastItem() }} of
+                                {{ $productions->total() }} entries
                             </div>
-                            {{ $production->appends($_GET)->links('vendor.pagination.custom') }}
-                        </div> --}}
+                            {{ $productions->appends($_GET)->links('vendor.pagination.custom') }}
+                        </div>
                     </div>
                 </div>
             </div>
