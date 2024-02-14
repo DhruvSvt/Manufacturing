@@ -22,12 +22,76 @@ class IssueController extends Controller
     public function gift_index()
     {
 
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = GiftIssue::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new GiftIssue())->getTable());
+        $allGiftColumns = Schema::getColumnListing((new Gift())->getTable());
+        $allSuppliersColumns = Schema::getColumnListing((new Suppliers())->getTable());
+        $allHeadquartersColumns = Schema::getColumnListing((new Headquarters())->getTable());
+        $allEmployeeColumns = Schema::getColumnListing((new Employee())->getTable());
+
+        $issues = GiftIssue::with('gift', 'supplier', 'headquarter', 'employee')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allGiftColumns, $allSuppliersColumns, $allHeadquartersColumns, $allEmployeeColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere(
+                            $column,
+                            'LIKE',
+                            "%$keyword%"
+                        );
+                    }
+                });
+
+                $query->orWhereHas('gift', function ($query) use ($keyword, $allGiftColumns) {
+                    $query->where(function ($query) use ($keyword, $allGiftColumns) {
+                        foreach ($allGiftColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+
+                $query->orWhereHas('supplier', function ($query) use ($keyword, $allSuppliersColumns) {
+                    $query->where(function ($query) use ($keyword, $allSuppliersColumns) {
+                        foreach ($allSuppliersColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+
+                $query->orWhereHas('headquarter', function ($query) use ($keyword, $allHeadquartersColumns) {
+                    $query->where(function ($query) use ($keyword, $allHeadquartersColumns) {
+                        foreach ($allHeadquartersColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+
+                $query->orWhereHas('employee', function ($query) use ($keyword, $allEmployeeColumns) {
+                    $query->where(function ($query) use ($keyword, $allEmployeeColumns) {
+                        foreach ($allEmployeeColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+            })
+            ->latest() // This should be placed before get() to order the results
+            ->paginate($rows);
+
+
         $gifts = Gift::whereStatus(true)->get();
         $party = Suppliers::whereStatus(true)->get();
         $hq_name = Headquarters::whereStatus(true)->get();
         $employees = Employee::whereStatus(true)->get();
 
-        $issues = GiftIssue::latest()->get();
+        // $issues = GiftIssue::latest()->get();
         return view('admin.challans.gift', compact('party', 'hq_name', 'gifts', 'issues', 'employees'));
     }
 
