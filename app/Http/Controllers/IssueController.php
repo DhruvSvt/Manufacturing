@@ -174,7 +174,45 @@ class IssueController extends Controller
 
     public function complete_good()
     {
-        $productions = Production::whereStatus(true)->latest()->get();
+
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Production::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Production())->getTable());
+        $allProductColumns = Schema::getColumnListing((new Product())->getTable());
+
+        $productions = Production::with('finish_raw_material', 'product_raw_material')
+            ->wherestatus(true)
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allProductColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allProductColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere(
+                            $column,
+                            'LIKE',
+                            "%$keyword%"
+                        );
+                    }
+                });
+
+                $query->orWhereHas('product', function ($query) use ($keyword, $allProductColumns) {
+                    $query->where(function ($query) use ($keyword, $allProductColumns) {
+                        foreach ($allProductColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+            })
+            ->latest() // This should be placed before get() to order the results
+            ->paginate($rows);
+
+        // $productions = Production::whereStatus(true)->latest()->get();
         return view('admin.challans.complete-good', compact('productions'));
     }
 
