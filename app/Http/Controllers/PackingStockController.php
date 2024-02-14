@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Packing;
 use App\Models\PackingStock;
+use App\Models\Product;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class PackingStockController extends Controller
 {
@@ -16,9 +18,48 @@ class PackingStockController extends Controller
      */
     public function index()
     {
-        $packing = PackingStock::groupBy('product_id')
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = PackingStock::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new PackingStock())->getTable());
+        $allProductColumns = Schema::getColumnListing((new Product())->getTable());
+        $allPackingColumns = Schema::getColumnListing((new Packing())->getTable());
+
+        $packing = PackingStock::with('product', 'packing')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allProductColumns, $allPackingColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allProductColumns, $allPackingColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    foreach ($allProductColumns as $column) {
+                        $query->orWhereHas('product', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+
+                    foreach ($allPackingColumns as $column) {
+                        $query->orWhereHas('packing', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+                });
+            })
+            ->groupBy('product_id')
             ->selectRaw('sum(qty) as total_qty, product_id')
-            ->get();
+            ->latest()
+            ->paginate($rows);
+
+        // $packing = PackingStock::groupBy('product_id')
+        //     ->selectRaw('sum(qty) as total_qty, product_id')
+        //     ->get();
         return view('admin.packing.packing-stock', compact('packing'));
     }
 
