@@ -9,6 +9,7 @@ use App\Models\ProductStock;
 use App\Models\Sample;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class SampleController extends Controller
 {
@@ -19,9 +20,42 @@ class SampleController extends Controller
      */
     public function index()
     {
-        $master = Sample::groupBy('product_id')
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Sample::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Sample())->getTable());
+        $allProductColumns = Schema::getColumnListing((new Product())->getTable());
+
+        // //for Left side table
+        $master = Sample::with('product')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allProductColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allProductColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    foreach ($allProductColumns as $column) {
+                        $query->orWhereHas('product', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+                });
+            })
+            ->groupBy('product_id')
             ->selectRaw('sum(qty) as total_quantity, product_id')
-            ->get();
+            ->latest()
+            ->paginate($rows);
+
+        // $master = Sample::groupBy('product_id')
+        //     ->selectRaw('sum(qty) as total_quantity, product_id')
+        //     ->get();
 
         // $samples = Sample::all();
         return view('admin.sample.sample', compact('master'));
