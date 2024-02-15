@@ -59,8 +59,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::post('/status', [UsersController::class, 'status'])->name('status');
 
-    Route::post('/user/search', [UsersController::class, 'searchUser'])->name('user.search');
-
     // --------------------- Supplier ---------------------
     Route::get('/supplier', [SuppliersController::class, 'index'])->name('supplier');
     Route::get('/supplier/create', [SuppliersController::class, 'create'])->name('supplier.create');

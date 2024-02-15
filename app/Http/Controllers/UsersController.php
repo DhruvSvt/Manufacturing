@@ -6,6 +6,7 @@ use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 
 class UsersController extends Controller
 {
@@ -16,7 +17,44 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('created_at', 'desc')->paginate(2);
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = User::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new User())->getTable());
+        $allRolesColumns = Schema::getColumnListing((new Roles())->getTable());
+
+        $users = User::with('roles')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allRolesColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere(
+                            $column,
+                            'LIKE',
+                            "%$keyword%"
+                        );
+                    }
+                });
+
+                // searching from suppliers
+                $query->orWhereHas('roles', function ($query) use ($keyword, $allRolesColumns) {
+                    $query->where(function ($query) use ($keyword, $allRolesColumns) {
+                        foreach ($allRolesColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
+        // $users = User::orderBy('created_at', 'desc')->paginate(2);
         return view('admin.admin-page', compact('users'));
     }
 
