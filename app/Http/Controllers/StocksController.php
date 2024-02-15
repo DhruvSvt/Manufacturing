@@ -171,8 +171,7 @@ class StocksController extends Controller
         $allColumns = Schema::getColumnListing((new MaterialStock())->getTable());
 
         // //for Left side table
-        $raw_materials = MaterialStock::with('purchase', 'raw_material')
-            ->where('raw_material_id', $raw_material_id)
+        $raw_materials = MaterialStock::where('raw_material_id', $raw_material_id)
             ->when(isset($keyword), function ($query) use ($keyword, $allColumns) {
                 $query->where(function ($query) use ($keyword, $allColumns) {
                     // Dynamically construct the search query
@@ -289,8 +288,34 @@ class StocksController extends Controller
     {
         $label = 'Item';
 
-        // Fetch entries with matching raw_material_id
-        $items = ItemStock::with('purchase')->where('item_id', $item_id)->get();
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = ItemStock::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new ItemStock())->getTable());
+
+        // //for Left side table
+        $items = ItemStock::where('item_id', $item_id)
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    // Convert the date format and search
+                    $query->orWhereRaw("DATE_FORMAT(created_at, '%d-%m-%Y') LIKE ?", ["%$keyword%"]);
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
+        // $items = ItemStock::with('purchase')->where('item_id', $item_id)->get();
 
         return view('admin.stock.stock-item-detail', compact('items', 'label'));
     }
@@ -379,8 +404,35 @@ class StocksController extends Controller
     {
         $label = 'Product';
 
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = ProductStock::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new ProductStock())->getTable());
+
+        // //for Left side table
+        $products = ProductStock::where('product_id', $product_id)
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    // Convert the date format and search
+                    $query->orWhereRaw("DATE_FORMAT(created_at, '%d-%m-%Y') LIKE ?", ["%$keyword%"]);
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
         // Fetch entries with matching raw_material_id
-        $products = ProductStock::where('product_id', $product_id)->get();
+        // $products = ProductStock::where('product_id', $product_id)->get();
 
         return view('admin.stock.stock-product-detail', compact('products', 'label'));
     }
