@@ -161,8 +161,56 @@ class SampleController extends Controller
     public function sample_detail_id($product_id)
     {
 
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Sample::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Sample())->getTable());
+        $allHeadquarterColumns = Schema::getColumnListing((new Headquarters())->getTable());
+        $allEmployeeColumns = Schema::getColumnListing((new Employee())->getTable());
+
+        // //for Left side table
+        $sample = Sample::with('headquarter', 'employee')
+            ->where('product_id', $product_id)
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allHeadquarterColumns, $allEmployeeColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allHeadquarterColumns, $allEmployeeColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    // searching from employee
+                    $query->orWhereHas('employee', function ($query) use ($keyword, $allEmployeeColumns) {
+                        $query->where(function ($query) use ($keyword, $allEmployeeColumns) {
+                            foreach ($allEmployeeColumns as $column) {
+                                $query->orWhere($column, 'LIKE', "%$keyword%");
+                            }
+                        });
+                    });
+
+                    // searching from headquarter
+                    $query->orWhereHas('headquarter', function ($query) use ($keyword, $allHeadquarterColumns) {
+                        $query->where(function ($query) use ($keyword, $allHeadquarterColumns) {
+                            foreach ($allHeadquarterColumns as $column) {
+                                $query->orWhere($column, 'LIKE', "%$keyword%");
+                            }
+                        });
+                    });
+
+                    // Convert the date format and search
+                    $query->orWhereRaw("DATE_FORMAT(created_at, '%d-%m-%Y') LIKE ?", ["%$keyword%"]);
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
         // Fetch entries with matching raw_material_id
-        $sample = Sample::where('product_id', $product_id)->get();
+        // $sample = Sample::where('product_id', $product_id)->get();
 
         return view('admin.sample.sample-detail', compact('sample'));
     }
