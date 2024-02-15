@@ -169,35 +169,24 @@ class StocksController extends Controller
 
         // Get the table columns
         $allColumns = Schema::getColumnListing((new MaterialStock())->getTable());
-        $allPurchaseColumns = Schema::getColumnListing((new Purchase())->getTable());
-        $allRawMaterialColumns = Schema::getColumnListing((new RawMaterial())->getTable());
 
         // //for Left side table
-        $raw_materials = MaterialStock::with('purchase', 'raw_material')->where('raw_material_id', $raw_material_id, $allPurchaseColumns)
-            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allRawMaterialColumns, $allPurchaseColumns) {
-                $query->where(function ($query) use ($keyword, $allColumns, $allRawMaterialColumns , $allPurchaseColumns) {
+        $raw_materials = MaterialStock::with('purchase', 'raw_material')
+            ->where('raw_material_id', $raw_material_id)
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns) {
                     // Dynamically construct the search query
                     foreach ($allColumns as $column) {
                         $query->orWhere($column, 'LIKE', "%$keyword%");
                     }
 
-                    foreach ($allRawMaterialColumns as $column) {
-                        $query->orWhereHas('raw_material', function ($query) use ($keyword, $column) {
-                            $query->where($column, 'LIKE', "%$keyword%");
-                        });
-                    }
-
-                    foreach ($allPurchaseColumns as $column) {
-                        $query->orWhereHas('purchase', function ($query) use ($keyword, $column) {
-                            $query->where($column, 'LIKE', "%$keyword%");
-                        });
-                    }
+                    // Convert the date format and search
+                    $query->orWhereRaw("DATE_FORMAT(created_at, '%d-%m-%Y') LIKE ?", ["%$keyword%"]);
                 });
             })
             ->latest()
             ->paginate($rows);
 
-        // Fetch entries with matching raw_material_id
         // $raw_materials = MaterialStock::with('purchase')->where('raw_material_id', $raw_material_id)->get();
         return view('admin.stock.stock-material-detail', compact('raw_materials', 'label'));
     }
