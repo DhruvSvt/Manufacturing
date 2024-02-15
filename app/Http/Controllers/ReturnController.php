@@ -10,12 +10,51 @@ use App\Models\ReturnGoodsProduct;
 use App\Models\Suppliers;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class ReturnController extends Controller
 {
     public function good_return()
     {
-        $returns = ReturnGood::latest()->get();
+
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = ReturnGood::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new ReturnGood())->getTable());
+        $allSuppliersColumns = Schema::getColumnListing((new Suppliers())->getTable());
+
+        $returns = ReturnGood::with('supplier')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allSuppliersColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere(
+                            $column,
+                            'LIKE',
+                            "%$keyword%"
+                        );
+                    }
+                });
+
+                // searching from suppliers
+                $query->orWhereHas('supplier', function ($query) use ($keyword, $allSuppliersColumns) {
+                    $query->where(function ($query) use ($keyword, $allSuppliersColumns) {
+                        foreach ($allSuppliersColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
+        // $returns = ReturnGood::latest()->get();
         // $returnProducts = ReturnGoodsProduct::all();
         return view('admin.returns.good-return', compact('returns'));
     }
@@ -107,15 +146,15 @@ class ReturnController extends Controller
     public function print($id)
     {
         $return = ReturnGood::findOrFail($id);
-        $returnProducts = ReturnGoodsProduct::where('return_good_id',$id)->get();
+        $returnProducts = ReturnGoodsProduct::where('return_good_id', $id)->get();
 
         // Calculating grand total
         $total = 0;
         $grandTotal = 0;
-        foreach($returnProducts as $item ){
+        foreach ($returnProducts as $item) {
             $total = $item->rate * $item->qty;
             $grandTotal += $total;
         }
-        return view('admin.returns.pdf', compact('return','returnProducts','grandTotal'));
+        return view('admin.returns.pdf', compact('return', 'returnProducts', 'grandTotal'));
     }
 }
