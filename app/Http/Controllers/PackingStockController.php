@@ -98,9 +98,60 @@ class PackingStockController extends Controller
 
     public function packingStockDetail($product_id)
     {
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = PackingStock::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new PackingStock())->getTable());
+        $allProductColumns = Schema::getColumnListing((new Product())->getTable());
+        $allPackingColumns = Schema::getColumnListing((new Packing())->getTable());
+        $allSuppliersColumns = Schema::getColumnListing((new Suppliers())->getTable());
+
+        // //for Left side table
+        $packings = PackingStock::with('product', 'packing', 'suppliers')
+            ->where('product_id', $product_id)
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns , $allProductColumns , $allPackingColumns, $allSuppliersColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allProductColumns, $allPackingColumns, $allSuppliersColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    // Search from products
+                    foreach ($allProductColumns as $column) {
+                        $query->orWhereHas('product', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+
+                    // search from packings
+                    foreach ($allPackingColumns as $column) {
+                        $query->orWhereHas('packing', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+
+                    // search from suppliers
+                    foreach ($allSuppliersColumns as $column) {
+                        $query->orWhereHas('suppliers', function ($query) use ($keyword, $column) {
+                            $query->where($column, 'LIKE', "%$keyword%");
+                        });
+                    }
+
+                    // Convert the date format and search
+                    $query->orWhereRaw("DATE_FORMAT(created_at, '%d-%m-%Y') LIKE ?", ["%$keyword%"]);
+                });
+            })
+            ->latest()
+            ->paginate($rows);
 
         // Fetch entries with matching raw_material_id
-        $packings = PackingStock::where('product_id', $product_id)->get();
+        // $packings = PackingStock::where('product_id', $product_id)->get();
         return view('admin.packing.packing-stock-detail', compact('packings'));
     }
     /**
