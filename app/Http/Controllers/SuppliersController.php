@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class SuppliersController extends Controller
 {
@@ -14,7 +15,29 @@ class SuppliersController extends Controller
      */
     public function index()
     {
-        $suppliers = Suppliers::orderBy('created_at', 'desc')->get();
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Suppliers::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Suppliers())->getTable());
+
+        $suppliers = Suppliers::when(isset($keyword), function ($query) use ($keyword, $allColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns) {
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
+        // $suppliers = Suppliers::orderBy('created_at', 'desc')->get();
         return view('admin.supplier', compact('suppliers'));
     }
 
@@ -70,7 +93,7 @@ class SuppliersController extends Controller
     public function edit($id)
     {
         $supplier = Suppliers::find($id);
-        return view('admin.supplier-edit',compact('supplier'));
+        return view('admin.supplier-edit', compact('supplier'));
     }
 
     /**
