@@ -187,10 +187,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('good/return/store', [ReturnController::class, 'good_return_store'])->name('good-return-store');
     Route::get('good/return/pdf/{id}', [ReturnController::class, 'print'])->name('print-return');
 
-    // --------------------- Return Routes ---------------------
+    // --------------------- Sales Routes ---------------------
     Route::resource('sale', SaleInvoiceController::class);
 
-    // --------------------- Return Routes ---------------------
+    // --------------------- Payment Routes ---------------------
     Route::resource('payment', PartyPaymentController::class);
 
     // --------------------- Packing Routes ---------------------
