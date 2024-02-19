@@ -16,6 +16,11 @@ class ProductStock extends Model
         'quantity',
         'type',
         'expiry_date',
+        'supplier_id',
+        'price',
+        'batch_no',
+        'bill_no',
+        'bill_date'
     ];
 
     public function product()

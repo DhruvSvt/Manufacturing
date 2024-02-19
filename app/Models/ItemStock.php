@@ -13,6 +13,8 @@ class ItemStock extends Model
         'quantity',
         'type',
         'expiry_date',
+        'supplier_id',
+        'price'
     ];
 
     public function item()

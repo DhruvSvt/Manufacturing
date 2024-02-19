@@ -13,6 +13,10 @@ class MaterialStock extends Model
         'quantity',
         'type',
         'expiry_date',
+        'supplier_id',
+        'price',
+        'bill_no',
+        'bill_date'
     ];
 
     public function raw_material()

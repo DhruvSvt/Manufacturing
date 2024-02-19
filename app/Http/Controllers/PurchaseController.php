@@ -112,8 +112,8 @@ class PurchaseController extends Controller
             'expiry_date' => 'required'
         ]);
 
-
         // Create for Purchase
+
         $purchase = new Purchase([
             'type' => 'App\Models\RawMaterial',
             'modal_id' => $request->modal_id,
@@ -137,8 +137,10 @@ class PurchaseController extends Controller
             'price' => $request->price,
             'expiry_date' => $request->expiry_date,
             'quantity' => $request->quantity,
+            'bill_no' => $request->bill_no,
+            'bill_date' => $request->bill_date
         ]);
-
+        
         $stock->save();
 
         // redirect to the route
@@ -225,6 +227,8 @@ class PurchaseController extends Controller
             'batch_no' => $request->batch_no,
             'expiry_date' => $request->expiry_date,
             'quantity' => $request->quantity,
+            'bill_no' => $request->bill_no,
+            'bill_date' => $request->bill_date
         ]);
 
         $stock->save();
