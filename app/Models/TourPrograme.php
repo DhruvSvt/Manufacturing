@@ -10,6 +10,13 @@ class TourPrograme extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'tour_date',
+        'employee_id',
+        'start_location',
+        'end_location',
+    ];
+
     public function employee()
     {
         return $this->belongsTo(Employee::class, 'employee_id');

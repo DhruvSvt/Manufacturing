@@ -20,6 +20,7 @@ use App\Http\Controllers\SampleController;
 use App\Http\Controllers\StockAlertController;
 use App\Http\Controllers\StocksController;
 use App\Http\Controllers\SuppliersController;
+use App\Http\Controllers\TourController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
@@ -202,6 +203,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('packing-stock', PackingStockController::class);
     Route::get('packing-stock/detail/{id}', [PackingStockController::class, 'packingStockDetail'])->name('packing-detail');
 
+    // --------------------- Tour Routes ---------------------
+    Route::resource('tour', TourController::class);
 
     // --------------------- Sell Goods Challan ---------------------
     // Route::get('finish-good/issue', [IssueController::class, 'finish_good_index'])->name('finish-good-challan');
