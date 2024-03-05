@@ -19,4 +19,13 @@ class Product extends Model
     {
         return $this->belongsTo(Unit::class,'unit_id','id');
     }
+
+    public function itemStocks(){
+        return $this->hasMany(ProductStock::class,'product_id','id');
+    }
+
+
+    public function getStockCountAttribute(){
+        return $this->itemStocks->sum('quantity');
+    }
 }
