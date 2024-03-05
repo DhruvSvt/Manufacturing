@@ -32,6 +32,7 @@ Route::get('gifts', [EmployeeApiController::class, 'get_gifts']);
 Route::get('products', [EmployeeApiController::class, 'get_products']);
 
 Route::post('post-visit', [EmployeeApiController::class, 'post_visit']);
+Route::get('get-visits', [EmployeeApiController::class, 'getVisits']);
 Route::get('employee-tracking', [EmployeeApiController::class, 'get_employee_tracking']);
 Route::post('post-order-gift', [EmployeeApiController::class, 'post_add_order_product']);
 

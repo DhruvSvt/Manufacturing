@@ -268,7 +268,7 @@ class EmployeeApiController extends Controller
                 }
             }
 
-            return response()->json(["status" => 200, "message" => "success", "data" => []], 200);
+            return response()->json(["status" => 200, "message" => "success", "data" => ["visitId"=>$employee_visit->id]], 200);
         } catch (Exception $e) {
             return response()->json(["status" => 500, "message" => $e->getMessage(), "data" => []], 500);
         }
@@ -278,10 +278,10 @@ class EmployeeApiController extends Controller
     {
         try {
 
-            if($request->query('startDate')&&$request->query('endDate')){
+            if ($request->query('startDate') && $request->query('endDate')) {
                 $tourPrograme = TourPrograme::where("employee_id", $request->query('employeeId'))
-                ->whereBetween('tour_date', [$request->query('startDate'), $request->query('endDate')])->get();
-            }else{
+                    ->whereBetween('tour_date', [$request->query('startDate'), $request->query('endDate')])->get();
+            } else {
                 $tourPrograme = TourPrograme::where("employee_id", $request->query('employeeId'))->get();
             }
 
@@ -348,7 +348,7 @@ class EmployeeApiController extends Controller
     {
         try {
 
-            if(!$request->query('visitId')){
+            if (!$request->query('visitId')) {
                 return response()->json(["status" => 500, "message" => "visit id required!", "data" => []], 500);
             }
 
@@ -402,8 +402,14 @@ class EmployeeApiController extends Controller
         }
     }
 
+    public function getVisits(Request $request)
+    {
+        try {
+            $products_data = EmployeeVisit::whereTourId($request->query("tourId"))->get();
 
-
-
-
+            return response()->json(["status" => 200, "message" => "success", "data" =>  $products_data], 200);
+        } catch (Exception $e) {
+            return response()->json(["status" => 500, "message" => $e->getMessage(), "data" => []], 500);
+        }
+    }
 }
