@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\EmployeeOrderGift;
 use App\Models\EmployeeOrderProduct;
 use App\Models\TourPrograme;
 use Illuminate\Http\Request;
@@ -53,7 +54,8 @@ class TourController extends Controller
             ->latest()
             ->paginate($rows);
 
-        $emps = Employee::whereStatus(true);
+        $emps = Employee::whereStatus(true)->get();
+
         return view('admin.tour.tour-create', compact('emps', 'tours'));
     }
 
@@ -135,6 +137,12 @@ class TourController extends Controller
     public function product_fetch($id)
     {
         $product_lists = EmployeeOrderProduct::where('visit_id', $id)->get();
-        return view('admin.tour.product-fetch',compact('product_lists'));
+        return view('admin.tour.product-fetch', compact('product_lists'));
+    }
+
+    public function gift_fetch($id)
+    {
+        $gift_lists = EmployeeOrderGift::where('visit_id', $id)->get();
+        return view('admin.tour.gift-fetch', compact('gift_lists'));
     }
 }
