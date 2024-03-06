@@ -205,6 +205,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // --------------------- Tour Routes ---------------------
     Route::resource('tour', TourController::class);
+    Route::get('/tour-product/{id}',[TourController::class, 'product_fetch'])->name('tour.product');
 
     // --------------------- Sell Goods Challan ---------------------
     // Route::get('finish-good/issue', [IssueController::class, 'finish_good_index'])->name('finish-good-challan');

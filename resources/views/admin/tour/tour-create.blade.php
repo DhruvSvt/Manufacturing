@@ -102,35 +102,48 @@
                             <table class="table w-full table-auto datatable-table" id="dataTableTwo">
                                 <thead>
                                     <tr>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Tour Date</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Employee</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Start Location</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">End Location</th>
+                                        <th class="lg:w-2/12 md:w-2/12 sm:w-2/12 xs:w-2/12">Tour Date</th>
+                                        <th class="lg:w-2/12 md:w-2/12 sm:w-2/12 xs:w-2/12">Employee</th>
+                                        <th class="lg:w-2/12 md:w-2/12 sm:w-2/12 xs:w-2/12">Start Location</th>
+                                        <th class="lg:w-2/12 md:w-2/12 sm:w-2/12 xs:w-2/12">End Location</th>
+                                        <th class="lg:w-4/12 md:w-4/12 sm:w-4/12 xs:w-4/12">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($tours as $tour)
                                     <tr>
 
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                        <td class="lg:w-2/12 md:w-2/12 sm:w-2/12 xs:w-2/12">
                                             <p class="text-sm font-medium text-black dark:text-white">
                                                 {{ $tour->tour_date }}
                                             </p>
                                         </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                        <td class="lg:w-2/12 md:w-2/12 sm:w-2/12 xs:w-2/12">
                                             <p class="text-sm font-medium text-black dark:text-white">
                                                 {{ $tour->employee->name }}
                                             </p>
                                         </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                        <td class="lg:w-2/12 md:w-2/12 sm:w-2/12 xs:w-2/12">
                                             <p class="text-sm font-medium text-black dark:text-white">
                                                 {{ $tour->start_location }}
                                             </p>
                                         </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                        <td class="lg:w-2/12 md:w-2/12 sm:w-2/12 xs:w-2/12">
                                             <p class="text-sm font-medium text-black dark:text-white">
                                                 {{ $tour->end_location }}
                                             </p>
+                                        </td>
+                                        <td class="lg:w-4/12 md:w-4/12 sm:w-4/12 xs:w-4/12">
+                                            <div class="d-flex flex-wrap">
+                                                <a href="{{ route('tour.product',$tour->id) }}">
+                                                    <button type="button"
+                                                        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Product</button>
+                                                </a>
+                                                <button type="button"
+                                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Gifts</button>
+                                                <button type="button"
+                                                    class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Visiting</button>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\EmployeeOrderProduct;
 use App\Models\TourPrograme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
@@ -129,5 +130,11 @@ class TourController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function product_fetch($id)
+    {
+        $product_lists = EmployeeOrderProduct::where('visit_id', $id)->get();
+        return view('admin.tour.product-fetch',compact('product_lists'));
     }
 }
