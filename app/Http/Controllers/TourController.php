@@ -145,4 +145,8 @@ class TourController extends Controller
         $gift_lists = EmployeeOrderGift::where('visit_id', $id)->get();
         return view('admin.tour.gift-fetch', compact('gift_lists'));
     }
+
+    public function visiting(){
+        return view('admin.tour.visiting');
+    }
 }

@@ -1,4 +1,4 @@
-@extends('admin.layouts.app',['title'=>'Tour-Assign-Products'])
+@extends('admin.layouts.app',['title'=>'Tour-Assign-Product'])
 @section('content')
 
 <!-- ===== Main Content Start ===== -->
@@ -7,7 +7,7 @@
         <!-- Breadcrumb Start -->
         <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
             <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                Tour Assign Products
+                Tour Assign Gifts
             </h2>
         </div>
 
