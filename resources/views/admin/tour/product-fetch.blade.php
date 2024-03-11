@@ -1,4 +1,4 @@
-@extends('admin.layouts.app',['title'=>'Tour-Assign-Products'])
+@extends('admin.layouts.app',['title'=>'Tour-Assign-Product'])
 @section('content')
 
 <!-- ===== Main Content Start ===== -->
@@ -7,7 +7,7 @@
         <!-- Breadcrumb Start -->
         <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
             <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                Tour Assign Products
+                Tour Assign Project
             </h2>
         </div>
 
@@ -30,7 +30,7 @@
                                         <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Date</th>
                                     </tr>
                                 </thead>
-                                {{-- <tbody>
+                                <tbody>
                                     @foreach ($product_lists as $item)
                                     <tr>
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
@@ -57,7 +57,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                </tbody> --}}
+                                </tbody>
                             </table>
                         </div>
                         {{-- <div class="datatable-bottom">
