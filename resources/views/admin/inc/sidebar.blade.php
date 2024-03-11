@@ -1,13 +1,14 @@
 <!-- ===== Sidebar Start ===== -->
 <aside :class="sidebarToggle ? 'translate-x-0' : '-translate-x-full'"
     class="absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0"
-    @click.outside="sidebarToggle = false">
+    @click.outside="sidebarToggle = false" style="    background: rgb(28 36 52 / 1);">
     <!-- SIDEBAR HEADER -->
     <div class="flex items-center justify-center gap-2 px-6 py-2 lg:py-6.5">
         <a href="{{ route('admin-index') }}">
-            <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="Logo" style="width: 8rem" />
-        </a>
+            <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="Logo" class="h-15" />
 
+        </a>
+<h4 class=" text-bodydark1">Panacia Health Care</h4>
         <button class="block lg:hidden" @click.stop="sidebarToggle = !sidebarToggle">
             <svg class="fill-current" width="20" height="18" viewBox="0 0 20 18" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -21,13 +22,14 @@
 
     <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         <!-- Sidebar Menu -->
-        <nav class="mt-5 py-4 px-4 lg:mt-9 lg:px-6" x-data="{ selected: $persist('Dashboard') }">
+        <nav class="mt-0 py-4 px-4 lg:mt-0 lg:px-6" x-data="{ selected: $persist('Dashboard') }">
             <!-- Menu Group -->
             <div>
+
                 <ul class="mb-6 flex flex-col gap-1.5">
                     <!-- Menu Item Dashboard -->
                     <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                             href="{{ route('admin-index') }}">
                             <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -53,11 +55,354 @@
                         </a>
                     </li>
                     <!-- Menu Item Dashboard -->
-
+                </ul>
+            </div>
 
                     <!-- Menu Item Master -->
+                    <div>
+                      <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">Dispatch</h3>
+                   <ul class="mb-6 flex flex-col gap-1.5">
+                     <!-- Menu Item Purchase -->
                     <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                            href="#" @click.prevent="selected = (selected === 'Purchase' ? '':'Purchase')" :class="{
+                                'bg-graydark dark:bg-meta-4': (selected === 'Purchase') || (page === 'raw-material' ||
+                                    page === 'gifts' || page === 'products' || page === 'others')
+                            }">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Purchase
+
+                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                                :class="{ 'rotate-180': (selected === 'Purchase') }" width="20" height="20"
+                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                                    fill="" />
+                            </svg>
+                        </a>
+
+                        <!-- Dropdown Menu Start -->
+                        <div class="translate transform overflow-hidden"
+                            :class="(selected === 'Purchase') ? 'block' : 'hidden'">
+                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('purchase-material') }}"
+                                        :class="page === 'raw-material' && '!text-white'">
+                                        Raw Material
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('purchase-product') }}"
+                                        :class="page === 'products' && '!text-white'">
+                                        Finnish Goods
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('purchase-item') }}" :class="page === 'gifts' && '!text-white'">
+                                        Gifts
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('purchase-other') }}"
+                                        :class="page === 'others' && '!text-white'">
+                                        Others
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Dropdown Menu End -->
+                    </li>
+                    <!-- Menu Item Purchase -->
+                     <!-- Menu Item Stocks -->
+                    <li>
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                            href="{{ route('stock-details') }}"
+                            @click.prevent="selected = (selected === 'Stocks' ? '':'Stocks')" :class="{
+                                'bg-graydark dark:bg-meta-4': (selected === 'Stocks') || (page === 'raw-material' ||
+                                    page === 'gifts' || page === 'products')
+                            }">
+                            <i class="fa-solid fa-warehouse"></i>
+                            Stocks
+                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                                :class="{ 'rotate-180': (selected === 'Stocks') }" width="20" height="20"
+                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                                    fill="" />
+                            </svg>
+                        </a>
+
+                        <!-- Dropdown Menu Start -->
+                        <div class="translate transform overflow-hidden"
+                            :class="(selected === 'Stocks') ? 'block' : 'hidden'">
+                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                    <a class="group relative flex items--center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('material-detail') }}"
+                                        :class="page === 'raw-material' && '!text-white'">
+                                        Raw Material
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('item-detail') }}" :class="page === 'gifts' && '!text-white'">
+                                        Gifts
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('product-detail') }}"
+                                        :class="page === 'products' && '!text-white'">
+                                        Finnish Products
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('sample.index') }}"
+                                        :class="page === 'settings' && '!text-white'">
+                                        Sample
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('packing-stock.index') }}"
+                                        :class="page === 'settings' && '!text-white'">
+                                        Packing
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Dropdown Menu End -->
+                    </li>
+                     <!-- Menu Item Stocks -->
+                     <!-- Menu Return Start -->
+                    <li>
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                            href="#" @click.prevent="selected = (selected === 'Return' ? '':'Return')" :class="{
+                                'bg-graydark dark:bg-meta-4': (selected === 'Return') || (page === 'expiry' ||
+                                    page === 'brakage' || page === 'good-return')
+                            }">
+                            <i class="fa fa-exchange"></i>
+                            Return
+                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                                :class="{ 'rotate-180': (selected === 'Return') }" width="20" height="20"
+                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                                    fill="" />
+                            </svg>
+                        </a>
+
+                        <!-- Dropdown Menu Start -->
+                        <div class="translate transform overflow-hidden"
+                            :class="(selected === 'Return') ? 'block' : 'hidden'">
+                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('good-return') }}"
+                                        :class="page === 'good-return' && '!text-white'">
+                                        Goods Return
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Dropdown Menu End -->
+                    </li>
+
+                    </ul>
+            </div>
+                    <!-- Menu Return End  -->
+
+ <div>
+ <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">Production</h3>
+                   <ul class="mb-6 flex flex-col gap-1.5">
+                    <!-- Menu Item Production -->
+                    <li>
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                            href="#" @click.prevent="selected = (selected === 'Production' ? '':'Production')" :class="{
+                                'bg-graydark dark:bg-meta-4': (selected === 'Production') || (page === 'raw-material' ||
+                                    page === 'gifts' || page === 'products')
+                            }">
+                            <i class="fa fa-industry" aria-hidden="true"></i>
+                            Production
+                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                                :class="{ 'rotate-180': (selected === 'Production') }" width="20" height="20"
+                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                                    fill="" />
+                            </svg>
+                        </a>
+
+                        <!-- Dropdown Menu Start -->
+                        <div class="translate transform overflow-hidden"
+                            :class="(selected === 'Production') ? 'block' : 'hidden'">
+                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('production-create') }}"
+                                        :class="page === 'raw-material' && '!text-white'">
+                                        Create Goods
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('production-proccess') }}"
+                                        :class="page === 'gifts' && '!text-white'">
+                                        In Process Goods
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('production-complete') }}"
+                                        :class="page === 'products' && '!text-white'">
+                                        Completed Goods
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Dropdown Menu End -->
+                    </li>
+                    <!-- Menu Item Production -->
+                     <!-- Menu Item Challans -->
+                    <!-- Menu Item Challans -->
+                    <li>
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                            href="#" @click.prevent="selected = (selected === 'Challans' ? '':'Challans')" :class="{
+                                'bg-graydark dark:bg-meta-4': (selected === 'Challans') || (page === 'raw-material' ||
+                                    page === 'gifts' || page === 'products' || page === 'sample')
+                            }">
+                            <i class="fa-solid fa-receipt"></i>
+                            Challans
+                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                                :class="{ 'rotate-180': (selected === 'Challans') }" width="20" height="20"
+                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                                    fill="" />
+                            </svg>
+                        </a>
+
+                        <!-- Dropdown Menu Start -->
+                        <div class="translate transform overflow-hidden"
+                            :class="(selected === 'Challans') ? 'block' : 'hidden'">
+                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                    <a class="group relative flex items--center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('raw-material-challan') }}"
+                                        :class="page === 'raw-material' && '!text-white'">
+                                        Raw Material Issue Challan
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('complete-good-challan') }}"
+                                        :class="page === 'products' && '!text-white'">
+                                        Finish Goods Challan
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('gift-challan') }}" :class="page === 'gifts' && '!text-white'">
+                                        Gift Issue Challan
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('sample-challan') }}"
+                                        :class="page === 'sample' && '!text-white'">
+                                        Sample Issue Challan
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Dropdown Menu End -->
+                    </li>
+                    <!-- Menu Item Challans -->
+ </ul>
+            </div>
+
+             <div>
+ <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">Accounts</h3>
+                   <ul class="mb-6 flex flex-col gap-1.5">
+                    <!-- Menu Item Sales -->
+                    <li>
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                            href="#" @click.prevent="selected = (selected === 'Sale' ? '':'Sale')" :class="{
+                                'bg-graydark dark:bg-meta-4': (selected === 'Sale') || (page === 'raw-material' ||
+                                    page === 'gifts' || page === 'products' || page === 'others')
+                            }">
+                            <i class="fa-solid fa-bullhorn"></i>
+                            Sales
+                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                                :class="{ 'rotate-180': (selected === 'Sale') }" width="20" height="20"
+                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                                    fill="" />
+                            </svg>
+                        </a>
+
+                        <!-- Dropdown Menu Start -->
+                        <div class="translate transform overflow-hidden"
+                            :class="(selected === 'Sale') ? 'block' : 'hidden'">
+                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('sale.index') }}"
+                                        :class="page === 'sale-invoice' && '!text-white'">
+                                        Sale Invoice
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Dropdown Menu End -->
+                    </li>
+
+                    <!-- Party Payment -->
+                    <li>
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                            href="#" @click.prevent="selected = (selected === 'PartyPayment' ? '':'PartyPayment')"
+                            :class="{
+                                'bg-graydark dark:bg-meta-4': (selected === 'PartyPayment') || (page === 'payment' )
+                            }">
+                            <i class="fas fa-money-check-alt"></i>
+                            Party Payment
+                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                                :class="{ 'rotate-180': (selected === 'PartyPayment') }" width="20" height="20"
+                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                                    fill="" />
+                            </svg>
+                        </a>
+
+                        <!-- Dropdown Menu Start -->
+                        <div class="translate transform overflow-hidden"
+                            :class="(selected === 'PartyPayment') ? 'block' : 'hidden'">
+                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('payment.index') }}"
+                                        :class="page === 'payment' && '!text-white'">
+                                        Payment
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Dropdown Menu End -->
+                    </li>
+                    <!-- Party Payment  -->
+   <div>
+                 <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">Office</h3>
+                 <ul class="mb-6 flex flex-col gap-1.5">
+                    <!-- Menu Item Master -->
+                    <li>
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                             href="#" @click.prevent="selected = (selected === 'Masters' ? '':'Masters')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Masters') || (page === 'settings' ||
                                     page === 'fileManager' || page === 'dataTables' || page ===
@@ -102,19 +447,19 @@
                             :class="(selected === 'Masters') ? 'block' : 'hidden'">
                             <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 {{-- <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('unit') }}" :class="page === 'settings' && '!text-white'">
                                         Raw Material Unit
                                     </a>
                                 </li> --}}
                                 {{-- <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('supplier') }}" :class="page === 'settings' && '!text-white'">
                                         Party Name
                                     </a>
                                 </li> --}}
                                 {{-- <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('brand') }}" :class="page === 'settings' && '!text-white'">
                                         Brand
                                     </a>
@@ -123,99 +468,34 @@
                                 <!-- Modal toggle -->
                                 {{-- <button data-modal-target="authentication-modal"
                                     data-modal-toggle="authentication-modal"
-                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300  rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     type="button">
                                     Toggle modal
                                 </button> --}}
 
-                                <!-- Main modal -->
-                                {{-- <div id="authentication-modal" tabindex="-1" aria-hidden="true"
-                                    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                    <div class="relative w-full max-w-md max-h-full">
-                                        <!-- Modal content -->
-                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                            <button type="button"
-                                                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                data-modal-hide="authentication-modal">
-                                                <svg class="w-3 h-3" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                </svg>
-                                                <span class="sr-only">Close modal</span>
-                                            </button>
-                                            <div class="px-6 py-6 lg:px-8">
-                                                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Sign
-                                                    in to our platform</h3>
-                                                <form class="space-y-6" action="#">
-                                                    <div>
-                                                        <label for="email"
-                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-                                                            email</label>
-                                                        <input type="email" name="email" id="email"
-                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                                            placeholder="name@company.com" required>
-                                                    </div>
-                                                    <div>
-                                                        <label for="password"
-                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-                                                            password</label>
-                                                        <input type="password" name="password" id="password"
-                                                            placeholder="••••••••"
-                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                                            required>
-                                                    </div>
-                                                    <div class="flex justify-between">
-                                                        <div class="flex items-start">
-                                                            <div class="flex items-center h-5">
-                                                                <input id="remember" type="checkbox" value=""
-                                                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                                                                    required>
-                                                            </div>
-                                                            <label for="remember"
-                                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember
-                                                                me</label>
-                                                        </div>
-                                                        <a href="#"
-                                                            class="text-sm text-blue-700 hover:underline dark:text-blue-500">Lost
-                                                            Password?</a>
-                                                    </div>
-                                                    <button type="submit"
-                                                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login
-                                                        to your account</button>
-                                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                                                        Not registered? <a href="#"
-                                                            class="text-blue-700 hover:underline dark:text-blue-500">Create
-                                                            account</a>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
+
                                 <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('raw-material') }}"
                                         :class="page === 'settings' && '!text-white'">
                                         Raw Material
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('gift') }}" :class="page === 'settings' && '!text-white'">
                                         Gifts
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('product.index') }}"
                                         :class="page === 'settings' && '!text-white'">
                                         Finnish Products
                                     </a>
                                 </li>
                                 {{-- <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('headquarters') }}"
                                         :class="page === 'settings' && '!text-white'">
                                         Headquarters
@@ -225,339 +505,8 @@
                         </div>
                         <!-- Dropdown Menu End -->
                     </li>
-                    <!-- Menu Item Master -->
-
-                    <!-- Menu Item Purchase -->
-                    <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'Purchase' ? '':'Purchase')" :class="{
-                                'bg-graydark dark:bg-meta-4': (selected === 'Purchase') || (page === 'raw-material' ||
-                                    page === 'gifts' || page === 'products' || page === 'others')
-                            }">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            Purchase
-
-                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
-                                :class="{ 'rotate-180': (selected === 'Purchase') }" width="20" height="20"
-                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
-                                    fill="" />
-                            </svg>
-                        </a>
-
-                        <!-- Dropdown Menu Start -->
-                        <div class="translate transform overflow-hidden"
-                            :class="(selected === 'Purchase') ? 'block' : 'hidden'">
-                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('purchase-material') }}"
-                                        :class="page === 'raw-material' && '!text-white'">
-                                        Raw Material
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('purchase-product') }}"
-                                        :class="page === 'products' && '!text-white'">
-                                        Finnish Goods
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('purchase-item') }}" :class="page === 'gifts' && '!text-white'">
-                                        Gifts
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('purchase-other') }}"
-                                        :class="page === 'others' && '!text-white'">
-                                        Others
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Dropdown Menu End -->
-                    </li>
-                    <!-- Menu Item Purchase -->
-
-                    <!-- Menu Item Sales -->
-                    <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'Sale' ? '':'Sale')" :class="{
-                                'bg-graydark dark:bg-meta-4': (selected === 'Sale') || (page === 'raw-material' ||
-                                    page === 'gifts' || page === 'products' || page === 'others')
-                            }">
-                            <i class="fa-solid fa-bullhorn"></i>
-                            Sales
-                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
-                                :class="{ 'rotate-180': (selected === 'Sale') }" width="20" height="20"
-                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
-                                    fill="" />
-                            </svg>
-                        </a>
-
-                        <!-- Dropdown Menu Start -->
-                        <div class="translate transform overflow-hidden"
-                            :class="(selected === 'Sale') ? 'block' : 'hidden'">
-                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('sale.index') }}"
-                                        :class="page === 'sale-invoice' && '!text-white'">
-                                        Sale Invoice
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Dropdown Menu End -->
-                    </li>
-                    <!-- Menu Item Sales -->
-
-                    <!-- Menu Item Stocks -->
-                    <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="{{ route('stock-details') }}"
-                            @click.prevent="selected = (selected === 'Stocks' ? '':'Stocks')" :class="{
-                                'bg-graydark dark:bg-meta-4': (selected === 'Stocks') || (page === 'raw-material' ||
-                                    page === 'gifts' || page === 'products')
-                            }">
-                            <i class="fa-solid fa-warehouse"></i>
-                            Stocks
-                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
-                                :class="{ 'rotate-180': (selected === 'Stocks') }" width="20" height="20"
-                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
-                                    fill="" />
-                            </svg>
-                        </a>
-
-                        <!-- Dropdown Menu Start -->
-                        <div class="translate transform overflow-hidden"
-                            :class="(selected === 'Stocks') ? 'block' : 'hidden'">
-                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                                <li>
-                                    <a class="group relative flex items--center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('material-detail') }}"
-                                        :class="page === 'raw-material' && '!text-white'">
-                                        Raw Material
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('item-detail') }}" :class="page === 'gifts' && '!text-white'">
-                                        Gifts
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('product-detail') }}"
-                                        :class="page === 'products' && '!text-white'">
-                                        Finnish Products
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('sample.index') }}"
-                                        :class="page === 'settings' && '!text-white'">
-                                        Sample
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('packing-stock.index') }}"
-                                        :class="page === 'settings' && '!text-white'">
-                                        Packing
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Dropdown Menu End -->
-                    </li>
-                    <!-- Menu Item Stocks -->
-
-                    <!-- Menu Item Production -->
-                    <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'Production' ? '':'Production')" :class="{
-                                'bg-graydark dark:bg-meta-4': (selected === 'Production') || (page === 'raw-material' ||
-                                    page === 'gifts' || page === 'products')
-                            }">
-                            <i class="fa fa-industry" aria-hidden="true"></i>
-                            Production
-                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
-                                :class="{ 'rotate-180': (selected === 'Production') }" width="20" height="20"
-                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
-                                    fill="" />
-                            </svg>
-                        </a>
-
-                        <!-- Dropdown Menu Start -->
-                        <div class="translate transform overflow-hidden"
-                            :class="(selected === 'Production') ? 'block' : 'hidden'">
-                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('production-create') }}"
-                                        :class="page === 'raw-material' && '!text-white'">
-                                        Create Goods
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('production-proccess') }}"
-                                        :class="page === 'gifts' && '!text-white'">
-                                        In Process Goods
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('production-complete') }}"
-                                        :class="page === 'products' && '!text-white'">
-                                        Completed Goods
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Dropdown Menu End -->
-                    </li>
-                    <!-- Menu Item Production -->
-
-                    <!-- Menu Item Challans -->
-                    <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'Challans' ? '':'Challans')" :class="{
-                                'bg-graydark dark:bg-meta-4': (selected === 'Challans') || (page === 'raw-material' ||
-                                    page === 'gifts' || page === 'products' || page === 'sample')
-                            }">
-                            <i class="fa-solid fa-receipt"></i>
-                            Challans
-                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
-                                :class="{ 'rotate-180': (selected === 'Challans') }" width="20" height="20"
-                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
-                                    fill="" />
-                            </svg>
-                        </a>
-
-                        <!-- Dropdown Menu Start -->
-                        <div class="translate transform overflow-hidden"
-                            :class="(selected === 'Challans') ? 'block' : 'hidden'">
-                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                                <li>
-                                    <a class="group relative flex items--center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('raw-material-challan') }}"
-                                        :class="page === 'raw-material' && '!text-white'">
-                                        Raw Material Issue Challan
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('complete-good-challan') }}"
-                                        :class="page === 'products' && '!text-white'">
-                                        Finish Goods Challan
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('gift-challan') }}" :class="page === 'gifts' && '!text-white'">
-                                        Gift Issue Challan
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('sample-challan') }}"
-                                        :class="page === 'sample' && '!text-white'">
-                                        Sample Issue Challan
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Dropdown Menu End -->
-                    </li>
-                    <!-- Menu Item Challans -->
-
-                    <!-- Menu Return Start -->
-                    <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'Return' ? '':'Return')" :class="{
-                                'bg-graydark dark:bg-meta-4': (selected === 'Return') || (page === 'expiry' ||
-                                    page === 'brakage' || page === 'good-return')
-                            }">
-                            <i class="fa fa-exchange"></i>
-                            Return
-                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
-                                :class="{ 'rotate-180': (selected === 'Return') }" width="20" height="20"
-                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
-                                    fill="" />
-                            </svg>
-                        </a>
-
-                        <!-- Dropdown Menu Start -->
-                        <div class="translate transform overflow-hidden"
-                            :class="(selected === 'Return') ? 'block' : 'hidden'">
-                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('good-return') }}"
-                                        :class="page === 'good-return' && '!text-white'">
-                                        Goods Return
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Dropdown Menu End -->
-                    </li>
-                    <!-- Menu Return End  -->
-
-                    <!-- Party Payment -->
-                    <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="#" @click.prevent="selected = (selected === 'PartyPayment' ? '':'PartyPayment')"
-                            :class="{
-                                'bg-graydark dark:bg-meta-4': (selected === 'PartyPayment') || (page === 'payment' )
-                            }">
-                            <i class="fas fa-money-check-alt"></i>
-                            Party Payment
-                            <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
-                                :class="{ 'rotate-180': (selected === 'PartyPayment') }" width="20" height="20"
-                                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
-                                    fill="" />
-                            </svg>
-                        </a>
-
-                        <!-- Dropdown Menu Start -->
-                        <div class="translate transform overflow-hidden"
-                            :class="(selected === 'PartyPayment') ? 'block' : 'hidden'">
-                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                                <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('payment.index') }}"
-                                        :class="page === 'payment' && '!text-white'">
-                                        Payment
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Dropdown Menu End -->
-                    </li>
-                    <!-- Party Payment  -->
-
-                    <!-- Tour Assign Start -->
-                    <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                      <li>
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                             href="#" @click.prevent="selected = (selected === 'TourAssign' ? '':'TourAssign')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'TourAssign') || (page === 'tour' )
                             }">
@@ -577,7 +526,7 @@
                             :class="(selected === 'TourAssign') ? 'block' : 'hidden'">
                             <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('tour.index') }}" :class="page === 'tour' && '!text-white'">
                                         Tour
                                     </a>
@@ -590,7 +539,7 @@
 
                     <!-- Menu Item Admin -->
                     <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                             href="#" @click.prevent="selected = (selected === 'Forms' ? '':'Forms')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Forms') || (page ===
                                     'formElements' ||
@@ -598,7 +547,7 @@
                             }">
                             <i class="fa fa-user" aria-hidden="true"></i>
 
-                            Admin
+                            User
 
                             <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
                                 :class="{ 'rotate-180': (selected === 'Forms') }" width="20" height="20"
@@ -614,20 +563,29 @@
                             :class="(selected === 'Forms') ? 'block' : 'hidden'">
                             <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('admin-page') }}"
-                                        :class="page === 'formElements' && '!text-white'">Admin Page</a>
+                                        :class="page === 'formElements' && '!text-white'">View Users</a>
+                                </li>
+                                <li>
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('admin-create') }}"
+                                        :class="page === 'formElements' && '!text-white'">Add Users</a>
                                 </li>
                             </ul>
                         </div>
                         <!-- Dropdown Menu End -->
                     </li>
+                     </ul>
+            </div>
+                    <!-- Tour Assign Start -->
+
                     <!-- Menu Item Admin -->
 
 
                     <!-- Menu Item Report -->
                     {{-- <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                             href="{{ route('stock-details') }}"
                             @click.prevent="selected = (selected === 'Reports' ? '':'Reports')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Reports') || (page === 'raw-material' ||
@@ -649,20 +607,20 @@
                             :class="(selected === 'Reports') ? 'block' : 'hidden'">
                             <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                 <li>
-                                    <a class="group relative flex items--center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items--center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('material-chart') }}"
                                         :class="page === 'raw-material' && '!text-white'">
                                         Raw Material
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('item-detail') }}" :class="page === 'gifts' && '!text-white'">
                                         Gifts
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="#" :class="page === 'products' && '!text-white'">
                                         Products
                                     </a>
@@ -677,14 +635,14 @@
             </div>
             <!-- Support Group -->
             {{-- <div>
-                <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">
+                <h3 class="mb-4 ml-4 text-sm  text-bodydark2">
                     SUPPORT
                 </h3>
 
                 <ul class="mb-6 flex flex-col gap-1.5">
                     <!-- Menu Item Invoice -->
                     <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                             href="invoice.html" @click="selected = (selected === 'Invoice' ? '':'Invoice')"
                             :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Invoice') && (page === 'Invoice') }"
                             :class="page === 'Invoice' && 'bg-graydark'">
@@ -729,14 +687,14 @@
 
             <!-- Others Group -->
             {{-- <div>
-                <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">
+                <h3 class="mb-4 ml-4 text-sm  text-bodydark2">
                     OTHERS
                 </h3>
 
                 <ul class="mb-6 flex flex-col gap-1.5">
                     <!-- Menu Item Auth Pages -->
                     <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                        <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                             href="#" @click.prevent="selected = (selected === 'AuthPages' ? '':'AuthPages')" :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'AuthPages') || (page ===
                                     'register' ||
@@ -775,17 +733,17 @@
                             :class="(selected === 'AuthPages') ? 'block' : 'hidden'">
                             <ul class="mt-4 mb-3 flex flex-col gap-2 pl-6">
                                 <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('signin') }}" :class="page === 'signin' && '!text-white'">Sign
                                         In</a>
                                 </li>
                                 <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('signup') }}" :class="page === 'signup' && '!text-white'">Sign
                                         Up</a>
                                 </li>
                                 <li>
-                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                    <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="/admin" :class="page === 'resetPassword' && '!text-white'">Reset
                                         Password </a>
                                 </li>

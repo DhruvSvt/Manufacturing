@@ -2,38 +2,17 @@
 @section('content')
 <!-- ===== Main Content Start ===== -->
 <main>
-    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-        <!-- Breadcrumb Start -->
-        <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 class="text-title-md2 font-bold text-black dark:text-white">
-                Panacia Health Care
-            </h2>
 
-        </div>
-        <!-- Breadcrumb End -->
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
 
-        <!-- ====== Forms Section Start -->
-        <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div class="flex flex-wrap items-center">
-                <div class="hidden w-full xl:block xl:w-1/2">
-                    <div class="py-17.5 px-26 text-center">
-                        <a class="mb-5.5 inline-block" href="/">
-                            <img class="hidden dark:block" src="{{ config('app.url') }}/src/images/logo/logo.svg"
-                                alt="Logo" />
-                        </a>
-
-
-                        <span class="mt-15 inline-block">
-                            <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="illustration" />
-                        </span>
-                    </div>
-                </div>
-                <div class="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
-                    <div class="w-full p-4 sm:p-12.5 xl:p-17.5">
-                        <h2 class="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                            Sign In
-                        </h2>
-
+      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div class="p-6 space-y-2 md:space-y-2 sm:p-8">
+             <a href="#" class="flex justify-center items-center">
+         <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="illustration" style="    height: 73px;"/>
+      </a>
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">Panacia Health Care
+              </h1>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="mb-4">
@@ -105,7 +84,7 @@
 
                             <div class="mb-5">
                                 <input type="submit" value="Login"
-                                    class="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 font-medium transition hover:bg-opacity-90" />
+                                    class="w-full cursor-pointer rounded-lg border border-primary bg-blue-700 p-4 font-medium transition hover:bg-opacity-90 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" />
                             </div>
 
                             {{-- <button
@@ -145,11 +124,10 @@
                             </div> --}}
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
-        <!-- ====== Forms Section End -->
-    </div>
+      </div>
+  </div>
+</section>
+
 </main>
 <!-- ===== Main Content End ===== -->
 @endsection

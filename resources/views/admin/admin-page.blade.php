@@ -23,7 +23,7 @@
 
             <!-- ====== Data Table Two Start -->
             <div
-                class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4">
+                class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark m-6 shadow-lg shadow-md">
                 <div class="data-table-common data-table-two max-w-full overflow-x-auto">
                     <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                         @include('admin.inc.search')
