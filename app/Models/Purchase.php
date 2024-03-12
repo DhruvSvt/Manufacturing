@@ -17,6 +17,7 @@ class Purchase extends Model
         'remark',
         'batch_no',
         'expiry_date',
+        'bill_qty',
     ];
     use HasFactory;
 

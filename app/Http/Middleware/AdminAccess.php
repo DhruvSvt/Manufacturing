@@ -22,6 +22,18 @@ class AdminAccess
             if(Auth::user()->role===Roles::where('name','admin')->first()->id){
                 return $next($request);
             }
+             if(Auth::user()->role===Roles::where('name','office')->first()->id){
+                return $next($request);
+            }
+             if(Auth::user()->role===Roles::where('name','production')->first()->id){
+                return $next($request);
+            }
+             if(Auth::user()->role===Roles::where('name','dispatch')->first()->id){
+                return $next($request);
+            }
+             if(Auth::user()->role===Roles::where('name','accountant')->first()->id){
+                return $next($request);
+            }
         }
         return abort(403,'Access Denied');
     }

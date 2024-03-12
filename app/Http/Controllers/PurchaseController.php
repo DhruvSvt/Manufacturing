@@ -103,14 +103,20 @@ class PurchaseController extends Controller
      */
     public function materialStore(Request $request)
     {
+         
+
         $request->validate([
             'modal_id' => 'required',
             'supplier_id' => 'required',
             'quantity' => 'required',
+            'bill_qty' => 'required',
             'price' => 'required',
             'batch_no' => 'unique:purchases,batch_no',
-            'expiry_date' => 'required'
+
         ]);
+        if($request->expiry_date == null ){
+            $request->expiry_date = date('Y-m-d', strtotime('+20 years'));
+        }
 
         // Create for Purchase
 
@@ -120,11 +126,13 @@ class PurchaseController extends Controller
             'supplier_id' => $request->supplier_id,
             'brand' => $request->brand,
             'quantity' => $request->quantity,
+            'bill_qty' => $request->bill_qty,
             'price' => $request->price,
             'remark' => $request->remark,
             'batch_no' => $request->batch_no,
             'expiry_date' => $request->expiry_date
         ]);
+         //dd($purchase->all());
         $purchase->save();
 
         // getting id from purchase table for stocks
@@ -140,7 +148,7 @@ class PurchaseController extends Controller
             'bill_no' => $request->bill_no,
             'bill_date' => $request->bill_date
         ]);
-        
+
         $stock->save();
 
         // redirect to the route
@@ -154,9 +162,11 @@ class PurchaseController extends Controller
             'quantity' => 'required',
             'price' => 'required',
             'batch_no' => 'unique:purchases,batch_no',
-            'expiry_date' => 'required'
+             
         ]);
-
+if($request->expiry_date == null ){
+            $request->expiry_date = date('Y-m-d', strtotime('+20 years'));
+        }
 
         // Create for Purchase
         $item = new Purchase([
@@ -165,6 +175,7 @@ class PurchaseController extends Controller
             'supplier_id' => $request->supplier_id,
             'brand' => $request->brand,
             'quantity' => $request->quantity,
+            'bill_qty' => $request->bill_qty,
             'price' => $request->price,
             'batch_no' => $request->batch_no,
             'expiry_date' => $request->expiry_date
@@ -198,8 +209,11 @@ class PurchaseController extends Controller
             'quantity' => 'required',
             'price' => 'required',
             'batch_no' => 'unique:purchases,batch_no',
-            'expiry_date' => 'required'
+            
         ]);
+        if($request->expiry_date == null ){
+            $request->expiry_date = date('Y-m-d', strtotime('+20 years'));
+        }
 
         // Create for Purchase
         $product = new Purchase([
@@ -210,6 +224,7 @@ class PurchaseController extends Controller
             'quantity' => $request->quantity,
             'price' => $request->price,
             'batch_no' => $request->batch_no,
+            'bill_qty' => $request->bill_qty,
             'expiry_date' => $request->expiry_date
         ]);
 
@@ -243,9 +258,11 @@ class PurchaseController extends Controller
             'supplier_id' => 'required',
             'quantity' => 'required',
             'price' => 'required',
-            'expiry_date' => 'required'
+            
         ]);
-
+ if($request->expiry_date == null ){
+            $request->expiry_date = date('Y-m-d', strtotime('+20 years'));
+        }
         // Create for Purchase
         $other = new Other([
             'name' => $request->name,
@@ -254,6 +271,7 @@ class PurchaseController extends Controller
             'quantity' => $request->quantity,
             'price' => $request->price,
             'remark' => $request->remark,
+            'bill_qty' => $request->bill_qty,
             'expiry_date' => $request->expiry_date
         ]);
 

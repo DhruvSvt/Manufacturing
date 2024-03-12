@@ -7,14 +7,14 @@
         <!-- Breadcrumb Start -->
         <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
             <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                Top Admin
+                All User
             </h2>
         </div>
 
         <div class=" flex flex-col sm:flex-row sm:items-center sm:justify-start">
             <a href="{{ route('admin-create') }}">
                 <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray m-3">
-                    Add Admin
+                    Add User
                 </button>
             </a>
         </div>
@@ -122,6 +122,7 @@
             $('.js-switch').change(function() {
                 let status = $(this).prop('checked') === true ? 1 : 0;
                 let userId = $(this).data('id');
+                console.log('hdejd');
                 $.ajax({
                     type: "POST", // Change this to POST
                     dataType: "json",
