@@ -190,6 +190,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // --------------------- Sales Routes ---------------------
     Route::resource('sale', SaleInvoiceController::class);
+    Route::get('sale/print/{id}', [SaleInvoiceController::class, 'print'])->name('print-sale');
 
     // --------------------- Payment Routes ---------------------
     Route::resource('payment', PartyPaymentController::class);

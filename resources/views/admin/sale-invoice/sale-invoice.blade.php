@@ -30,12 +30,11 @@
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Date</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Party Name</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Place</th>
-                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Product Name</th>
+
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Due Date</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Type</th>
-                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Quantity</th>
-                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Rate</th>
                                         <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Total Amount</th>
+                                        <th class="lg:w-15 md:w-15 sm:w-15 xs:w-15">Print</th>
                                     </tr>
 
 
@@ -59,11 +58,7 @@
                                                 {{ $sale->place }}
                                             </p>
                                         </td>
-                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $sale->product->name }}
-                                            </p>
-                                        </td>
+
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
                                                 {{ Carbon\Carbon::parse($sale->due_date)->format('d-M-Y') ?? '' }}
@@ -74,20 +69,20 @@
                                                 {{ $sale->type }}
                                             </p>
                                         </td>
-                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $sale->qty }}
-                                            </p>
-                                        </td>
-                                        <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                ₹{{ $sale->rate }}/-
-                                            </p>
-                                        </td>
+
                                         <td class="lg:w-15 md:w-15 sm:w-15 xs:w-15">
                                             <p class="text-sm font-medium text-black dark:text-white">
                                                 <b>₹{{ $sale->total_amt }}/-</b>
                                             </p>
+                                        </td>
+                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                            <a href="{{ route('print-sale',$sale->id) }}" target="_blank"
+                                                class="inline-flex items-center justify-center gap-2.5 rounded-full bg-meta-3 py-2 px-7 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-5">
+                                                <span>
+                                                    <i class="fa-solid fa-print"></i>
+                                                </span>
+                                                Print
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach
