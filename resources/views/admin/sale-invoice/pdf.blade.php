@@ -13,7 +13,7 @@
         }
 
         body {
-            width: 50%;
+            width: 50%;    font-family: math;
             margin: auto;
         }
 
@@ -32,10 +32,11 @@
         }
 
         .challan-date {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1.5rem;
-            font-size: 20px;
+               display: flex;
+    justify-content: space-between;
+    margin-top: 3px;
+    font-size: 18px;
+    font-weight: 600;
         }
 
         .footer {
@@ -110,31 +111,35 @@
 </head>
 
 
-<body>
+<body onload="window.print()">
 
     @php
     $fsale = $sale->first();
     @endphp
 
     <div class="head-container">
-        <div style="float: right;margin-right: 1rem;">
+        {{-- <div style="float: right;margin-right: 1rem;">
             <button class="btn" onclick="window.print()">Print</button>
-        </div>
+        </div> --}}
         <h1>Panacia Health Care PVT. LTd.</h1>
         <p>Shiv Ganga Industrial Estate, Plot No. 19, Bhagwanpur, Roorkee (Uttrakhand)</p>
         <p>www.panaciahealthcare.com</p>
         <h3 class="finish-good">Sale Invoice</h3>
     </div>
+ <div class="challan-date">
+         <span>Bill No. - {{ $fsale->id }}</span>
+          <span>Party Name - {{ $fsale->supplier }}</span>
 
+    </div>
     <div class="challan-date">
 
-        <span>Party Name - {{ $fsale->supplier }}</span>
+<span>Bill Date. - {{ date('d-m-Y', strtotime($fsale->created_at)) }}</span>
 
         <span>Place. - {{ $fsale->place }}</span>
     </div>
 
     <div class="challan-date">
-         <span>Invoice No. - {{ $fsale->id }}</span>
+
         <span>Due Date. - {{ date('d-m-Y', strtotime($fsale->due_date)) }}</span>
     </div>
 
