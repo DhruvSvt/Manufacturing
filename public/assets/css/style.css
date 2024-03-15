@@ -3280,7 +3280,7 @@ font-family: "Poppins", sans-serif;
 }
 .text-primary{
   --tw-text-opacity: 1;
-  color: rgb(60 80 224 / var(--tw-text-opacity));
+  color: #1f7dbf;
 }
 .text-red{
   --tw-text-opacity: 1;
@@ -4089,7 +4089,7 @@ font-family: "Poppins", sans-serif;
 }
 .data-table-one .datatable-table > tbody > tr> td:first-child{
   --tw-text-opacity: 1;
-  color: rgb(60 80 224 / var(--tw-text-opacity));
+  color: #1f7dbf;
 }
 .dark .data-table-one .datatable-table > tbody > tr> td:first-child{
   --tw-text-opacity: 1;
@@ -4593,7 +4593,7 @@ input[type=search]::-webkit-search-cancel-button{
 
 .hover\:text-primary:hover{
   --tw-text-opacity: 1;
-  color: rgb(60 80 224 / var(--tw-text-opacity));
+  color: #1f7dbf;
 }
 
 .hover\:text-white:hover{
@@ -4698,7 +4698,7 @@ input[type=search]::-webkit-search-cancel-button{
 
 .group:hover .group-hover\:text-primary{
   --tw-text-opacity: 1;
-  color: rgb(60 80 224 / var(--tw-text-opacity));
+  color: #1f7dbf;
 }
 
 .group:hover .group-hover\:opacity-100{
@@ -4961,7 +4961,7 @@ input[type=search]::-webkit-search-cancel-button{
 
 .dark .dark\:hover\:text-primary:hover{
   --tw-text-opacity: 1;
-  color: rgb(60 80 224 / var(--tw-text-opacity));
+  color: #1f7dbf;
 }
 
 .dark .dark\:hover\:text-white:hover{
@@ -4981,7 +4981,7 @@ input[type=search]::-webkit-search-cancel-button{
 
 .dark .group:hover .dark\:group-hover\:text-primary{
   --tw-text-opacity: 1;
-  color: rgb(60 80 224 / var(--tw-text-opacity));
+  color: #1f7dbf;
 }
 
 @media (min-width: 375px){

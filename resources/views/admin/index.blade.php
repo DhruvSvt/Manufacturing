@@ -8,7 +8,7 @@
             <div
                 class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2">
-                   <i class="fas fa-users" style="color: #3c50e0;"></i>
+                   <i class="fas fa-users" style="color: #1f7dbf;"></i>
                 </div>
 
                 <div class="mt-4 flex items-end justify-between">
@@ -26,7 +26,7 @@
             <div
                 class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2">
-                   <i class="fa-solid fa-warehouse" style="color: #3c50e0;"></i>
+                   <i class="fa-solid fa-warehouse" style="color: #1f7dbf;"></i>
                 </div>
 
                 <div class="mt-4 flex items-end justify-between">
@@ -44,7 +44,7 @@
             <div
                 class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2">
-                    <i class="fa fa-industry" aria-hidden="true" style="color: #3c50e0;"></i>
+                    <i class="fa fa-industry" aria-hidden="true" style="color: #1f7dbf;"></i>
                 </div>
 
                 <div class="mt-4 flex items-end justify-between">
@@ -63,7 +63,7 @@
             <div
                 class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2">
-                    <i class="fa-solid fa-gift" style="color: #3c50e0;"></i>
+                    <i class="fa-solid fa-gift" style="color: #1f7dbf;"></i>
                 </div>
 
                 <div class="mt-4 flex items-end justify-between">
@@ -98,7 +98,7 @@
           ></span>
         </span>
         <div class="w-full">
-          <p class="font-semibold text-primary">Total Revenue</p>
+          <p class="font-semibold text-primary">Last 30 Days Sale</p>
 
         </div>
       </div>
@@ -106,11 +106,111 @@
     </div>
 
   </div>
-  <div>
-    <div id="chartOne" class="-ml-5"></div>
-  </div>
+  <div class="p-4 flex-auto">
+        <!-- Chart -->
+        <div class="relative h-350-px">
+          <canvas id="bar-chart" style="    height: 400px;"></canvas>
+        </div>
+      </div>
 </div>
     </div>
 </main>
 <!-- ===== Main Content End ===== -->
+@endsection
+@section('scripts')
+<script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+      charset="utf-8"
+    ></script>
+<script type="text/javascript">
+
+      (function () {
+        /* Chart initialisations */
+        /* Bar Chart */
+        var config = {
+          type: "bar",
+          data: {
+            labels: [
+                 @foreach ($sale as $society)
+                 "{{ date('d-m-Y', strtotime($society->date)) }}",
+       @endforeach
+            ],
+            datasets: [
+              {
+                label: 'Sale',
+                backgroundColor: "#1f7dbf",
+                borderColor: "#1f7dbf",
+                data: [  @foreach ($sale as $society)
+                 {{ $society->sale }},
+       @endforeach],
+                fill: false,
+                barThickness: 18,
+              },
+            ],
+          },
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            title: {
+              display: false,
+              text: "Orders Chart",
+            },
+            tooltips: {
+              mode: "index",
+              intersect: false,
+            },
+            hover: {
+              mode: "nearest",
+              intersect: true,
+            },
+            legend: {
+              labels: {
+                fontColor: "rgba(0,0,0,.4)",
+              },
+              align: "end",
+              position: "bottom",
+            },
+            scales: {
+              xAxes: [
+                {
+                  display: false,
+                  scaleLabel: {
+                    display: true,
+                    labelString: "Month",
+                  },
+                  gridLines: {
+                    borderDash: [2],
+                    borderDashOffset: [2],
+                    color: "rgba(33, 37, 41, 0.3)",
+                    zeroLineColor: "rgba(33, 37, 41, 0.3)",
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2],
+                  },
+                },
+              ],
+              yAxes: [
+                {
+                  display: true,
+                  scaleLabel: {
+                    display: false,
+                    labelString: "Value",
+                  },
+                  gridLines: {
+                    borderDash: [2],
+                    drawBorder: false,
+                    borderDashOffset: [2],
+                    color: "rgba(33, 37, 41, 0.2)",
+                    zeroLineColor: "rgba(33, 37, 41, 0.15)",
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2],
+                  },
+                },
+              ],
+            },
+          },
+        };
+        ctx = document.getElementById("bar-chart").getContext("2d");
+        window.myBar = new Chart(ctx, config);
+      })();
+    </script>
 @endsection
