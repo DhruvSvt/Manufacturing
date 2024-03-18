@@ -1,97 +1,108 @@
 @extends('admin.layouts.app', ['title' => $label . ' Stocks'])
 @section('content')
-<!-- ===== Main Content Start ===== -->
-<main>
-    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-        <!-- Breadcrumb Start -->
-        <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
-            <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                Available {{ $label }} Stocks
-            </h2>
-        </div>
+    <!-- ===== Main Content Start ===== -->
+    <main>
+        <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            <!-- Breadcrumb Start -->
+            <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
+                <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
+                    Available {{ $label }} Stocks
+                </h2>
+            </div>
 
-        <!-- Breadcrumb End -->
-        <div class="flex flex-col gap-5 md:gap-7 2xl:gap-10">
+            <!-- Breadcrumb End -->
+            <div class="flex flex-col gap-5 md:gap-7 2xl:gap-10">
 
-            <!-- ====== Data Table Two Start -->
-            <div
-                class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4">
-                <div class="data-table-common data-table-two max-w-full overflow-x-auto">
-                    <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
-                        @include('admin.inc.search')
-                        <div class="datatable-container">
-                            <table class="table w-full table-auto datatable-table" id="dataTableTwo">
-                                <thead>
-                                    <tr>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">S.no</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">{{ $label }} Name</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Purchasing Date</th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Available {{ $label }} Qty
-                                        </th>
-                                        <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Expiry Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                    $i = 1;
-                                    @endphp
-                                    @foreach ($products->sortBy('expiry_date') as $key => $product)
-                                    <tr>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $i++ }})
-                                            </p>
-                                        </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $product->product->name ?? '-'}}
-                                            </p>
-                                        </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $product->created_at->format('d-m-Y') }}
-                                            </p>
-                                        </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $product->quantity }}
-                                            </p>
-                                        </td>
-                                        <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
-                                            <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $product->expiry_date }}
-                                                @if(\Carbon\Carbon::parse($product->expiry_date)->lte(\Carbon\Carbon::now()))
-                                                <span class="text-meta-1">expired</span>
+                <!-- ====== Data Table Two Start -->
+                <div
+                    class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark-bg-boxdark dark:bg-meta-4">
+                    <div class="data-table-common data-table-two max-w-full overflow-x-auto">
+                        <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                            @include('admin.inc.search')
+                            <div class="datatable-container">
+                                <table class="table w-full table-auto datatable-table" id="dataTableTwo">
+                                    <thead>
+                                        <tr>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">S.no</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">{{ $label }} Name</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Purchasing Date</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Supplier Name</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Purchase Rate</th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Available {{ $label }}
+                                                Qty
+                                            </th>
+                                            <th class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">Expiry Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($products->sortBy('expiry_date') as $key => $product)
+                                            <tr>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $i++ }})
+                                                    </p>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $product->product->name ?? '-' }}
+                                                    </p>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $product->created_at->format('d-m-Y') }}
+                                                    </p>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $product->supplier->name ?? '-' }}
+                                                    </p>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $product->price ?? '-' }}
+                                                    </p>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $product->quantity }}
+                                                    </p>
+                                                </td>
+                                                <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
+                                                    <p class="text-sm font-medium text-black dark:text-white">
+                                                        {{ $product->expiry_date }}
+                                                        @if (\Carbon\Carbon::parse($product->expiry_date)->lte(\Carbon\Carbon::now()))
+                                                            <span class="text-meta-1">expired</span>
+                                                        @elseif(\Carbon\Carbon::parse($product->expiry_date)->diffInDays(\Carbon\Carbon::now()) <= 30)
+                                                            <span class="text-meta-1" style="color: orange !important;">
+                                                                expiring soon</span>
+                                                        @endif
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        @endforeach
 
-                                                @elseif(\Carbon\Carbon::parse($product->expiry_date)->diffInDays(\Carbon\Carbon::now())
-                                                <= 30) <span class="text-meta-1" style="color: orange !important;">
-                                                    expiring soon</span>
 
-                                                    @endif
-                                            </p>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="datatable-bottom">
-                            <div class="datatable-info">
-                                Showing {{ $products->firstItem()}} to
-                                {{ $products->lastItem() }} of
-                                {{ $products->total() }} entries
+                                    </tbody>
+                                </table>
                             </div>
-                            {{ $products->appends($_GET)->links('vendor.pagination.custom') }}
+                            <div class="datatable-bottom">
+                                <div class="datatable-info">
+                                    Showing {{ $products->firstItem() }} to
+                                    {{ $products->lastItem() }} of
+                                    {{ $products->total() }} entries
+                                </div>
+                                {{ $products->appends($_GET)->links('vendor.pagination.custom') }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- ====== Data Table Two End -->
+                <!-- ====== Data Table Two End -->
+            </div>
         </div>
-    </div>
-</main>
-<!-- ===== Main Content End ===== -->
+    </main>
+    <!-- ===== Main Content End ===== -->
 @endsection
