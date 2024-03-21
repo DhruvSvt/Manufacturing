@@ -6,7 +6,7 @@
         <!-- Breadcrumb Start -->
         <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
             <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                List of Gifts
+                List of Purchased Gifts
             </h2>
         </div>
 

@@ -96,7 +96,7 @@
                                 </li>
                                 <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="{{ route('purchase-product') }}"
+                                        href="{{ route('product-fetch') }}"
                                         :class="page === 'products' && '!text-white'">
                                         Finnish Goods
                                     </a>

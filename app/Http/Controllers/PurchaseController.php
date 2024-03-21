@@ -49,7 +49,7 @@ class PurchaseController extends Controller
         $allRawMaterialColumns = Schema::getColumnListing((new RawMaterial())->getTable());
         $allSuppliersColumns = Schema::getColumnListing((new Suppliers())->getTable());
 
-        // //for Left side table
+
         $items = Purchase::with('raw_material', 'supplier')
             ->where('type', 'App\Models\RawMaterial')
             ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allRawMaterialColumns, $allSuppliersColumns) {
@@ -117,7 +117,7 @@ class PurchaseController extends Controller
         $allGiftsColumns = Schema::getColumnListing((new Gift())->getTable());
         $allSuppliersColumns = Schema::getColumnListing((new Suppliers())->getTable());
 
-        // //for Left side table
+
         $items = Purchase::with('item', 'supplier')
             ->where('type', 'App\Models\Gift')
             ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allGiftsColumns, $allSuppliersColumns) {
@@ -169,6 +169,59 @@ class PurchaseController extends Controller
             'brand' => $brand
         ]);
     }
+
+    public function product_fetch()
+    {
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Purchase::where('type', 'App\Models\Product')->latest()->count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Purchase())->getTable());
+        $allProductsColumns = Schema::getColumnListing((new Product())->getTable());
+        $allSuppliersColumns = Schema::getColumnListing((new Suppliers())->getTable());
+
+
+        $items = Purchase::with('product', 'supplier')
+        ->where('type', 'App\Models\Product')
+        ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allProductsColumns, $allSuppliersColumns) {
+            $query->where(function ($query) use ($keyword, $allColumns, $allProductsColumns, $allSuppliersColumns) {
+
+                // Dynamically construct the search query
+                foreach ($allColumns as $column) {
+                    $query->orWhere($column, 'LIKE', "%$keyword%");
+                }
+
+                // searching from supplier
+                $query->orWhereHas('supplier', function ($query) use ($keyword, $allSuppliersColumns) {
+                    $query->where(function ($query) use ($keyword, $allSuppliersColumns) {
+                        foreach ($allSuppliersColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+
+                // searching from product
+                $query->orWhereHas('product', function ($query) use ($keyword, $allProductsColumns) {
+                    $query->where(function ($query) use ($keyword, $allProductsColumns) {
+                        foreach ($allProductsColumns as $column) {
+                            $query->orWhere($column, 'LIKE', "%$keyword%");
+                        }
+                    });
+                });
+            });
+        })
+            ->latest()
+            ->paginate($rows);
+
+        // $items = Purchase::where('type', 'App\Models\Product')->latest()->get();
+        return view('admin.purchase.product-fetch', compact('items'));
+    }
+
     public function product()
     {
         $masters = Product::whereStatus(true)->get();
