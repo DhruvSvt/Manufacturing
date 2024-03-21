@@ -136,9 +136,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                    $total = 0;
+                                    @endphp
                                     @foreach ($payments as $payment)
                                     <tr>
-
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
                                                 {{ $payment->type }}
@@ -170,18 +172,28 @@
                                             </p>
                                         </td>
                                     </tr>
+                                    @php
+                                    $total += $payment->amt; // Add payment amount to total
+                                    @endphp
                                     @endforeach
+
                                 </tbody>
                             </table>
+                            <div class="py-3">
+                                <p
+                                    class="text-center text-xl text-green-800 font-semibold text-bold font-medium text-black dark:text-white">
+                                    Total Amount : ₹ {{ $total }} /-
+                                </p>
+                            </div>
                         </div>
-                       <div class="datatable-bottom">
-                        <div class="datatable-info">
-                            Showing {{ $payments->firstItem()}} to
-                            {{ $payments->lastItem() }} of
-                            {{ $payments->total() }} entries
+                        <div class="datatable-bottom">
+                            <div class="datatable-info">
+                                Showing {{ $payments->firstItem()}} to
+                                {{ $payments->lastItem() }} of
+                                {{ $payments->total() }} entries
+                            </div>
+                            {{ $payments->appends($_GET)->links('vendor.pagination.custom') }}
                         </div>
-                        {{ $payments->appends($_GET)->links('vendor.pagination.custom') }}
-                    </div>
                     </div>
                 </div>
             </div>
