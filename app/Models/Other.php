@@ -12,8 +12,17 @@ class Other extends Model
         'supplier_id',
         'quantity',
         'price',
+        'brand',
         'remark',
         'expiry_date'
     ];
     use HasFactory;
+
+    public function supplier(){
+        return $this->belongsTo(Suppliers::class, 'supplier_id');
+    }
+
+    public function brand_name(){
+        return $this->belongsTo(Brand::class,'brand');
+    }
 }

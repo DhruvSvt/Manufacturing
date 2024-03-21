@@ -2,7 +2,8 @@
 @section('content')
 <!-- ===== Main Content Start ===== -->
 <main>
-    <div class=" max-w-screen-2xl p-4 md:p-6 2xl:p-10 my-10 md:mx-10 bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div
+        class=" max-w-screen-2xl p-4 md:p-6 2xl:p-10 my-10 md:mx-10 bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <!-- Breadcrumb Start -->
         <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
             <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
@@ -90,7 +91,7 @@
 
                     <div class="w-full xl:w-1/2">
                         <label class="mb-2.5 block text-black dark:text-white">
-                            Expiry Date <span class="text-meta-1">*</span>
+                            Expiry Date
                         </label>
                         <input type="date" name="expiry_date"
                             class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />

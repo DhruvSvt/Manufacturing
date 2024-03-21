@@ -187,34 +187,34 @@ class PurchaseController extends Controller
 
 
         $items = Purchase::with('product', 'supplier')
-        ->where('type', 'App\Models\Product')
-        ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allProductsColumns, $allSuppliersColumns) {
-            $query->where(function ($query) use ($keyword, $allColumns, $allProductsColumns, $allSuppliersColumns) {
+            ->where('type', 'App\Models\Product')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allProductsColumns, $allSuppliersColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allProductsColumns, $allSuppliersColumns) {
 
-                // Dynamically construct the search query
-                foreach ($allColumns as $column) {
-                    $query->orWhere($column, 'LIKE', "%$keyword%");
-                }
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
 
-                // searching from supplier
-                $query->orWhereHas('supplier', function ($query) use ($keyword, $allSuppliersColumns) {
-                    $query->where(function ($query) use ($keyword, $allSuppliersColumns) {
-                        foreach ($allSuppliersColumns as $column) {
-                            $query->orWhere($column, 'LIKE', "%$keyword%");
-                        }
+                    // searching from supplier
+                    $query->orWhereHas('supplier', function ($query) use ($keyword, $allSuppliersColumns) {
+                        $query->where(function ($query) use ($keyword, $allSuppliersColumns) {
+                            foreach ($allSuppliersColumns as $column) {
+                                $query->orWhere($column, 'LIKE', "%$keyword%");
+                            }
+                        });
+                    });
+
+                    // searching from product
+                    $query->orWhereHas('product', function ($query) use ($keyword, $allProductsColumns) {
+                        $query->where(function ($query) use ($keyword, $allProductsColumns) {
+                            foreach ($allProductsColumns as $column) {
+                                $query->orWhere($column, 'LIKE', "%$keyword%");
+                            }
+                        });
                     });
                 });
-
-                // searching from product
-                $query->orWhereHas('product', function ($query) use ($keyword, $allProductsColumns) {
-                    $query->where(function ($query) use ($keyword, $allProductsColumns) {
-                        foreach ($allProductsColumns as $column) {
-                            $query->orWhere($column, 'LIKE', "%$keyword%");
-                        }
-                    });
-                });
-            });
-        })
+            })
             ->latest()
             ->paginate($rows);
 
@@ -237,6 +237,47 @@ class PurchaseController extends Controller
             'brand' => $brand,
             'suppilers' => $suppilers
         ]);
+    }
+
+    public function other_fetch()
+    {
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Other::count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Other())->getTable());
+        $allSuppliersColumns = Schema::getColumnListing((new Suppliers())->getTable());
+
+
+        $items = Other::with('supplier')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allSuppliersColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allSuppliersColumns) {
+
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    // searching from supplier
+                    $query->orWhereHas('supplier', function ($query) use ($keyword, $allSuppliersColumns) {
+                        $query->where(function ($query) use ($keyword, $allSuppliersColumns) {
+                            foreach ($allSuppliersColumns as $column) {
+                                $query->orWhere($column, 'LIKE', "%$keyword%");
+                            }
+                        });
+                    });
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
+        // $items = Purchase::where('type', 'App\Models\Product')->latest()->get();
+        return view('admin.purchase.other-fetch', compact('items'));
     }
 
     public function other()
@@ -429,10 +470,8 @@ class PurchaseController extends Controller
             'quantity' => $request->quantity,
             'price' => $request->price,
             'remark' => $request->remark,
-            'bill_qty' => $request->bill_qty,
             'expiry_date' => $request->expiry_date
         ]);
-
         $other->save();
 
         return redirect()->back()->with('success', 'Successfully Purchased !!');

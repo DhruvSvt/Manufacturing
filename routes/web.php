@@ -122,7 +122,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/purchase/material', [PurchaseController::class, 'material_fetch'])->name('material-fetch');
     Route::get('purchase/item', [PurchaseController::class, 'item_fetch'])->name('item-fetch');
     Route::get('purchase/product', [PurchaseController::class, 'product_fetch'])->name('product-fetch');
-    // Route::get('purchase/other', [PurchaseController::class, 'other'])->name('purchase-other');
+    Route::get('purchase/other', [PurchaseController::class, 'other_fetch'])->name('other-fetch');
 
     Route::get('/purchase/material/create', [PurchaseController::class, 'material'])->name('purchase-material');
     Route::get('purchase/item/create', [PurchaseController::class, 'item'])->name('purchase-item');
