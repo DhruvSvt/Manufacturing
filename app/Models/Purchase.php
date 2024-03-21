@@ -35,6 +35,14 @@ class Purchase extends Model
         return $this->belongsTo($this->type) ?? '';
     }
 
+    public function supplier(){
+        return $this->belongsTo(Suppliers::class, 'supplier_id');
+    }
+
+    public function brand_name(){
+        return $this->belongsTo(Brand::class,'brand');
+    }
+
     public function commentable(){
         return $this->morphTo();
     }

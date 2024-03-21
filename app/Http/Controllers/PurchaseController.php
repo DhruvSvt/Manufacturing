@@ -13,6 +13,7 @@ use App\Models\Purchase;
 use App\Models\RawMaterial;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class PurchaseController extends Controller
 {
@@ -31,6 +32,59 @@ class PurchaseController extends Controller
     {
         // return view('admin.purchase.purchase');
         return redirect()->back();
+    }
+
+    public function material_fetch()
+    {
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Purchase::where('type', 'App\Models\RawMaterial')->latest()->count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Purchase())->getTable());
+        $allRawMaterialColumns = Schema::getColumnListing((new RawMaterial())->getTable());
+        $allSuppliersColumns = Schema::getColumnListing((new Suppliers())->getTable());
+
+        // //for Left side table
+        $items = Purchase::with('raw_material', 'supplier')
+            ->where('type', 'App\Models\RawMaterial')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allRawMaterialColumns, $allSuppliersColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allRawMaterialColumns, $allSuppliersColumns) {
+
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    // searching from supplier
+                    $query->orWhereHas('supplier', function ($query) use ($keyword, $allSuppliersColumns) {
+                        $query->where(function ($query) use ($keyword, $allSuppliersColumns) {
+                            foreach ($allSuppliersColumns as $column) {
+                                $query->orWhere($column, 'LIKE', "%$keyword%");
+                            }
+                        });
+                    });
+
+                    // searching from raw_material
+                    $query->orWhereHas('raw_material', function ($query) use ($keyword, $allRawMaterialColumns) {
+                        $query->where(function ($query) use ($keyword, $allRawMaterialColumns) {
+                            foreach ($allRawMaterialColumns as $column) {
+                                $query->orWhere($column, 'LIKE', "%$keyword%");
+                            }
+                        });
+                    });
+
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
+        // $items = Purchase::where('type', 'App\Models\RawMaterial')->latest()->get();
+        return view('admin.purchase.material-fetch', compact('items'));
     }
 
     public function material()
@@ -114,7 +168,7 @@ class PurchaseController extends Controller
             // 'batch_no' => 'unique:purchases,batch_no',
 
         ]);
-        if($request->expiry_date == null ){
+        if ($request->expiry_date == null) {
             $request->expiry_date = date('Y-m-d', strtotime('+20 years'));
         }
 
@@ -132,7 +186,7 @@ class PurchaseController extends Controller
             'batch_no' => $request->batch_no,
             'expiry_date' => $request->expiry_date
         ]);
-         //dd($purchase->all());
+        //dd($purchase->all());
         $purchase->save();
 
         // getting id from purchase table for stocks
@@ -164,7 +218,7 @@ class PurchaseController extends Controller
             // 'batch_no' => 'unique:purchases,batch_no',
 
         ]);
-if($request->expiry_date == null ){
+        if ($request->expiry_date == null) {
             $request->expiry_date = date('Y-m-d', strtotime('+20 years'));
         }
 
@@ -211,7 +265,7 @@ if($request->expiry_date == null ){
             // 'batch_no' => 'unique:purchases,batch_no',
 
         ]);
-        if($request->expiry_date == null ){
+        if ($request->expiry_date == null) {
             $request->expiry_date = date('Y-m-d', strtotime('+20 years'));
         }
 
@@ -260,7 +314,7 @@ if($request->expiry_date == null ){
             'price' => 'required',
 
         ]);
- if($request->expiry_date == null ){
+        if ($request->expiry_date == null) {
             $request->expiry_date = date('Y-m-d', strtotime('+20 years'));
         }
         // Create for Purchase

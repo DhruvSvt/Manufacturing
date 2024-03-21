@@ -66,7 +66,7 @@ class SaleInvoiceController extends Controller
         $party = Suppliers::whereStatus(true)->get();
 
         $date = date("Y-m-d");
-        $products = Product::select('products.*','units.short_name',DB::raw('SUM(product_stocks.quantity) As tquantity'))->join('product_stocks','product_stocks.product_id', '=', 'products.id')->join('units','units.id','=','products.unit_id')->where('products.status',1)->where('product_stocks.expiry_date', '>', $date)->groupBy('product_stocks.product_id')->get();
+        $products = Product::select('products.*', 'units.short_name', DB::raw('SUM(product_stocks.quantity) As tquantity'))->join('product_stocks', 'product_stocks.product_id', '=', 'products.id')->join('units', 'units.id', '=', 'products.unit_id')->where('products.status', 1)->where('product_stocks.expiry_date', '>', $date)->groupBy('product_stocks.product_id')->get();
 
 
         return view('admin.sale-invoice.create', compact('party', 'products'));
@@ -93,36 +93,36 @@ class SaleInvoiceController extends Controller
             'type' => 'required',
         ]);
 
-        foreach($request->product_id  as $key => $value) {
-        $qty = $request->qty[$key];
-        $date = date("Y-m-d");
+        foreach ($request->product_id  as $key => $value) {
+            $qty = $request->qty[$key];
+            $date = date("Y-m-d");
 
-         $checkStock = Product::select('products.name',DB::raw('SUM(product_stocks.quantity) As tquantity'))->join('product_stocks','product_stocks.product_id', '=', 'products.id')->where('product_stocks.product_id', $value)->where('product_stocks.expiry_date', '>', $date)->groupBy('product_stocks.product_id')->first();
+            $checkStock = Product::select('products.name', DB::raw('SUM(product_stocks.quantity) As tquantity'))->join('product_stocks', 'product_stocks.product_id', '=', 'products.id')->where('product_stocks.product_id', $value)->where('product_stocks.expiry_date', '>', $date)->groupBy('product_stocks.product_id')->first();
 
-         $tquantity = $checkStock->tquantity;
-         $pname = $checkStock->name;
-          if ($qty > $tquantity) {
-            return redirect()->back()->with('error', 'Only  ' . $tquantity . ' '.$pname.' Is In Stock! You need '.($qty - $tquantity).' More');
-            die;
-          }
-    }
-    $invoice_id = random_int(100000, 99999999);
-    $total_amnt = 0;
-    foreach($request->product_id  as $key => $value) {
-        $total_amnt += $request->qty[$key]*$request->rate[$key];
-        $qtty = $request->qty[$key];
-        $cqty = $request->qty[$key];
+            $tquantity = $checkStock->tquantity;
+            $pname = $checkStock->name;
+            if ($qty > $tquantity) {
+                return redirect()->back()->with('error', 'Only  ' . $tquantity . ' ' . $pname . ' Is In Stock! You need ' . ($qty - $tquantity) . ' More');
+                die;
+            }
+        }
+        $invoice_id = random_int(100000, 99999999);
+        $total_amnt = 0;
+        foreach ($request->product_id  as $key => $value) {
+            $total_amnt += $request->qty[$key] * $request->rate[$key];
+            $qtty = $request->qty[$key];
+            $cqty = $request->qty[$key];
 
             $proc = new SaleProduct;
             $proc->products = $value;
             $proc->qtys = $request->qty[$key];
             $proc->rates = $request->rate[$key];
-            $proc->total = $request->qty[$key]*$request->rate[$key];
+            $proc->total = $request->qty[$key] * $request->rate[$key];
             $proc->invoice_id = $invoice_id;
             $proc->save();
 
-$checkStock = ProductStock::select('*')->where('product_id', $value)->where('expiry_date', '>', $date)->orderBy('expiry_date', 'ASC')->get();
-foreach ($checkStock as $item) {
+            $checkStock = ProductStock::select('*')->where('product_id', $value)->where('expiry_date', '>', $date)->orderBy('expiry_date', 'ASC')->get();
+            foreach ($checkStock as $item) {
                 if ($cqty > 0) {
                     if ($item->quantity >= $qty) {
                         $item->quantity -= $qty;
@@ -137,21 +137,19 @@ foreach ($checkStock as $item) {
                     break;
                 }
             }
+        }
 
-    }
-
-            $sale = new SaleInvoice;
-            $sale->supplier_id = $request->supplier_id;
-            $sale->place = $request->place;
-            $sale->product_id = $invoice_id;
-            $sale->due_date = $request->due_date;
-            $sale->type = $request->type;
-            $sale->total_amt = $total_amnt;
-            $sale->save();
+        $sale = new SaleInvoice;
+        $sale->supplier_id = $request->supplier_id;
+        $sale->place = $request->place;
+        $sale->product_id = $invoice_id;
+        $sale->due_date = $request->due_date;
+        $sale->type = $request->type;
+        $sale->total_amt = $total_amnt;
+        $sale->save();
 
 
-            return redirect()->route('sale.index')->with('success', 'Data saved successfully !!');
-
+        return redirect()->route('sale.index')->with('success', 'Data saved successfully !!');
     }
 
     /**

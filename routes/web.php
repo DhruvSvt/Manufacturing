@@ -119,10 +119,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('employee/status', [EmployeeController::class, 'status'])->name('employee.status');
 
     // --------------------- Purchase routes ---------------------
-    Route::get('/purchase/material', [PurchaseController::class, 'material'])->name('purchase-material');
-    Route::get('purchase/item', [PurchaseController::class, 'item'])->name('purchase-item');
-    Route::get('purchase/product', [PurchaseController::class, 'product'])->name('purchase-product');
-    Route::get('purchase/other', [PurchaseController::class, 'other'])->name('purchase-other');
+    Route::get('/purchase/material', [PurchaseController::class, 'material_fetch'])->name('material-fetch');
+    // Route::get('purchase/item', [PurchaseController::class, 'item'])->name('purchase-item');
+    // Route::get('purchase/product', [PurchaseController::class, 'product'])->name('purchase-product');
+    // Route::get('purchase/other', [PurchaseController::class, 'other'])->name('purchase-other');
+
+    Route::get('/purchase/material/create', [PurchaseController::class, 'material'])->name('purchase-material');
+    Route::get('purchase/item/create', [PurchaseController::class, 'item'])->name('purchase-item');
+    Route::get('purchase/product/create', [PurchaseController::class, 'product'])->name('purchase-product');
+    Route::get('purchase/other/create', [PurchaseController::class, 'other'])->name('purchase-other');
 
     Route::post('/purchase/material/store', [PurchaseController::class, 'materialStore'])->name('purchase.materialStore');
     Route::post('/purchase/item/store', [PurchaseController::class, 'itemStore'])->name('purchase.itemStore');
