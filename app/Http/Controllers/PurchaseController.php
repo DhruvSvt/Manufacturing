@@ -77,7 +77,6 @@ class PurchaseController extends Controller
                             }
                         });
                     });
-
                 });
             })
             ->latest()
@@ -101,6 +100,58 @@ class PurchaseController extends Controller
             'suppilers' => $suppilers,
             'brand' => $brand
         ]);
+    }
+
+    public function item_fetch()
+    {
+        /* Query Parameters */
+        $keyword = request()->keyword;
+        $rows = request()->rows ?? 25;
+
+        if ($rows == 'all') {
+            $rows = Purchase::where('type', 'App\Models\Gift')->latest()->count();
+        }
+
+        // Get the table columns
+        $allColumns = Schema::getColumnListing((new Purchase())->getTable());
+        $allGiftsColumns = Schema::getColumnListing((new Gift())->getTable());
+        $allSuppliersColumns = Schema::getColumnListing((new Suppliers())->getTable());
+
+        // //for Left side table
+        $items = Purchase::with('item', 'supplier')
+            ->where('type', 'App\Models\Gift')
+            ->when(isset($keyword), function ($query) use ($keyword, $allColumns, $allGiftsColumns, $allSuppliersColumns) {
+                $query->where(function ($query) use ($keyword, $allColumns, $allGiftsColumns, $allSuppliersColumns) {
+
+                    // Dynamically construct the search query
+                    foreach ($allColumns as $column) {
+                        $query->orWhere($column, 'LIKE', "%$keyword%");
+                    }
+
+                    // searching from supplier
+                    $query->orWhereHas('supplier', function ($query) use ($keyword, $allSuppliersColumns) {
+                        $query->where(function ($query) use ($keyword, $allSuppliersColumns) {
+                            foreach ($allSuppliersColumns as $column) {
+                                $query->orWhere($column, 'LIKE', "%$keyword%");
+                            }
+                        });
+                    });
+
+                    // searching from gift
+                    $query->orWhereHas('item', function ($query) use ($keyword, $allGiftsColumns) {
+                        $query->where(function ($query) use ($keyword, $allGiftsColumns) {
+                            foreach ($allGiftsColumns as $column) {
+                                $query->orWhere($column, 'LIKE', "%$keyword%");
+                            }
+                        });
+                    });
+                });
+            })
+            ->latest()
+            ->paginate($rows);
+
+        // $items = Purchase::where('type', 'App\Models\Gift')->latest()->get();
+        return view('admin.purchase.item-fetch', compact('items'));
     }
 
     public function item()

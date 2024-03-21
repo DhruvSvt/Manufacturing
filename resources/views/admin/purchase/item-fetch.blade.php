@@ -1,4 +1,4 @@
-@extends('admin.layouts.app', ['title' => 'Purchased Raw-Material'])
+@extends('admin.layouts.app', ['title' => 'Purchased Gifts'])
 @section('content')
 <!-- ===== Main Content Start ===== -->
 <main>
@@ -6,12 +6,12 @@
         <!-- Breadcrumb Start -->
         <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
             <h2 class="text-title-md2 font-bold text-black dark:text-white text-center">
-                List of Raw Material
+                List of Gifts
             </h2>
         </div>
 
         <div class=" flex flex-col sm:flex-row sm:items-center sm:justify-start">
-            <a href="{{ route('purchase-material') }}">
+            <a href="{{ route('purchase-item') }}">
                 <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray m-3">
                     Purchase
                 </button>
@@ -44,7 +44,7 @@
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
                                                 <p class="text-sm font-medium text-black dark:text-white">
-                                                    {{ $item->raw_material->name }}
+                                                    {{ $item->item->name }}
                                                 </p>
                                             </div>
                                         </td>
