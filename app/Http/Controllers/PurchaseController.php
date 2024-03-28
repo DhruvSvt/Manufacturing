@@ -159,7 +159,7 @@ class PurchaseController extends Controller
         $masters = Gift::whereStatus(true)->get();
         $brand = Brand::whereStatus(true)->get();
         $suppilers = Suppliers::whereStatus(true)->get();
-        $label = "Item";
+        $label = "Gift";
         $route = route('purchase.itemStore');
         return view('admin.purchase.purchase-master')->with([
             'label' => $label,
@@ -302,7 +302,6 @@ class PurchaseController extends Controller
      */
     public function materialStore(Request $request)
     {
-
 
         $request->validate([
             'modal_id' => 'required',
