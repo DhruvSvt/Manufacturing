@@ -246,7 +246,7 @@ Route::get('migrate', function () {
     Artisan::call('config:clear');
     Artisan::call('cache:clear');
     Artisan::call('migrate');
-});
+}); 
 
 
 Route::get('/storage-link', function () {
