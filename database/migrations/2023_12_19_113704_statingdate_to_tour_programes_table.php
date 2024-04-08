@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('tour_programes', function (Blueprint $table) {
-            $table->date("starting_date_time")->nullable();
-            $table->date("ended_date_time")->nullable();
+            $table->timestamp("starting_date_time")->nullable();
+            $table->timestamp("ended_date_time")->nullable();
             $table->string("starting_lat")->nullable();
             $table->string("ended_lat")->nullable();
             $table->string("starting_long")->nullable();
