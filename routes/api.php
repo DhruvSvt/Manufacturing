@@ -24,6 +24,7 @@ Route::post('send-otp', [EmployeeApiController::class, 'sendOtp']);
 Route::post('verify-otp', [EmployeeApiController::class, 'verifyOtp']);
 Route::patch('fcm-token', [EmployeeApiController::class, 'updateFcmToken']);
 Route::get('tour-programe', [EmployeeApiController::class, 'tourProgrameByEmployee']);
+Route::post('tour-programe-employee', [EmployeeApiController::class, 'startTourProgrameByEmployee']);
 
 Route::post('start-programe', [EmployeeApiController::class, 'startTourPrograme']);
 Route::post('end-programe', [EmployeeApiController::class, 'endTourPrograme']);
@@ -35,4 +36,3 @@ Route::post('post-visit', [EmployeeApiController::class, 'post_visit']);
 Route::get('get-visits', [EmployeeApiController::class, 'getVisits']);
 Route::get('employee-tracking', [EmployeeApiController::class, 'get_employee_tracking']);
 Route::post('post-order-gift', [EmployeeApiController::class, 'post_add_order_product']);
-

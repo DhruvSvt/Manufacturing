@@ -88,11 +88,46 @@ class EmployeeApiController extends Controller
         }
     }
 
+
     public function tourProgrameByEmployee(Request $request)
     {
         try {
             $employee = TourPrograme::where(['employee_id' => $request->employeeId, 'tour_date' => Carbon::now()->format('Y-m-d')])->get();
             return response()->json(["status" => 200, "message" => "success", "data" =>  $employee], 200);
+        } catch (Exception $e) {
+            return response()->json(["status" => 500, "message" => $e->getMessage(), "data" => []], 500);
+        }
+    }
+
+    public function startTourProgrameByEmployee(Request $request)
+    {
+        try {
+
+            if (!$request->tourDate) {
+                return response()->json(["status" => 400, "message" => 'Tour date required!', "data" => []], 400);
+            }
+
+            if (!$request->employeeId) {
+                return response()->json(["status" => 400, "message" => 'Employee id required!', "data" => []], 400);
+            }
+
+            if (!$request->startLocation) {
+                return response()->json(["status" => 400, "message" => 'Start Location required!', "data" => []], 400);
+            }
+
+            if (!$request->endLocation) {
+                return response()->json(["status" => 400, "message" => 'End Location required!', "data" => []], 400);
+            }
+
+            $tourPrograme = new TourPrograme();
+            $tourPrograme->employee_id = $request->employeeId;
+            $tourPrograme->tour_date = $request->tourDate;
+            $tourPrograme->start_location = $request->startLocation;
+            $tourPrograme->end_location = $request->endLocation;
+            $tourPrograme->save();
+
+
+            return response()->json(["status" => 200, "message" => "update success", "data" =>  []], 200);
         } catch (Exception $e) {
             return response()->json(["status" => 500, "message" => $e->getMessage(), "data" => []], 500);
         }
@@ -268,7 +303,7 @@ class EmployeeApiController extends Controller
                 }
             }
 
-            return response()->json(["status" => 200, "message" => "success", "data" => ["visitId"=>$employee_visit->id]], 200);
+            return response()->json(["status" => 200, "message" => "success", "data" => ["visitId" => $employee_visit->id]], 200);
         } catch (Exception $e) {
             return response()->json(["status" => 500, "message" => $e->getMessage(), "data" => []], 500);
         }
