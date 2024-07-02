@@ -70,7 +70,7 @@ class SuppliersController extends Controller
 
         Suppliers::create($request->post());
 
-        return redirect()->route('supplier');
+        return redirect()->route('supplier')->with('success', 'Successfully Stored !!');
     }
 
     /**
@@ -115,7 +115,7 @@ class SuppliersController extends Controller
 
         $supplier->fill($request->post())->save();
 
-        return redirect()->route('supplier');
+        return redirect()->route('supplier')->with('success', 'Successfully Updated !!');
     }
 
     /**

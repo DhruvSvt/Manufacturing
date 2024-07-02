@@ -8,7 +8,7 @@
             <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="Logo" class="h-15" />
 
         </a>
-        <h4 class=" text-bodydark1">Panacia Health Care</h4>
+        <h4 class=" text-bodydark1">Manufacturing PVT. LTd.</h4>
         <button class="block lg:hidden" @click.stop="sidebarToggle = !sidebarToggle">
             <svg class="fill-current" width="20" height="18" viewBox="0 0 20 18" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -98,7 +98,7 @@
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('product-fetch') }}"
                                         :class="page === 'products' && '!text-white'">
-                                        Finnish Goods
+                                        Finish Goods
                                     </a>
                                 </li>
                                 <li>
@@ -159,7 +159,7 @@
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('product-detail') }}"
                                         :class="page === 'products' && '!text-white'">
-                                        Finnish Products
+                                        Finish Products
                                     </a>
                                 </li>
                                 <li>
@@ -508,7 +508,7 @@
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('product.index') }}"
                                         :class="page === 'settings' && '!text-white'">
-                                        Finnish Products
+                                        Finish Products
                                     </a>
                                 </li>
                                 {{-- <li>
@@ -522,7 +522,7 @@
                         </div>
                         <!-- Dropdown Menu End -->
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4  text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                             href="#" @click.prevent="selected = (selected === 'TourAssign' ? '':'TourAssign')" :class="{
                                     'bg-graydark dark:bg-meta-4': (selected === 'TourAssign') || (page === 'tour')
@@ -551,7 +551,7 @@
                             </ul>
                         </div>
                         <!-- Dropdown Menu End -->
-                    </li>
+                    </li> --}}
                     <!-- Party Payment  -->
 
                     <!-- Menu Item Admin -->

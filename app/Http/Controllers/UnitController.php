@@ -67,7 +67,7 @@ class UnitController extends Controller
 
         Unit::create($request->post());
 
-        return redirect()->route('unit');
+        return redirect()->route('unit')->with('success', 'Successfully Stored !!');
     }
 
     /**
@@ -111,7 +111,7 @@ class UnitController extends Controller
 
         $unit->fill($request->post())->save();
 
-        return redirect()->route('unit');
+        return redirect()->route('unit')->with('success', 'Successfully Updated !!');
     }
 
     /**

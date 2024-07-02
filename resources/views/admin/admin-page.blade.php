@@ -139,5 +139,14 @@
             });
         });
 </script>
+@if (Session::has('success'))
+<script>
+    swal("Success", "{{ Session::get('success') }}", 'success', {
+                buttons: {
+                    confirm: "OK",
+                },
+            });
+</script>
+@endif
 
 @endsection

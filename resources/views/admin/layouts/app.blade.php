@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ $title ?? 'Welcome' }}</title>
-    <link rel="icon" href="{{ asset('src/images/fav.png') }}" />
+    <link rel="icon" href="{{ asset('src/images/logo/logo.png') }}" />
     <!-- Custom Css  -->
 
     <!-- Font Awwsome icon cdn -->

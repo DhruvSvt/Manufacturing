@@ -19,7 +19,7 @@
                         <input type="text" placeholder="Enter your Name" name="name" value="{{ $user->name }}"
                             class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                         @error('name')
-                        <p class="text-red-500 mt-2">{{ $message }}</p>
+                            <p class="text-red-500 mt-2">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -31,7 +31,7 @@
                             value="{{ $user->username }}"
                             class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                         @error('username')
-                        <p class="text-red-500 mt-2">{{ $message }}</p>
+                            <p class="text-red-500 mt-2">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                     <input type="email" placeholder="Enter your email address" name="email" value="{{ $user->email }}"
                         class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                     @error('email')
-                    <p class="text-red-500 mt-2">{{ $message }}</p>
+                        <p class="text-red-500 mt-2">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -54,7 +54,7 @@
                     <input type="password" placeholder="Set password" name="password"
                         class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                     @error('password')
-                    <p class="text-red-500 mt-2">{{ $message }}</p>
+                        <p class="text-red-500 mt-2">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -73,14 +73,14 @@
                             @endforeach
                         </select>
                         @error('role')
-                        <p class="text-red-500 mt-2">{{ $message }}</p>
+                            <p class="text-red-500 mt-2">{{ $message }}</p>
                         @enderror
                         <span class="absolute top-1/2 right-4 z-30 -translate-y-1/2">
                             <i class="fa fa-angle-down" style="font-size:20px"></i>
                         </span>
                     </div>
                 </div>
-                
+
             </div>
             <button class="flex w-100 float-right rounded bg-primary p-3 font-medium text-gray m-5">
                 Update
@@ -88,4 +88,13 @@
         </form>
     </div>
     <!-- ===== Form Area End ===== -->
+@if (Session::has('success'))
+    <script>
+        swal("Success", "{{ Session::get('success') }}", 'success', {
+            buttons: {
+                confirm: "OK",
+            },
+        });
+    </script>
+@endif
 @endsection

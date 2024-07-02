@@ -121,9 +121,8 @@
         {{-- <div style="float: right;margin-right: 1rem;">
             <button class="btn" onclick="window.print()">Print</button>
         </div> --}}
-        <h1>Panacia Health Care PVT. LTd.</h1>
-        <p>Shiv Ganga Industrial Estate, Plot No. 19, Bhagwanpur, Roorkee (Uttrakhand)</p>
-        <p>www.panaciahealthcare.com</p>
+        <h1>Manufacturing PVT. LTd.</h1>
+        <p>Noida , India</p>
         <h3 class="finish-good">Sale Invoice</h3>
     </div>
  <div class="challan-date">

@@ -11,7 +11,7 @@
              <a href="#" class="flex justify-center items-center">
          <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="illustration" style="    height: 73px;"/>
       </a>
-              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">Panacia Health Care
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">Manufacturing PVT. LTd.
               </h1>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf

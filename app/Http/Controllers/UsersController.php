@@ -101,7 +101,7 @@ class UsersController extends Controller
         $user->save();
 
         // Redirect to the desired page after successful user creation.
-        return redirect()->route('admin-page');
+        return redirect()->route('admin-page')->with('success', 'Successfully Created !!');
     }
 
 
@@ -146,7 +146,6 @@ class UsersController extends Controller
             'username' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id, // Allow the current user's email.
             'role' => 'required',
-            'password' => 'required|min:8', // Add password validation rules.
         ]);
 
         // Update the user's attributes.
@@ -154,13 +153,15 @@ class UsersController extends Controller
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->role = $request->input('role');
-        $user->password = Hash::make($request->input('password')); // Hash the password.
+        if($request->input('password') !== null){
+            $user->password = Hash::make($request->input('password')); // Hash the password.
+        }
 
         // Save the updated user to the database.
         $user->save();
 
         // Redirect to the desired page after successful user update.
-        return redirect()->route('admin-page');
+        return redirect()->route('admin-page')->with('success', 'Successfully Updated !!');
     }
 
 
