@@ -126,7 +126,7 @@
                 </li>
                 <li>
                     <!-- Dark Mode Toggler -->
-                    <label :class="darkMode ? 'bg-primary' : 'bg-stroke'"
+                    {{-- <label :class="darkMode ? 'bg-primary' : 'bg-stroke'"
                         class="relative m-0 block h-7.5 w-14 rounded-full">
                         <input type="checkbox" :value="darkMode" @change="darkMode = !darkMode"
                             class="absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0" />
@@ -152,7 +152,7 @@
                                 </svg>
                             </span>
                         </span>
-                    </label>
+                    </label> --}}
                     <!-- Dark Mode Toggler -->
                 </li>
 
