@@ -56,23 +56,23 @@
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $production->product->name }} ({{
-                                                $production->product->unit->short_name }} )
+                                                {{ $production->product->name ?? '-' }} ({{
+                                                $production->product->unit->short_name ?? '-' }} )
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $production->qty }}
+                                                {{ $production->qty ?? '-' }}
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $production->batch_no }}
+                                                {{ $production->batch_no ?? '-'}}
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $production->created_at->format('d-m-Y') }}
+                                                {{ $production->created_at->format('d-m-Y') ?? '-' }}
                                             </p>
                                         </td>
                                         <td class="sm:w-1/6 xs:w-1/6">
@@ -107,7 +107,7 @@
                                                                     batch No.
                                                                 </label>
                                                                 <input type="text" name="batch_no"
-                                                                    value="{{ $production->batch_no }}" readonly
+                                                                    value="{{ $production->batch_no ?? '-'}}" readonly
                                                                     class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
                                                                 @error('batch_no')
                                                                 <p class="text-red-500 mt-2">{{ $message }}</p>
@@ -122,7 +122,7 @@
                                                                     <option selected>-- None --</option>
                                                                     @foreach ($products as $product )
                                                                     <option value="{{ $product->id }}">
-                                                                        {{ $product->name }}
+                                                                        {{ $product->name ?? '-'}}
                                                                     </option>
                                                                     @endforeach
                                                                 </select>
