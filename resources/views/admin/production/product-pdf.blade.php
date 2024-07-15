@@ -153,10 +153,10 @@
         </tr>
         <tr>
             <td style="width: 10%;">1</td>
-            <td style="width: 60%;">{{ $production->product->name }} ({{
-                $production->product->unit->short_name }} )</td>
-            <td style="width: 15%;">{{ $production->batch_no }}</td>
-            <td style="width: 15%;">{{ $production->qty }}</td>
+            <td style="width: 60%;">{{ $production->product->name ?? '-' }} ({{
+                $production->product->unit->short_name ?? '-' }} )</td>
+            <td style="width: 15%;">{{ $production->batch_no ?? '-'}}</td>
+            <td style="width: 15%;">{{ $production->qty ?? '-' }}</td>
         </tr>
     </table>
 
