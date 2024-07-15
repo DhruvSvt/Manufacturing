@@ -198,7 +198,7 @@
                         <td style="border: 1px solid #000;">{{ $item->raw_material->name ?? '-' }}</td>
                         <td style="border: 1px solid #000;">{{ $item->qty ?? '' }}</td>
                         <td style="border: 1px solid #000;">{{ $item->raw_material->parent->short_name ?? '-' }}</td>
-                        <td style="border: 1px solid #000;">{{ $newarr[$item->raw_material->name] }}</td>
+                        {{-- <td style="border: 1px solid #000;">{{ $newarr[$item->raw_material->name ?? '-'] }}</td> --}}
                     </tr>
                     @endforeach
                     @endif
