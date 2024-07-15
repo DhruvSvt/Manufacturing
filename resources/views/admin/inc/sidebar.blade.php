@@ -316,13 +316,13 @@
                                         Gift Issue Challan
                                     </a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a class="group relative flex items-center gap-2.5 rounded-md px-4  text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('sample-challan') }}"
                                         :class="page === 'sample' && '!text-white'">
                                         Sample Issue Challan
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                         <!-- Dropdown Menu End -->
