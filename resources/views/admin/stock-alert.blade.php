@@ -43,13 +43,13 @@
 
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $stock->raw_material->name }}
+                                                {{ $stock->raw_material->name ?? '-' }}
                                             </p>
                                         </td>
 
                                         <td class="lg:w-1/6 md:w-1/6 sm:w-1/6 xs:w-1/6">
                                             <p class="text-sm font-medium text-black dark:text-white">
-                                                {{ $stock->total_quantity }} {{ $stock->raw_material->parent->short_name
+                                                {{ $stock->total_quantity ?? '-' }} {{ $stock->raw_material->parent->short_name ?? '-'
                                                 }}
                                             </p>
                                         </td>
