@@ -9,7 +9,7 @@
       <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div class="p-6 space-y-2 md:space-y-2 sm:p-8">
              <a href="#" class="flex justify-center items-center">
-         <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="illustration" style="    height: 73px;"/>
+         <img src="{{ config('app.url') }}/src/images/logo/logo.png" alt="logo" style="height: 73px;"/>
       </a>
               <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">Manufacturing PVT. LTd.
               </h1>
